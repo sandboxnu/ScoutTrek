@@ -51,7 +51,7 @@ then to run on an Expo simulator:
   yarn install
 ```
 
-Place your local IP address into the local variable in the .env folder, as seen below:
+Place your local IP address into the local variable in the .env file, as seen below:
 
 `LOCAL_IP_ADDRESS={your ip address here}`
 
@@ -65,12 +65,12 @@ Note that your IP address will change if you're on different wifi networks, so y
   yarn start --clear
 ```
 
-Note that the `--clear` might not be necessary, but will help if you have some React Native caching issues.
+Note that the `--clear` might not be necessary (especially if you've been developing on the same wifi network), but will help if you have some React Native caching issues.
 
 If you are on public wifi, you may need to run 
 
 ```bash
-  yarn start --tunnel
+  yarn start --tunnel --clear
 ```
 
 You may also need to run the following commands if you get errors related to them:
@@ -80,7 +80,7 @@ You may also need to run the following commands if you get errors related to the
   yarn add apollo-upload-client
 ```
 
-If you are having issues related to Android SDK path, you may also need to install Android Studio / have some Android development files set up. (Doing so will also let you use Android emulators)
+If you are having issues related to Android SDK path, you may also need to install Android Studio / have some Android development files set up. (Doing so will also let you use Android emulators.)
 
 To run on an iOS device
 
