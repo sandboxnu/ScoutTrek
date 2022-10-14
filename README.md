@@ -45,12 +45,42 @@ To download this project
   git clone git@github.com:TheEarlyNerd/ScoutTrek.git
 ```
 
-then to run on an Expo simulator
+then to run on an Expo simulator: 
 
 ```bash
   yarn install
-  yarn start
 ```
+
+Place your local IP address into the local variable in the .env file, as seen below:
+
+`LOCAL_IP_ADDRESS={your ip address here}`
+
+To find it, run `ipconfig` in a terminal (`ipconfig getifaddr en0` for Mac) and take the IPv4 Address underneath Wireless LAN adapter Wi-Fi. Alternatively,
+you can go to your Network and Internet Settings >> Properties >> scroll until you see IPv4 Address for Windows, or for Mac,
+System Preferences >> Network >> the wifi network you're connected to.
+
+Note that your IP address will change if you're on different wifi networks, so you will need to do this each time you develop. Then run
+
+```bash
+  yarn start --clear
+```
+
+Note that the `--clear` might not be necessary (especially if you've been developing on the same wifi network), but will help if you have some React Native caching issues.
+
+If you are on public wifi, you may need to run 
+
+```bash
+  yarn start --tunnel --clear
+```
+
+You may also need to run the following commands if you get errors related to them:
+
+```bash
+  yarn add babel-plugin-transform-inline-environment-variables
+  yarn add apollo-upload-client
+```
+
+If you are having issues related to Android SDK path, you may also need to install Android Studio / have some Android development files set up. (Doing so will also let you use Android emulators.)
 
 To run on an iOS device
 
