@@ -3,13 +3,14 @@ import Constants from 'expo-constants';
 import {ApolloClient, InMemoryCache, from, ApolloLink, HttpLink} from '@apollo/client';
 import {onError} from '@apollo/client/link/error';
 
-import {LOCAL_IP_ADDRESS} from '@env';
+import {LOCAL_IP_ADDRESS, ENV} from '@env';
 
 type AsyncStorageData = {[key: string]: string | null};
 
 const httpLink = new HttpLink({
-  uri: `http://${LOCAL_IP_ADDRESS}:4000/graphql`,
-  // uri: 'https://beta-dot-scouttrek-node-api.appspot.com/graphql',
+  uri: ENV == 'dev' ? 
+    `http://${LOCAL_IP_ADDRESS}:4000/graphql` : 
+    'https://beta-dot-scouttrek-node-api.appspot.com/graphql',
 });
 
 const loadKeysFromAsyncStorage = async (
