@@ -29,7 +29,6 @@ const ChooseDate = ({id, Modal, modalProps, questionText}: EventInputProps) => {
       valid={!!date}>
       <CalendarList
         calendarStyle={{marginHorizontal: -15}}
-        headerStyle={{width: 100}}
         current={date.format('YYYY-MM-DD')}
         theme={{
           textDayFontFamily: 'metropolis-regular',
