@@ -28,7 +28,7 @@ const ChooseDate = ({id, Modal, modalProps, questionText}: EventInputProps) => {
       onNext={nextForm}
       valid={!!date}>
       <CalendarList
-        calendarStyle={{marginHorizontal: -15}}
+        calendarStyle={{width: "100%"}}
         current={date.format('YYYY-MM-DD')}
         theme={{
           textDayFontFamily: 'metropolis-regular',
