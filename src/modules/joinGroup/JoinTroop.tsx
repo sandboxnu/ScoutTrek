@@ -39,7 +39,7 @@ const JoinTroop = ({navigation}) => {
   if (error) return <Text>`Error! ${error.message}`</Text>;
 
   return (
-    <ScreenContainer icon="back" back={navigation.goBack}>
+    <ScreenContainer>
       <Container>
         <Text preset="h2" textAlign="center" padding="m">
           What Troop are you in?

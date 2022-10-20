@@ -10,7 +10,7 @@ type AsyncStorageData = {[key: string]: string | null};
 const httpLink = new HttpLink({
   uri: ENV == 'dev' ? 
     `http://${LOCAL_IP_ADDRESS}:4000/graphql` : 
-    'https://beta-dot-scouttrek-node-api.appspot.com/graphql',
+    'https://scouttrek-363618.uc.r.appspot.com/graphql',
 });
 
 const loadKeysFromAsyncStorage = async (

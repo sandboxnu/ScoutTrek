@@ -136,7 +136,7 @@ const CreateTroop = ({navigation}) => {
   };
 
   return (
-    <ScreenContainer icon="back" back={navigation.goBack}>
+    <ScreenContainer>
       <Container>
         <Text weight="bold" paddingVertical="s">
           What is the name of your Troop council?

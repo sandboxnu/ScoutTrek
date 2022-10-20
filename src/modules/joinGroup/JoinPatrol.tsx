@@ -80,7 +80,7 @@ const JoinPatrol = ({navigation}) => {
   if (error) return <Text>`Error! ${error}`</Text>;
 
   return (
-    <ScreenContainer icon="back" back={navigation.goBack}>
+    <ScreenContainer>
       <Container>
         <Text preset="h2" textAlign="center" padding="m">
           Choose your patrol.

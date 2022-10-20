@@ -24,7 +24,7 @@ const AddChildren = ({navigation}) => {
   };
 
   return (
-    <ScreenContainer icon="back" back={navigation.goBack}>
+    <ScreenContainer>
       <Container>
         <Text preset="h2" paddingHorizontal="s">
           What are the names of the Scouts who belong to you?
