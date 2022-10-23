@@ -29,6 +29,7 @@ const ChooseDate = ({id, Modal, modalProps, questionText}: EventInputProps) => {
       valid={!!date}>
       <CalendarList
         current={date.format('YYYY-MM-DD')}
+        minDate={date.format('YYYY-MM-DD')}
         theme={{
           textDayFontFamily: 'metropolis-regular',
           textMonthFontFamily: 'metropolis-bold',
