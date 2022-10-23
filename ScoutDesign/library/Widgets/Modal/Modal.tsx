@@ -55,7 +55,7 @@ const ModalBase = ({
             <CircleButton
               accessibilityLabel="next"
               icon={forwardArrow}
-              onPress={onNext}
+              onPress={() => {onNext();}}
               animated
               corner="bottom-right"
               distanceFromCorner="l"
@@ -99,7 +99,7 @@ const ModalBase = ({
             <CircleButton
               accessibilityLabel="next"
               icon={forwardArrow}
-              onPress={onNext}
+              onPress={() => {onNext();}}
               animated
               corner="bottom-right"
               distanceFromCorner="s"
