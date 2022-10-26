@@ -15,6 +15,7 @@ import CreateEvent from './CreateEventNavigator';
 import MainTabNavigator from './MainTabNavigator';
 import Notifications from '../notifications/Notifications';
 import {AuthContext} from '../auth/SignUp';
+import DesignDisplay from '../custom/DesignDisplay';
 
 const MainStack = createStackNavigator();
 
@@ -43,6 +44,7 @@ const MainStackNavigator = ({route}) => {
         <MainStack.Screen name="Main" component={MainTabNavigator} />
         <MainStack.Screen name="CreateEvent" component={CreateEvent} />
         <MainStack.Screen name="ViewEvent" component={ViewEvent} />
+        <MainStack.Screen name="DesignDisplay" component={DesignDisplay} />
       </MainStack.Navigator>
     </CreateEventFormProvider>
   );
