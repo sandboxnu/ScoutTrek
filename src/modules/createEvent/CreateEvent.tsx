@@ -139,7 +139,6 @@ const CreateEvent = ({navigation, route}) => {
         dispatch(clearEventForm());
         navigation.goBack();
       }}>
-        <Button accessibilityLabel={''} text={'GO TO DESIGN DISPLAY'} onPress={navigation.navigate('DesignDisplay')} />
       {/* Schema representing all the types of events currently in the app. This
       comes from the server */}
       {schema.form.map(

@@ -9,8 +9,8 @@ import DateTimeLineItem from './components/DateTimeLineItem';
 import {CalendarList} from 'react-native-calendars';
 import {EventInputProps} from './InputTypes';
 import {ModalProps} from 'ScoutDesign/library/Widgets/Modal/Modal';
-import EventInputTemplate from './Inputs/EventInputTemplate';
-import {ScreenContainer} from 'ScoutDesign/library';
+import EventInputTemplate from '../Inputs/EventInputTemplate';
+import {ScreenContainer, Text} from 'ScoutDesign/library';
 
 // Component Types
 import TitleInput from './TitleInput';
@@ -66,7 +66,7 @@ const sampleDateAndTimeProps = {
 // creates sample props arrays to test date and time 
 const sampleDateAndTimeArrays = {
   fieldTypes: ['date', 'time', 'date', 'time'],
-  ids: ['date', 'time', 'date', 'time'],
+  ids: ['date1', 'time1', 'date2', 'time2'],
   fieldNames: [
     "Start Date",
     "Start Time",
@@ -83,6 +83,12 @@ const sampleDateAndTimeArrays = {
 
 // this component uses the DateInput and TimeInput components 
 const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTemplatePropsList) => {
+  const [startDate, setStartDate] = useState("NOT SET YET");
+  const [startTime, setStartTime] = useState("NOT SET YET");
+  const [endDate, setEndDate] = useState("NOT SET YET");
+  const [endTime, setEndTime] = useState("NOT SET YET");
+
+
   return (
     <ScreenContainer>
       <EventInputTemplate
@@ -91,6 +97,7 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
         id={ids[0]}
         fieldName={fieldNames[0]}
         questionText={questionTexts[0]}
+        payload={null}
       />
       <EventInputTemplate
         fieldType={fieldTypes[1]}
@@ -98,6 +105,7 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
         id={ids[1]}
         fieldName={fieldNames[1]}
         questionText={questionTexts[1]}
+        payload={null}
       />
       <EventInputTemplate
         fieldType={fieldTypes[2]}
@@ -105,6 +113,7 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
         id={ids[2]}
         fieldName={fieldNames[2]}
         questionText={questionTexts[2]}
+        payload={null}
       />
       <EventInputTemplate
         fieldType={fieldTypes[3]}
@@ -112,7 +121,21 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
         id={ids[3]}
         fieldName={fieldNames[3]}
         questionText={questionTexts[3]}
+        payload={null}
       />
+
+      <Text>
+        Start Date: {startDate}
+      </Text>
+      <Text>
+        Start Time: {startTime}
+      </Text>
+      <Text>
+        End Date: {endDate}
+      </Text>
+      <Text>
+        End Time: {endTime}
+      </Text>
     </ScreenContainer>
   )
 }

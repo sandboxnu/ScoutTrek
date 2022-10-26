@@ -1,5 +1,5 @@
 import {ActivityIndicator} from 'react-native';
-import {ScreenContainer, Container, Card, Text} from 'ScoutDesign/library';
+import {ScreenContainer, Container, Card, Text, Button} from 'ScoutDesign/library';
 import {useQuery, useMutation, gql} from '@apollo/client';
 
 import {checkmark} from 'ScoutDesign/icons';
@@ -33,6 +33,7 @@ const Notifications = ({navigation}) => {
             <Text paddingBottom="s" preset="h1">
               Notifications
             </Text>
+            <Button accessibilityLabel={''} text={'GO TO DESIGN DISPLAY'} onPress={() => {navigation.navigate('DesignDisplay')}} />
             {data.currUser?.unreadNotifications.map(
               ({id, title, createdAt, type, eventType, eventID}) => {
                 return (
