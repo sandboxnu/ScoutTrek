@@ -11,12 +11,16 @@ import {EventInputProps} from './InputTypes';
 import {ModalProps} from 'ScoutDesign/library/Widgets/Modal/Modal';
 import EventInputTemplate from '../Inputs/EventInputTemplate';
 import {ScreenContainer, Text} from 'ScoutDesign/library';
+import {useModal} from 'ScoutDesign/library';
+import Row from './Row';
+import TapToEditContainer from './components/TapToEditContainer';
+
 
 // Component Types
 import TitleInput from './TitleInput';
 import LocationInput from './LocationInput';
-import DateInput from './DateInput';
-import TimeInput from './TimeInput';
+import DateInput from './DateInputCustom';
+import TimeInput from './TimeInputCustom';
 import DescriptionInput from './DescriptionInput';
 import NumberSliderInput from './NumberSliderInput';
 import OptionsInput from './OptionsInput';
@@ -65,7 +69,7 @@ const sampleDateAndTimeProps = {
 
 // creates sample props arrays to test date and time 
 const sampleDateAndTimeArrays = {
-  fieldTypes: ['date', 'time', 'date', 'time'],
+  fieldTypes: ['date-start', 'time-start', 'date-end', 'time'],
   ids: ['date1', 'time1', 'date2', 'time2'],
   fieldNames: [
     "Start Date",
@@ -89,9 +93,145 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
   const [endTime, setEndTime] = useState("NOT SET YET");
 
 
+  const CustomEventInputTemplate = ({fieldType, id, fieldName, questionText, payload}) => {
+    var genericFieldType = '';
+    if (fieldType == 'time-start' || fieldType == 'time-end') {
+      genericFieldType = 'time';
+    }
+    else if (fieldType == 'date-start' || fieldType == 'date-end') {
+      genericFieldType = 'date';
+    }
+    const {InitialButton, EditingComponent, CompletedComponent} = eventComponents[genericFieldType];
+  
+    const [{fields}] = useEventForm();
+  
+    const [showAndroidClock, setShowAndroidClock] = useState(false);
+  
+    const {modalProps, openModal, Modal} = useModal();
+  
+    switch(fieldType) {
+      case 'time-start':
+        return (
+          <React.Fragment key={id}>
+            <EditingComponent
+              id={id}
+              Modal={Modal}
+              modalProps={modalProps}
+              showAndroidClock={showAndroidClock}
+              setShowAndroidClock={setShowAndroidClock}
+              questionText={questionText}
+              onPress={setStartTime}
+            />
+            <Row valid={!!fields?.[id]} fieldName={fieldName}>
+              {!fields?.[id] ? (
+                <InitialButton
+                  onPress={() =>
+                    Platform.OS === 'ios'
+                      ? openModal()
+                      : setShowAndroidClock(true)
+                  }
+                  fieldName={fieldName}
+                />
+              ) : (
+                <TapToEditContainer
+                  edit={() =>
+                    Platform.OS === 'ios'
+                      ? openModal()
+                      : setShowAndroidClock(true)
+                  }>
+                  <CompletedComponent data={+fields?.[id]} />
+                </TapToEditContainer>
+              )}
+            </Row>
+          </React.Fragment>
+        );
+      case 'date-start':
+        return (
+          <React.Fragment key={id}>
+            <EditingComponent
+              id={id}
+              Modal={Modal}
+              modalProps={modalProps}
+              questionText={questionText}
+              onPress={setStartDate}
+            />
+            <Row valid={!!fields?.[id]} fieldName={fieldName}>
+              {!fields?.[id] ? (
+                <InitialButton onPress={openModal} fieldName={fieldName} />
+              ) : (
+                <TapToEditContainer edit={openModal}>
+                  <CompletedComponent data={+fields?.[id]} />
+                </TapToEditContainer>
+              )}
+            </Row>
+          </React.Fragment>
+        );
+        case 'time-end':
+        return (
+          <React.Fragment key={id}>
+            <EditingComponent
+              id={id}
+              Modal={Modal}
+              modalProps={modalProps}
+              showAndroidClock={showAndroidClock}
+              setShowAndroidClock={setShowAndroidClock}
+              questionText={questionText}
+              onPress={setEndTime}
+            />
+            <Row valid={!!fields?.[id]} fieldName={fieldName}>
+              {!fields?.[id] ? (
+                <InitialButton
+                  onPress={() =>
+                    Platform.OS === 'ios'
+                      ? openModal()
+                      : setShowAndroidClock(true)
+                  }
+                  fieldName={fieldName}
+                />
+              ) : (
+                <TapToEditContainer
+                  edit={() =>
+                    Platform.OS === 'ios'
+                      ? openModal()
+                      : setShowAndroidClock(true)
+                  }>
+                  <CompletedComponent data={+fields?.[id]} />
+                </TapToEditContainer>
+              )}
+            </Row>
+          </React.Fragment>
+        );
+      case 'date-end':
+        return (
+          <React.Fragment key={id}>
+            <EditingComponent
+              id={id}
+              Modal={Modal}
+              modalProps={modalProps}
+              questionText={questionText}
+              onPress={setEndDate}
+            />
+            <Row valid={!!fields?.[id]} fieldName={fieldName}>
+              {!fields?.[id] ? (
+                <InitialButton onPress={openModal} fieldName={fieldName} />
+              ) : (
+                <TapToEditContainer edit={openModal}>
+                  <CompletedComponent data={+fields?.[id]} />
+                </TapToEditContainer>
+              )}
+            </Row>
+          </React.Fragment>
+        );
+      default: 
+        return (
+          <Text>DEFAULT</Text>
+        )
+    }
+  }
+
   return (
     <ScreenContainer>
-      <EventInputTemplate
+      <CustomEventInputTemplate
         fieldType={fieldTypes[0]}
         key={ids[0]}
         id={ids[0]}
@@ -99,7 +239,7 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
         questionText={questionTexts[0]}
         payload={null}
       />
-      <EventInputTemplate
+      <CustomEventInputTemplate
         fieldType={fieldTypes[1]}
         key={ids[1]}
         id={ids[1]}
@@ -107,7 +247,7 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
         questionText={questionTexts[1]}
         payload={null}
       />
-      <EventInputTemplate
+      <CustomEventInputTemplate
         fieldType={fieldTypes[2]}
         key={ids[2]}
         id={ids[2]}
@@ -163,5 +303,6 @@ const IntervalInputScreen = () => {
       questionTexts={sampleDateAndTimeArrays.questionTexts}/>
   )
 }
+
 
 export default IntervalInputScreen;
