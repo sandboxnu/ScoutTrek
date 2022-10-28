@@ -11,3 +11,5 @@ const DateTimeSelector = () => {
     } value={date} />
   );
 }
+
+export default DateTimeSelector;
