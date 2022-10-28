@@ -24,6 +24,7 @@ import TimeInput from './TimeInputCustom';
 import DescriptionInput from './DescriptionInput';
 import NumberSliderInput from './NumberSliderInput';
 import OptionsInput from './OptionsInput';
+import DateTimeSelector from './IntervalInput1';
 
 const eventComponents = {
   shortText: TitleInput,
@@ -108,11 +109,12 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
     const [showAndroidClock, setShowAndroidClock] = useState(false);
   
     const {modalProps, openModal, Modal} = useModal();
-  
-    switch(fieldType) {
-      case 'time-start':
-        return (
-          <React.Fragment key={id}>
+
+    const edit = () => Platform.OS === 'ios' ? openModal() : setShowAndroidClock(true);
+
+    const TimeInput = (setField) => {
+      return (
+        <React.Fragment key={id}>
             <EditingComponent
               id={id}
               Modal={Modal}
@@ -120,31 +122,28 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
               showAndroidClock={showAndroidClock}
               setShowAndroidClock={setShowAndroidClock}
               questionText={questionText}
-              onPress={setStartTime}
+              onPress={setField}
             />
             <Row valid={!!fields?.[id]} fieldName={fieldName}>
               {!fields?.[id] ? (
                 <InitialButton
-                  onPress={() =>
-                    Platform.OS === 'ios'
-                      ? openModal()
-                      : setShowAndroidClock(true)
-                  }
+                  onPress={edit}
                   fieldName={fieldName}
                 />
               ) : (
                 <TapToEditContainer
-                  edit={() =>
-                    Platform.OS === 'ios'
-                      ? openModal()
-                      : setShowAndroidClock(true)
-                  }>
+                  edit={edit}>
                   <CompletedComponent data={+fields?.[id]} />
                 </TapToEditContainer>
               )}
             </Row>
           </React.Fragment>
-        );
+      );
+    }
+  
+    switch(fieldType) {
+      case 'time-start':
+        return <TimeInput setField={setStartTime}/>;
       case 'date-start':
         return (
           <React.Fragment key={id}>
@@ -166,41 +165,8 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
             </Row>
           </React.Fragment>
         );
-        case 'time-end':
-        return (
-          <React.Fragment key={id}>
-            <EditingComponent
-              id={id}
-              Modal={Modal}
-              modalProps={modalProps}
-              showAndroidClock={showAndroidClock}
-              setShowAndroidClock={setShowAndroidClock}
-              questionText={questionText}
-              onPress={setEndTime}
-            />
-            <Row valid={!!fields?.[id]} fieldName={fieldName}>
-              {!fields?.[id] ? (
-                <InitialButton
-                  onPress={() =>
-                    Platform.OS === 'ios'
-                      ? openModal()
-                      : setShowAndroidClock(true)
-                  }
-                  fieldName={fieldName}
-                />
-              ) : (
-                <TapToEditContainer
-                  edit={() =>
-                    Platform.OS === 'ios'
-                      ? openModal()
-                      : setShowAndroidClock(true)
-                  }>
-                  <CompletedComponent data={+fields?.[id]} />
-                </TapToEditContainer>
-              )}
-            </Row>
-          </React.Fragment>
-        );
+      case 'time-end':
+        return <TimeInput setField={setEndTime}/>;
       case 'date-end':
         return (
           <React.Fragment key={id}>
@@ -230,6 +196,8 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
   }
 
   return (
+    <DateTimeSelector />
+    /*
     <ScreenContainer>
       <CustomEventInputTemplate
         fieldType={fieldTypes[0]}
@@ -276,7 +244,7 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
       <Text>
         End Time: {endTime}
       </Text>
-    </ScreenContainer>
+    </ScreenContainer>*/
   )
 }
 
