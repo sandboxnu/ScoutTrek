@@ -37,16 +37,16 @@ const DateTimeSelector = (props: DateTimeSelectorProps) => {
     } else {
       const dateTime = addDateTime(date, input);
       setDate(dateTime);
+      setInputMode('date');
       props.setOpen(false);
       props.onComplete(dateTime);
-      setInputMode('date');
     }
   }
 
   return (
     <React.Fragment>
       <Modal visible={props.open}>
-        <DateTimePicker onChange={onChange} value={date} mode={inputMode} minimumDate={new Date()} />
+        <DateTimePicker onChange={onChange} value={date} mode={inputMode} minimumDate={props.minDate} />
       </Modal>
     </React.Fragment>
   );
