@@ -4,9 +4,10 @@ import {plusBold} from 'ScoutDesign/icons';
 type Props = {
   fieldName: string;
   onPress: () => void;
+  disabled?: boolean;
 };
 
-const DefaultInputButton = ({fieldName, onPress}: Props) => {
+const DefaultInputButton = ({fieldName, onPress, disabled=false}: Props) => {
   return (
     <Button
       accessibilityLabel="add-title"
@@ -14,6 +15,7 @@ const DefaultInputButton = ({fieldName, onPress}: Props) => {
       backgroundColor="gradient"
       text={fieldName}
       onPress={onPress}
+      disabled={disabled}
     />
   );
 };

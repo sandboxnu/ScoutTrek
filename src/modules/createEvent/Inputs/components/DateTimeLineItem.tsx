@@ -3,8 +3,14 @@ import {Text} from 'ScoutDesign/library';
 
 type Props = {
   data: any;
-  format: 'date' | 'time';
+  format: 'date' | 'time' | 'datetime';
 };
+
+const formats = {
+  'time': 'h:mm a',
+  'date': 'dddd, MMMM Do',
+  'datetime': 'dddd, MMMM Do[\n]h:mm a'
+}
 
 // @todo - create more scalable type for data display completed components
 const DateTimeLineItem = ({data, format}: Props) => {
@@ -15,7 +21,7 @@ const DateTimeLineItem = ({data, format}: Props) => {
       color="brandPrimaryDark"
       paddingHorizontal="m"
       marginRight="s">
-      {moment(data).format(format === 'time' ? 'h:mm a' : 'dddd, MMMM Do')}
+      {moment(data).format(formats[format])}
     </Text>
   );
 };

@@ -26,17 +26,20 @@ const DateTimeSelector = (props: DateTimeSelectorProps) => {
 
   const onChange = (event: DateTimePickerEvent, input: Date | undefined) => {
     if (event.type != 'set' || input == undefined) {
+      if (event.type == 'dismissed') {
+        props.setOpen(false);
+      }
       return;
     }
     if (inputMode == 'date') {
       setDate(input);
-      props.setOpen(false);
       setInputMode('time');
-      props.setOpen(true);
     } else {
-      setDate(addDateTime(date, input));
+      const dateTime = addDateTime(date, input);
+      setDate(dateTime);
       props.setOpen(false);
-      props.onComplete(date);
+      props.onComplete(dateTime);
+      setInputMode('date');
     }
   }
 
