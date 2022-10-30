@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { Modal } from "react-native";
 
@@ -11,8 +11,10 @@ const formatDate = (date: Date, time: Date) => {
 
 const DateTimeSelector = () => {
   const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(new Date());
   const [inputMode, setInputMode] = useState<InputMode>('date');
-  const [open, setOpen] = useState(false);
+  const [openDateModal, setOpenDateModal] = useState(true);
+  const [openTimeModal, setOpenTimeModal] = useState(false);
 
   const onChange = (event: DateTimePickerEvent, input: Date | undefined) => {
     if (event.type != 'set' || input == undefined) {
@@ -21,16 +23,21 @@ const DateTimeSelector = () => {
     if (inputMode == 'date') {
       setDate(input);
       setInputMode('time');
-    } else {
-      setDate(new Date(formatDate(date, input)));
-      setOpen(false);
+      setOpenDateModal(false);
+      setOpenTimeModal(true);
     }
   }
 
   return (
-    <Modal visible={open}>
-      <DateTimePicker onChange={onChange} value={date} mode={inputMode} />
-    </Modal>
+    <React.Fragment>
+      <Modal visible={openDateModal}>
+        <DateTimePicker onChange={onChange} value={date} mode={inputMode} />
+      </Modal>
+      <Modal visible={openTimeModal}>
+        <DateTimePicker onChange={onChange} value={date} mode={inputMode} />
+      </Modal>
+    </React.Fragment>
+    
   );
 }
 
