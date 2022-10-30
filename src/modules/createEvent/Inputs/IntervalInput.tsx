@@ -196,7 +196,7 @@ const DateAndTime = ({fieldTypes, ids, fieldNames, questionTexts}: EventInputTem
   }
 
   return (
-    <DateTimeSelector />
+    <DateTimeSelector onComplete={(d: Date) => 0}/>
     /*
     <ScreenContainer>
       <CustomEventInputTemplate

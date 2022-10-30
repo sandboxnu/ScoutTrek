@@ -4,17 +4,25 @@ import { Modal } from "react-native";
 
 type InputMode = 'date' | 'time';
 
-const formatDate = (date: Date, time: Date) => {
-  return `${date.getDate()}/${date.getMonth() +
-    1}/${date.getFullYear()} ${time.getHours()}:${time.getMinutes()}`;
+const addDateTime = (date: Date, time: Date) => {
+  const sum = new Date(date.getTime());
+  sum.setHours(time.getHours());
+  sum.setMinutes(time.getMinutes());
+  sum.setSeconds(time.getSeconds());
+  sum.setMilliseconds(time.getMilliseconds());
+  return sum;
 };
 
-const DateTimeSelector = () => {
+interface DateTimeSelectorProps {
+  minDate: Date;
+  open: boolean;
+  setOpen: (b: boolean) => void;
+  onComplete: (d: Date) => void;
+}
+
+const DateTimeSelector = (props: DateTimeSelectorProps) => {
   const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState(new Date());
   const [inputMode, setInputMode] = useState<InputMode>('date');
-  const [openDateModal, setOpenDateModal] = useState(true);
-  const [openTimeModal, setOpenTimeModal] = useState(false);
 
   const onChange = (event: DateTimePickerEvent, input: Date | undefined) => {
     if (event.type != 'set' || input == undefined) {
@@ -22,22 +30,22 @@ const DateTimeSelector = () => {
     }
     if (inputMode == 'date') {
       setDate(input);
+      props.setOpen(false);
       setInputMode('time');
-      setOpenDateModal(false);
-      setOpenTimeModal(true);
+      props.setOpen(true);
+    } else {
+      setDate(addDateTime(date, input));
+      props.setOpen(false);
+      props.onComplete(date);
     }
   }
 
   return (
     <React.Fragment>
-      <Modal visible={openDateModal}>
-        <DateTimePicker onChange={onChange} value={date} mode={inputMode} />
-      </Modal>
-      <Modal visible={openTimeModal}>
-        <DateTimePicker onChange={onChange} value={date} mode={inputMode} />
+      <Modal visible={props.open}>
+        <DateTimePicker onChange={onChange} value={date} mode={inputMode} minimumDate={new Date()} />
       </Modal>
     </React.Fragment>
-    
   );
 }
 
