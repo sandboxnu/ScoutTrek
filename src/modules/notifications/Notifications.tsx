@@ -71,7 +71,10 @@ const Notifications = ({navigation}) => {
             )}
           </>
         ) : (
+          <>
           <Text textAlign="center">No notifications</Text>
+          <Button accessibilityLabel={''} text={'GO TO DESIGN DISPLAY'} onPress={() => {navigation.navigate('DesignDisplay')}} />
+          </>
         )}
       </Container>
     </ScreenContainer>

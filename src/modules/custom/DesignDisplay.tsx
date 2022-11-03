@@ -7,6 +7,7 @@ import DefaultInputButton from "../createEvent/Inputs/components/DefaultInputBut
 import TapToEditContainer from "../createEvent/Inputs/components/TapToEditContainer";
 import DateTimeSelector from "../createEvent/Inputs/IntervalInput1";
 import Row from "../createEvent/Inputs/Row";
+import { Alert } from "react-native";
 
 
 // use this component to display and test designs 
@@ -14,6 +15,23 @@ const DesignDisplay = ({navigation, route})  => {
   const [{fields}, dispatch] = useEventForm();
   const [startTime, setStartTime] = useState<Date>();
   const [endTime, setEndTime] = useState<Date>();
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+  // invalidate the end time if it is same day but earlier time 
+  const invalidateTime = (d : Date, minDate : Date | undefined, proceed : (d: Date) => void, deny : () => void) => {
+    if (minDate != undefined && d > minDate) {
+      proceed(d);
+    }
+    else {
+      deny();
+    }
+  }
+
+  const invalidateEndTimeAlert = () => {
+    Alert.alert("End time cannot be before start time!");
+  }
+
+
 
     return (
         <ScreenContainer marginTop="xl" icon="back" back={navigation.goBack}>
@@ -30,12 +48,14 @@ const DesignDisplay = ({navigation, route})  => {
               fieldName={'End Time'}
               minDate={startTime}
               input={endTime}
-              setInput={setEndTime}
+              setInput={(d : Date) => invalidateTime(d, startTime, setEndTime, invalidateEndTimeAlert)}
               disabled={!startTime}
             />
         </ScreenContainer>
     )
 }
+
+
 
 interface DateTimeInputProps {
   fieldName: string;
