@@ -24,7 +24,7 @@ import TimeInput from './TimeInputCustom';
 import DescriptionInput from './DescriptionInput';
 import NumberSliderInput from './NumberSliderInput';
 import OptionsInput from './OptionsInput';
-import DateTimeSelector from './IntervalInput1';
+import DateTimeSelector from './DateTimeSelector';
 
 const eventComponents = {
   shortText: TitleInput,
