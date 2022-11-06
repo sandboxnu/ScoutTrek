@@ -21,10 +21,10 @@ const DateTimeInput = ()  => {
       dispatch(addEventFieldOfType("startTime", startTime));
       dispatch(addEventFieldOfType("endTime", endTime));
     }
-  })
+  }, [endTime])
 
   // runs the proceed function with the given Date d if it is after minDate but runs the deny function if not  
-  const invalidateTime = (d : Date, minDate : Date | undefined, proceed : (d: Date) => void, deny : () => void) => {
+  function invalidateTime<T>(d : T, minDate : T, proceed : (d: T) => void, deny : () => void) {
     (minDate != undefined && d > minDate) ? proceed(d) : deny();
   }
 
@@ -47,7 +47,7 @@ const DateTimeInput = ()  => {
         fieldName={'End Time'}
         minDate={startTime}
         input={endTime}
-        setInput={(d : Date) => invalidateTime(d, startTime, setEndTime, invalidateEndTimeAlert)}
+        setInput={(d : Date) => startTime && invalidateTime(d, startTime, setEndTime, invalidateEndTimeAlert)}
         disabled={!startTime}
       />
     </React.Fragment>

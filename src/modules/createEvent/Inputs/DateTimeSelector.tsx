@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { Modal } from "react-native";
+import DefaultInputButton from "./components/DefaultInputButton";
+import BasicLineItem from "./components/BasicLineItem";
 
 type InputMode = 'date' | 'time';
 
@@ -52,4 +54,8 @@ const DateTimeSelector = (props: DateTimeSelectorProps) => {
   );
 }
 
-export default DateTimeSelector;
+export default {
+  InitialButton: DefaultInputButton,
+  EditingComponent: DateTimeSelector,
+  CompletedComponent: BasicLineItem
+}
