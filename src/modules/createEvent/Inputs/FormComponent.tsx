@@ -1,5 +1,18 @@
+import { ScreenContainer, Container, Text } from "ScoutDesign/library";
+import React, {useState} from 'react';
+// Component Types
+import TextInput from './DescriptionInput';
+import LocationInput from './LocationInput';
+import DateTimeInput from './DateTimeInput';
+import OptionsInput from './OptionsInput';
+import { FormFieldProps } from "ScoutDesign/library/Atoms/FormFields/formTypes";
 
-
+const eventComponents = {
+    'text': TextInput,
+    'location': LocationInput,
+    'date': DateTimeInput,
+    'options': OptionsInput,
+};
 
 // an example of a form specification
 const EXAMPLE_FORM: Form = {
@@ -7,9 +20,9 @@ const EXAMPLE_FORM: Form = {
     "id": "field-trip-signup",
     "fields": [
         {
-        "title": "Full Name",
-        "id": "name",
-        "type": "text"
+            "title": "Full Name",
+            "id": "name",
+            "type": "text"
         }, {
             "title": "Role",
             "id": "role",
@@ -33,6 +46,38 @@ const EXAMPLE_FORM: Form = {
             ]
         }
     ]
+}
+
+const FormComponent = ({navigation, route } : any, formProps : Form) => {
+    return (
+        <ScreenContainer
+            icon="back"
+            padding="none"
+            paddingTop="xl"
+            key={formProps.id}
+            back={() => {navigation.goBack();}}>
+            <Text>
+                {formProps.title}
+            </Text>
+
+            
+        </ScreenContainer>
+    )
+}
+
+const FormItemComponent = (formFieldProps : FormFieldSpecification) => {
+    const {InitialButton, EditingComponent, CompletedComponent} = eventComponents[formFieldProps.type];
+
+    const [input, setInput] = useState();
+    
+    return (
+        <Container key={formFieldProps.id}>
+            <Text>
+                {formFieldProps.title}
+            </Text>
+
+        </Container>
+    )
 }
 
 export type Form = FormItem & {
