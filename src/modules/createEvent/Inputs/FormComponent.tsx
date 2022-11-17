@@ -6,6 +6,7 @@ import LocationInput from './LocationInput';
 import DateTimeInput from './DateTimeInput';
 import OptionsInput from './OptionsInput';
 import { FormFieldProps } from "ScoutDesign/library/Atoms/FormFields/formTypes";
+import { operationName } from "@apollo/client";
 
 const eventComponents = {
     'text': TextInput,
@@ -59,8 +60,28 @@ const FormComponent = ({navigation, route } : any, formProps : Form) => {
             <Text>
                 {formProps.title}
             </Text>
-
-            
+            {
+                formProps.fields.map( 
+                    (field) => {
+                        if (field.type == 'options') {
+                            <FormItemComponent 
+                                id={field.id}
+                                title={field.title}
+                                type={field.type}
+                                value={field.value}
+                                options={field.options}/>
+                        }
+                        else {
+                            <FormItemComponent 
+                                id={field.id}
+                                title={field.title}
+                                type={field.type}
+                                value={field.value}
+                                options={null}/>
+                        }
+                    }
+                )
+            }   
         </ScreenContainer>
     )
 }
@@ -68,14 +89,70 @@ const FormComponent = ({navigation, route } : any, formProps : Form) => {
 const FormItemComponent = (formFieldProps : FormFieldSpecification) => {
     const {InitialButton, EditingComponent, CompletedComponent} = eventComponents[formFieldProps.type];
 
-    const [input, setInput] = useState();
+    const [hasInput, setHasInput] = useState(false);
     
     return (
         <Container key={formFieldProps.id}>
             <Text>
                 {formFieldProps.title}
             </Text>
+            <React.Fragment key={formFieldProps.id}>
+                <EditingComponent />
+                {!hasInput ? (<InitialButton />) : (<CompletedComponent />)}
+            </React.Fragment>
+            /* rendering options if there are */
+            {() => {
+                    if (formFieldProps.type == 'options') {
+                        return (
+                            formFieldProps.options.map(
+                                (option) => {<FormOptionItem 
+                                    id={option.id} 
+                                    title={option.title} 
+                                    hiddenFields={option.hiddenFields}  />}
+                            )
+                        )
+                    }
+                }
+            }
+        </Container>
+    )
+}
 
+const FormOptionItem = (formOptionProps : Option) => {
+    return (
+        <Container key={formOptionProps.id}>
+            <Text>
+                {formOptionProps.title}
+            </Text>
+            {() => {
+                    if (formOptionProps.hiddenFields) {
+                        return (
+                            formOptionProps.hiddenFields.map(
+                                (field) => { 
+                                    if (field.type == 'options') {
+                                        <FormItemComponent 
+                                            id={field.id}
+                                            title={field.title}
+                                            type={field.type}
+                                            value={field.value}
+                                            options={field.options}/>
+                                    }
+                                    else {
+                                        <FormItemComponent 
+                                            id={field.id}
+                                            title={field.title}
+                                            type={field.type}
+                                            value={field.value}
+                                            options={null}/>
+                                    }
+                                }
+                            )
+                        )
+                    }
+                }
+
+                
+            }
         </Container>
     )
 }
