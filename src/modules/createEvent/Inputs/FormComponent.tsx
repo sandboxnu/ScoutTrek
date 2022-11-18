@@ -211,6 +211,7 @@ const TextFieldInput = ({spec, onInput}: FormFieldInputProps) => {
 
 const FORM_FIELD_INPUT_COMPONENTS: Dict<FieldType, (props: FormFieldInputProps) => ReactElement> = {
   'text': TextFieldInput,
+  'name': NameFieldInput,
 }
 
 const FormFieldInput = (props: FormFieldInputProps) => {
