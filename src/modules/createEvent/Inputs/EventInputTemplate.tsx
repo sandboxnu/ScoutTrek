@@ -9,7 +9,7 @@ import TitleInput from './TitleInput';
 import LocationInput from './LocationInput';
 import DateInput from './DateInput';
 import TimeInput from './TimeInput';
-import DescriptionInput from './DescriptionInput';
+import DescriptionInput from './deprecating/DescriptionInput';
 import NumberSliderInput from './NumberSliderInput';
 import OptionsInput from './OptionsInput';
 

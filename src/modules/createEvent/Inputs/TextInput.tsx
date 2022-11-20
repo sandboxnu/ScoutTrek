@@ -1,14 +1,16 @@
 import {useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {Modal, TouchableOpacity, View} from 'react-native';
 import {Text} from 'ScoutDesign/library';
 import {LinearGradient} from 'expo-linear-gradient';
 import {
   useEventForm,
   addEventFieldOfType,
 } from 'CreateEvent/CreateEventFormStore';
-import RTE from './components/RichTextEditor/RichTextEditor';
-import {EventInputProps} from './InputTypes';
-import Description from '../../viewEvent/components/Description';
+import RTE from '../components/RichTextEditor/RichTextEditor';
+import {EventInputProps} from '../InputTypes';
+import Description from '../../../viewEvent/components/Description';
+import { FormFieldInputProps } from './FormComponent';
+import { StringFieldSchema } from './FormTypes';
 
 const DescriptionInputButton = ({fieldName, onPress}) => {
   return (
@@ -47,26 +49,16 @@ const DescriptionInputButton = ({fieldName, onPress}) => {
   );
 };
 
-const DescriptionInput = ({
-  id,
-  Modal,
-  modalProps,
-  questionText,
-}: EventInputProps) => {
-  const [{fields}, dispatch] = useEventForm();
-  const [description, setDescription] = useState(fields?.description || '');
-
-  const nextForm = () => {
-    dispatch(addEventFieldOfType(id, description));
-  };
+const TextFieldInput = ({spec, onInput}: FormFieldInputProps<StringFieldSchema>)=> {
+  const [open, setOpen] = useState<boolean>(false);
+  const [input, setInput] = useState<string>('');
 
   return (
     <Modal
-      {...modalProps}
-      title={questionText}
+      title={spec.title}
       onNext={nextForm}
       valid={!!description}>
-      <RTE description={description} setDescription={setDescription} />
+      <RTE description={input} setDescription={setInput} />
     </Modal>
   );
 };
@@ -74,12 +66,4 @@ const DescriptionInput = ({
 type DescriptionData = {
   // this is a string containing HTML
   data: string;
-};
-
-export default {
-  InitialButton: DescriptionInputButton,
-  EditingComponent: DescriptionInput,
-  CompletedComponent: ({data}: DescriptionData) => (
-    <Description description={data} />
-  ),
 };

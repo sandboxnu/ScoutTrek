@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import Row from './Row';
 import TapToEditContainer from './components/TapToEditContainer';
 // Component Types
-import TextInput from './DescriptionInput';
+import TextInput from './deprecating/DescriptionInput';
 import LocationInput from './LocationInput';
 import DateTimeInput from './DateTimeInput';
 import OptionsInput from './OptionsInput';
