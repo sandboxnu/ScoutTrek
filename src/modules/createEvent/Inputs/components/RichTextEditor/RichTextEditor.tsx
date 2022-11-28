@@ -7,7 +7,7 @@ type Props = {
   setDescription: React.Dispatch<any>;
 };
 
-export default function Example(props: Props) {
+export function RTE (props: Props) {
   let richText = useRef();
   let scrollRef = useRef();
 

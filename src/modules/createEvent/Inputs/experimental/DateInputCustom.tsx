@@ -4,8 +4,8 @@ import {
   useEventForm,
   addEventFieldOfType,
 } from 'CreateEvent/CreateEventFormStore';
-import DefaultInputButton from './components/DefaultInputButton';
-import DateTimeLineItem from './components/DateTimeLineItem';
+import DefaultInputButton from '../components/DefaultInputButton';
+import DateTimeLineItem from '../components/DateTimeLineItem';
 import {CalendarList} from 'react-native-calendars';
 import {ModalProps} from 'ScoutDesign/library/Widgets/Modal/Modal';
 

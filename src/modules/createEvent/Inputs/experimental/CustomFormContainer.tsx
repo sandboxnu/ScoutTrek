@@ -1,12 +1,12 @@
 import { ScreenContainer, Container, Text } from "ScoutDesign/library";
 import React, {useState} from 'react';
-import Row from './Row';
-import TapToEditContainer from './components/TapToEditContainer';
+import Row from '../Row';
+import TapToEditContainer from '../components/TapToEditContainer';
 // Component Types
-import TextInput from './deprecating/DescriptionInput';
-import LocationInput from './LocationInput';
-import DateTimeInput from './DateTimeInput';
-import OptionsInput from './OptionsInput';
+import TextInput from '../deprecating/DescriptionInput';
+import LocationInput from '../LocationInput';
+import DateTimeInput from '../updated/DateTimeInput';
+import OptionsInput from '../OptionsInput';
 
 
 

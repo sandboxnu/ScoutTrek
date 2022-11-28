@@ -2,7 +2,7 @@ import { ScreenContainer, Container, Text } from "ScoutDesign/library";
 import React, {ReactElement, useState} from 'react';
 // Component Types
 import LocationInput from './LocationInput';
-import DateTimeInput from './DateTimeInput';
+import DateTimeInput from './updated/DateTimeInput';
 import OptionsInput from './OptionsInput';
 import { FormFieldProps } from "ScoutDesign/library/Atoms/FormFields/formTypes";
 import { operationName } from "@apollo/client";
@@ -85,7 +85,7 @@ const Form = ({spec, onSubmit}: FormProps) => {
   );
 }
 
-interface FormFieldInputProps<T extends FieldSchema> {
+export interface FormFieldInputProps<T extends FieldSchema> {
   spec: T;
   onInput: (input: unknown) => void;
 }

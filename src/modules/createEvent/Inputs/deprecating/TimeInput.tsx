@@ -1,10 +1,10 @@
 import {useState} from 'react';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
-import DefaultInputButton from './components/DefaultInputButton';
-import DateTimeLineItem from './components/DateTimeLineItem';
+import DefaultInputButton from '../components/DefaultInputButton';
+import DateTimeLineItem from '../components/DateTimeLineItem';
 import {View, Platform} from 'react-native';
-import { addEventFieldOfType, useEventForm } from '../createEventForm/CreateEventFormStore';
+import { addEventFieldOfType, useEventForm } from '../../createEventForm/CreateEventFormStore';
 
 const ChooseTime = ({
   id,

@@ -1,5 +1,5 @@
 
-import DateTimeInput from "../createEvent/Inputs/DateTimeInput"
+import DateTimeInput from "../createEvent/Inputs/updated/DateTimeInput"
 import { ScreenContainer, Text } from "ScoutDesign/library";
 
 

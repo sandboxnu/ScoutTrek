@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { ScreenContainer, Text } from "ScoutDesign/library";
-import { addEventFieldOfType, useEventForm } from "../createEventForm/CreateEventFormStore";
-import DateTimeLineItem from "./components/DateTimeLineItem";
-import DefaultInputButton from "./components/DefaultInputButton";
-import TapToEditContainer from "./components/TapToEditContainer";
+import { addEventFieldOfType, useEventForm } from "../../createEventForm/CreateEventFormStore";
+import DateTimeLineItem from "../components/DateTimeLineItem";
+import DefaultInputButton from "../components/DefaultInputButton";
+import TapToEditContainer from "../components/TapToEditContainer";
 import DateTimeSelector from "./DateTimeSelector";
 import { Alert } from "react-native";
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import Row from "./Row";
+import Row from "../Row";
+import { FormFieldInputProps } from "../FormComponent";
+import { DateFieldSchema } from "../FormTypes";
 
 
 // use this component to display and test designs 
-const DateTimeInput = ()  => {
-  const [{fields}, dispatch] = useEventForm();
+const DateTimeInput = ({spec, onInput} : FormFieldInputProps<DateFieldSchema>)  => {
+  // const [{fields}, dispatch] = useEventForm();
   const [startTime, setStartTime] = useState<Date>();
   const [endTime, setEndTime] = useState<Date>();
 
+  // if both start time and end time are inputted
   useEffect(() => {
     if (!!startTime && !!endTime) {
-      dispatch(addEventFieldOfType("startTime", startTime));
-      dispatch(addEventFieldOfType("endTime", endTime));
+      // dispatch(addEventFieldOfType("startTime", startTime));
+      // dispatch(addEventFieldOfType("endTime", endTime));
+      onInput({startTime, endTime});
     }
   }, [endTime])
 
