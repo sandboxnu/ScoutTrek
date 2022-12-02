@@ -1,7 +1,7 @@
 import { ScreenContainer, Container, Text } from "ScoutDesign/library";
 import React, {ReactElement, useState} from 'react';
 // Component Types
-import LocationInput from './LocationInput';
+import LocationInput from './deprecating/LocationInput';
 import DateTimeInput from './updated/DateTimeInput';
 import OptionsInput from './OptionsInput';
 import { FormFieldProps } from "ScoutDesign/library/Atoms/FormFields/formTypes";

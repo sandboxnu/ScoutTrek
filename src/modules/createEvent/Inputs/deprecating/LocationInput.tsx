@@ -1,14 +1,14 @@
 import {useEffect, useState} from 'react';
 import {Dimensions, Keyboard, StyleSheet, View} from 'react-native';
 import {Text} from 'ScoutDesign/library';
-import DefaultInputButton from './components/DefaultInputButton';
+import DefaultInputButton from '../components/DefaultInputButton';
 import {
   useEventForm,
   addEventFieldOfType,
 } from 'CreateEvent/CreateEventFormStore';
 import * as Location from 'expo-location';
 import MapView, {Marker} from 'react-native-maps';
-import MapSearch from '../../../components/MapSearch';
+import MapSearch from '../../../../components/MapSearch';
 import Constants from 'expo-constants';
 
 import uuidv4 from 'uuid/v1';

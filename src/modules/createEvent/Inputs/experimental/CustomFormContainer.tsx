@@ -4,7 +4,7 @@ import Row from '../Row';
 import TapToEditContainer from '../components/TapToEditContainer';
 // Component Types
 import TextInput from '../deprecating/DescriptionInput';
-import LocationInput from '../LocationInput';
+import LocationInput from '../deprecating/LocationInput';
 import DateTimeInput from '../updated/DateTimeInput';
 import OptionsInput from '../OptionsInput';
 

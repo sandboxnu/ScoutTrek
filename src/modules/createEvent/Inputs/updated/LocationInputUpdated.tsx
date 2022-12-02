@@ -1,24 +1,28 @@
 import {useEffect, useState} from 'react';
 import {Dimensions, Keyboard, Modal, StyleSheet, View} from 'react-native';
 import {Text} from 'ScoutDesign/library';
-import DefaultInputButton from './components/DefaultInputButton';
+import DefaultInputButton from '../components/DefaultInputButton';
 import {
   useEventForm,
   addEventFieldOfType,
 } from 'CreateEvent/CreateEventFormStore';
 import * as Location from 'expo-location';
 import MapView, {Marker} from 'react-native-maps';
-import MapSearch from '../../../components/MapSearch';
+import MapSearch from '../../../../components/MapSearch';
 import Constants from 'expo-constants';
 
 import uuidv4 from 'uuid/v1';
-import { FormFieldInputProps } from './FormComponent';
-import { LocationFieldSchema } from './FormTypes';
+import { FormFieldInputProps } from '../FormComponent';
+import { LocationFieldSchema } from '../FormTypes';
 import React from 'react';
 
 const locationToken = uuidv4();
-
-
+ 
+// TODO: move this type to a better location 
+type Location = {
+  latitude: number;
+  longitude: number;
+}
 
 const LocationInput = ({spec, onInput} : FormFieldInputProps<LocationFieldSchema>) => {
   const [input, setInput] = useState<Location>();
@@ -39,19 +43,21 @@ const LocationInput = ({spec, onInput} : FormFieldInputProps<LocationFieldSchema
   };
 
   return (
-    <React.Fragment>
+    <React.Fragment key={spec.id}>
       {
         (!!input) ?
           <DefaultInputButton fieldName={spec.title} onPress={() => setOpen(true)}/> :
           <LocationLineItem data={input}/>
       }
       {(open) && 
-        <ChooseLocation />
+        <ChooseLocation updateLocation={(location : Location) => {setInput(location); onInput(location);}}/>
       }
     </React.Fragment>
+  )
 }
 
-const ChooseLocation = () => {
+
+const ChooseLocation = ( {updateLocation}: {updateLocation:(location : Location) => void}) => {
   const [{fields}, dispatch] = useEventForm();
   const initialLocation = fields?.[id];
   const [location, setLocation] = useState(
@@ -85,6 +91,10 @@ const ChooseLocation = () => {
       latitude: userLocation.coords.latitude,
       longitude: userLocation.coords.longitude,
     });
+    if (location != null) {
+      updateLocation(location);
+    }
+    
   };
 
   const _getPlaceDetails = async (id) => {

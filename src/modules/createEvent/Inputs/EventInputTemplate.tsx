@@ -6,7 +6,7 @@ import TapToEditContainer from './components/TapToEditContainer';
 
 // Component Types
 import TitleInput from './TitleInput';
-import LocationInput from './LocationInput';
+import LocationInput from './deprecating/LocationInput';
 import DateInput from './deprecating/DateInput';
 import TimeInput from './deprecating/TimeInput';
 import DescriptionInput from './deprecating/DescriptionInput';
