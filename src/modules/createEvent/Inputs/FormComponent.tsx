@@ -92,7 +92,7 @@ export interface FormFieldInputProps<T extends FieldSchema> {
 
 
 
-const PlaceholderFieldInput = ({spec, onInput}: FormFieldInputProps<FieldSchema>) => {
+export const PlaceholderFieldInput = ({spec, onInput}: FormFieldInputProps<FieldSchema>) => {
   const [input, setInput] = useState<string>('');
   return (
     <>
