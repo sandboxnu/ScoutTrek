@@ -55,7 +55,7 @@ interface FormProps {
   onSubmit: (input: FormInput) => void;
 }
 
-const Form = ({spec, onSubmit}: FormProps) => {
+export const Form = ({spec, onSubmit}: FormProps) => {
   const [input, setInput] = useState<FormInput>({});
 
   function updateField(id: string, value: unknown) {
