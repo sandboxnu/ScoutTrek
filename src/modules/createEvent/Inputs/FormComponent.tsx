@@ -77,7 +77,7 @@ const Form = ({spec, onSubmit}: FormProps) => {
 
       <div>
         {spec.fields.map(fieldSpec => (
-          <FormFieldInput spec={fieldSpec} onInput={v => updateField(fieldSpec.id, v)}/>
+          <FormFieldInput spec={fieldSpec} setField={updateField}/>
         ))}
       </div>
       <button onClick={onClick} disabled={!validFormInput(spec, input)}>SUBMIT</button>
@@ -87,42 +87,42 @@ const Form = ({spec, onSubmit}: FormProps) => {
 
 export interface FormFieldInputProps<T extends FieldSchema> {
   spec: T;
-  onInput: (input: unknown) => void;
+  setField: (id: string, input: unknown) => void;
 }
 
 
 
-export const PlaceholderFieldInput = ({spec, onInput}: FormFieldInputProps<FieldSchema>) => {
+export const PlaceholderFieldInput = ({spec, setField: setField}: FormFieldInputProps<FieldSchema>) => {
   const [input, setInput] = useState<string>('');
   return (
     <>
       <TextInput onChangeText={setInput}/>
-      <Button title="SUBMIT" onPress={() => onInput(input)} />
+      <Button title="SUBMIT" onPress={() => setField(spec.id, input)} />
     </>
   );
 }
 
-const TextFieldInput = ({spec, onInput}: FormFieldInputProps<StringFieldSchema>) => {
+const TextFieldInput = ({spec, setField: onInput}: FormFieldInputProps<StringFieldSchema>) => {
   return (
-    <PlaceholderFieldInput spec={spec} onInput={onInput}/>
+    <PlaceholderFieldInput spec={spec} setField={onInput}/>
   );
 }
 
-const DateFieldInput = ({spec, onInput}: FormFieldInputProps<DateFieldSchema>) => {
+const DateFieldInput = ({spec, setField: onInput}: FormFieldInputProps<DateFieldSchema>) => {
   return (
-    <PlaceholderFieldInput spec={spec} onInput={onInput}/>
+    <PlaceholderFieldInput spec={spec} setField={onInput}/>
   );
 }
 
-const LocationFieldInput = ({spec, onInput}: FormFieldInputProps<LocationFieldSchema>) => {
+const LocationFieldInput = ({spec, setField: onInput}: FormFieldInputProps<LocationFieldSchema>) => {
   return (
-    <PlaceholderFieldInput spec={spec} onInput={onInput}/>
+    <PlaceholderFieldInput spec={spec} setField={onInput}/>
   );
 }
 
-const OptionsFieldInput = ({spec, onInput}: FormFieldInputProps<OptionsFieldSchema>) => {
+const OptionsFieldInput = ({spec, setField: onInput}: FormFieldInputProps<OptionsFieldSchema>) => {
   return (
-    <PlaceholderFieldInput spec={spec} onInput={onInput}/>
+    <PlaceholderFieldInput spec={spec} setField={onInput}/>
   );
 }
 

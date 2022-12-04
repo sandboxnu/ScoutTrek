@@ -13,7 +13,7 @@ import { DateFieldSchema } from "../FormTypes";
 
 
 // use this component to display and test designs 
-const DateTimeInput = ({spec, onInput} : FormFieldInputProps<DateFieldSchema>)  => {
+const DateTimeInput = ({spec, setField: onInput} : FormFieldInputProps<DateFieldSchema>)  => {
   // const [{fields}, dispatch] = useEventForm();
   const [startTime, setStartTime] = useState<Date>();
   const [endTime, setEndTime] = useState<Date>();

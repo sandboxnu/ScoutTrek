@@ -24,7 +24,7 @@ type Location = {
   longitude: number;
 }
 
-const LocationInput = ({spec, onInput} : FormFieldInputProps<LocationFieldSchema>) => {
+const LocationInput = ({spec, setField: onInput} : FormFieldInputProps<LocationFieldSchema>) => {
   const [input, setInput] = useState<Location>();
   const [open, setOpen] = useState<boolean>(false);
 

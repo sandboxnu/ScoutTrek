@@ -19,7 +19,7 @@ type DescriptionData = {
 };
 
 // short text input for event titles and other one-line inputs
-const ShortTextInput = ({spec, onInput} : FormFieldInputProps<StringFieldSchema>) => {
+const ShortTextInput = ({spec, setField: onInput} : FormFieldInputProps<StringFieldSchema>) => {
   const [input, setInput] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
 
@@ -40,7 +40,7 @@ const ShortTextInput = ({spec, onInput} : FormFieldInputProps<StringFieldSchema>
 };
 
 // long text input for event descriptions
-const LongTextInput = ({spec, onInput} : FormFieldInputProps<StringFieldSchema>) => {
+const LongTextInput = ({spec, setField: onInput} : FormFieldInputProps<StringFieldSchema>) => {
   const [input, setInput] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
 

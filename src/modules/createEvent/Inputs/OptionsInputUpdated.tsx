@@ -6,7 +6,7 @@ import { specifiedDirectives } from "graphql";
 import { Pressable } from "ScoutDesign/library/Atoms/utility";
 
 
-const OptionsInput = ({spec, onInput} : FormFieldInputProps<OptionsFieldSchema>) => {
+const OptionsInput = ({spec, setField: onInput} : FormFieldInputProps<OptionsFieldSchema>) => {
 
     const [choiceOption, setChoiceOption] = useState<string>("");
     return (
@@ -21,7 +21,7 @@ const OptionsInput = ({spec, onInput} : FormFieldInputProps<OptionsFieldSchema>)
                             </Text>
                             if (option.id == choiceOption) {
                                 option.hiddenFields!.map((field: FieldSchema) => {
-                                    <PlaceholderFieldInput spec={field} onInput={} />
+                                    <PlaceholderFieldInput spec={field} setField={} />
                                 })
                             }
                         </Pressable>

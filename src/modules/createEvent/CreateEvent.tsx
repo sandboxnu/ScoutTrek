@@ -3,6 +3,7 @@ import EventInputTemplate from './Inputs/EventInputTemplate';
 import {GET_EVENTS, EVENT_FIELDS} from 'data';
 import {useEventForm, clearEventForm} from 'CreateEvent/CreateEventFormStore';
 import {ScreenContainer, Container, Button} from 'ScoutDesign/library';
+import { ParamListBase } from '@react-navigation/native';
 
 const ADD_EVENT = gql`
   ${EVENT_FIELDS}
@@ -28,7 +29,12 @@ export const GET_EVENT_SCHEMAS = gql`
   }
 `;
 
-const CreateEvent = ({navigation, route}) => {
+interface ScreenComponentProps<T extends string> {
+  navigation: ParamListBase;
+  route: T
+}
+
+const CreateEvent = ({navigation, route}: ScreenComponentProps<'EventForm'>) => {
   const [addEvent] = useMutation(ADD_EVENT, {
     update(cache, {data: {event}}) {
       try {
