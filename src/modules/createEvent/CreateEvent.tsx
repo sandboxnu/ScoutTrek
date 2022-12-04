@@ -4,6 +4,8 @@ import {GET_EVENTS, EVENT_FIELDS} from 'data';
 import {useEventForm, clearEventForm} from 'CreateEvent/CreateEventFormStore';
 import {ScreenContainer, Container, Button} from 'ScoutDesign/library';
 import { ParamListBase } from '@react-navigation/native';
+import { FormInput } from './Inputs/FormTypes';
+import { Form } from './Inputs/FormComponent';
 
 const ADD_EVENT = gql`
   ${EVENT_FIELDS}
@@ -26,6 +28,12 @@ export const UPDATE_EVENT = gql`
 export const GET_EVENT_SCHEMAS = gql`
   query EventSchemas {
     eventSchemas
+  }
+`;
+
+const GET_EVENT_SCHEMAS2 = gql`
+  query EventSchemas {
+    eventFormSchemas
   }
 `;
 
@@ -52,6 +60,12 @@ const CreateEvent = ({navigation, route}: ScreenComponentProps<'EventForm'>) => 
     },
   });
   const {loading: schemaLoading, data} = useQuery(GET_EVENT_SCHEMAS);
+  // TODO: use this new endpoint instead
+  const {loading: eventsLoading, data: schemaResponse} = useQuery(GET_EVENT_SCHEMAS);
+  // TODO: make this hit the new createEvent endpoint instead of updateEvent
+  const createEvent2 = (input: FormInput) => {
+
+  }
 
   const [state, dispatch] = useEventForm();
   const {fields} = state;
@@ -147,19 +161,7 @@ const CreateEvent = ({navigation, route}: ScreenComponentProps<'EventForm'>) => 
       }}>
       {/* Schema representing all the types of events currently in the app. This
       comes from the server */}
-      {schema.form.map(
-        (field) =>
-          !disabledFields.includes(field.fieldID) && (
-            <EventInputTemplate
-              fieldType={field.fieldType}
-              key={field.fieldID}
-              id={field.fieldID}
-              fieldName={field.title}
-              questionText={field.questionText}
-              payload={field?.payload}
-            />
-          )
-      )}
+      <Form spec={data.data} onSubmit={createEvent2} />
       <Container paddingTop="l" paddingBottom="xl">
         <Button
           accessibilityLabel="submit"
