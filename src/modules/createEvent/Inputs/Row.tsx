@@ -1,5 +1,5 @@
-import {View, StyleSheet} from 'react-native';
-import {Text} from 'ScoutDesign/library';
+import { View, StyleSheet } from 'react-native';
+import { Text } from 'ScoutDesign/library';
 
 type Props = {
   fieldName: string;
@@ -7,7 +7,7 @@ type Props = {
   children: any;
 };
 
-const Row = ({fieldName, valid, children}: Props) => {
+const Row = ({ fieldName, valid, children }: Props) => {
   return (
     <View
       style={[
@@ -16,7 +16,8 @@ const Row = ({fieldName, valid, children}: Props) => {
           borderColor: valid ? '#34A86C' : '#F5D03D',
           borderLeftWidth: 12,
         },
-      ]}>
+      ]}
+    >
       {valid && (
         <View
           style={[
@@ -26,13 +27,15 @@ const Row = ({fieldName, valid, children}: Props) => {
               alignItems: 'flex-end',
               marginHorizontal: 28,
             },
-          ]}>
+          ]}
+        >
           {fieldName ? (
             <Text
               preset="micro"
               color="brandPrimaryDark"
               paddingHorizontal="micro"
-              paddingVertical="s">
+              paddingVertical="s"
+            >
               {fieldName.toUpperCase()}
             </Text>
           ) : null}

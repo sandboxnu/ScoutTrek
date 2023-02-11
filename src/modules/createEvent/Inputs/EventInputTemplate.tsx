@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {useEventForm} from 'CreateEvent/CreateEventFormStore';
-import {useModal} from 'ScoutDesign/library';
+import React, { useState } from 'react';
+import { useEventForm } from 'CreateEvent/CreateEventFormStore';
+import { useModal } from 'ScoutDesign/library';
 import Row from './Row';
 import TapToEditContainer from './components/TapToEditContainer';
 
@@ -23,15 +23,15 @@ const eventComponents = {
   setting: OptionsInput,
 };
 
-export default ({fieldType, id, fieldName, questionText, payload}) => {
-  const {InitialButton, EditingComponent, CompletedComponent} =
+export default ({ fieldType, id, fieldName, questionText, payload }) => {
+  const { InitialButton, EditingComponent, CompletedComponent } =
     eventComponents[fieldType];
 
-  const [{fields}] = useEventForm();
+  const [{ fields }] = useEventForm();
 
   const [showAndroidClock, setShowAndroidClock] = useState(false);
 
-  const {modalProps, openModal, Modal} = useModal();
+  const { modalProps, openModal, Modal } = useModal();
 
   switch (fieldType) {
     case 'setting':
@@ -79,7 +79,8 @@ export default ({fieldType, id, fieldName, questionText, payload}) => {
                   Platform.OS === 'ios'
                     ? openModal()
                     : setShowAndroidClock(true)
-                }>
+                }
+              >
                 <CompletedComponent data={fields?.[id]} />
               </TapToEditContainer>
             )}

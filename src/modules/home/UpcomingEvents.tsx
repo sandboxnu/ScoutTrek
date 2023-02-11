@@ -1,16 +1,16 @@
-import {useRef, useEffect} from 'react';
-import {SectionList, Platform} from 'react-native';
+import { useRef, useEffect } from 'react';
+import { SectionList, Platform } from 'react-native';
 import EventCard from './components/EventCard';
 import NoEvents from '../../components/NoEvents';
 import * as Device from 'expo-device';
-import {plusThin} from 'ScoutDesign/icons';
-import {Container, LargeFloatingButton, Text} from 'ScoutDesign/library';
-import {GET_CURR_USER, GET_EVENTS} from 'data';
+import { plusThin } from 'ScoutDesign/icons';
+import { Container, LargeFloatingButton, Text } from 'ScoutDesign/library';
+import { GET_CURR_USER, GET_EVENTS } from 'data';
 
 import * as Notifications from 'expo-notifications';
-import {gql, useMutation, useQuery} from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 
-import {DISMISS_NOTIFICATION} from '../notifications/Notifications';
+import { DISMISS_NOTIFICATION } from '../notifications/Notifications';
 
 export const UPDATE_EXPO_TOKEN = gql`
   mutation UpdateExpoToken($token: UpdateUserInput!) {
@@ -33,12 +33,12 @@ export type EventSignature = {
   type: Event;
 };
 
-export default function UpcomingEvents({navigation}) {
+export default function UpcomingEvents({ navigation }) {
   const [dismissNotification] = useMutation(DISMISS_NOTIFICATION, {
     refetchQueries: [GET_CURR_USER],
   });
 
-  const {loading, error, data} = useQuery(GET_EVENTS, {
+  const { loading, error, data } = useQuery(GET_EVENTS, {
     fetchPolicy: 'network-only',
   });
 
@@ -59,8 +59,8 @@ export default function UpcomingEvents({navigation}) {
 
           switch (notificationType) {
             case 'event':
-              navigation.navigate('ViewEvent', {currItem: eventID});
-              dismissNotification({variables: {id: notificationID}});
+              navigation.navigate('ViewEvent', { currItem: eventID });
+              dismissNotification({ variables: { id: notificationID } });
               break;
           }
         });
@@ -73,17 +73,17 @@ export default function UpcomingEvents({navigation}) {
   }, []);
 
   const viewEvent = (item) => {
-    navigation.navigate('ViewEvent', {currItem: item.id});
+    navigation.navigate('ViewEvent', { currItem: item.id });
   };
 
   const registerForPushNotificationsAsync = async () => {
     let token;
     if (Device.isDevice) {
-      const {status: existingStatus} =
+      const { status: existingStatus } =
         await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
       if (existingStatus !== 'granted') {
-        const {status} = await Notifications.requestPermissionsAsync();
+        const { status } = await Notifications.requestPermissionsAsync();
         finalStatus = status;
       }
       if (finalStatus !== 'granted') {
@@ -118,11 +118,11 @@ export default function UpcomingEvents({navigation}) {
   const eventListData = [
     {
       title: 'Happening Now',
-      data: data.events.filter(({date}) => new Date(date) - new Date() < 0),
+      data: data.events.filter(({ date }) => new Date(date) - new Date() < 0),
     },
     {
       title: 'Upcoming Events',
-      data: data.events.filter(({date}) => new Date(date) - new Date() >= 0),
+      data: data.events.filter(({ date }) => new Date(date) - new Date() >= 0),
     },
   ];
   return (
@@ -130,9 +130,9 @@ export default function UpcomingEvents({navigation}) {
       <SectionList
         sections={!data?.events?.length ? [] : eventListData}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{flexGrow: 1, paddingBottom: 20}}
-        scrollIndicatorInsets={{right: 1}}
-        renderItem={({item}) => (
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+        scrollIndicatorInsets={{ right: 1 }}
+        renderItem={({ item }) => (
           <Container paddingVertical="none">
             <EventCard
               key={item.id}
@@ -141,17 +141,18 @@ export default function UpcomingEvents({navigation}) {
               type={item.type}
               date={item.date}
               creator={item.creator}
-              imageSource={{uri: item.mapImageSource}}
+              imageSource={{ uri: item.mapImageSource }}
               onSelect={viewEvent}
             />
           </Container>
         )}
-        renderSectionHeader={({section: {title, data}}) =>
+        renderSectionHeader={({ section: { title, data } }) =>
           data.length > 0 ? (
             <Text
               preset="sublabel"
               marginLeft="s"
-              marginTop={title === 'Upcoming Events' ? 'm' : undefined}>
+              marginTop={title === 'Upcoming Events' ? 'm' : undefined}
+            >
               {title}
             </Text>
           ) : null

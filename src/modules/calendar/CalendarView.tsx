@@ -1,15 +1,15 @@
-import {useRef} from 'react';
-import {StyleSheet} from 'react-native';
-import {Agenda} from 'react-native-calendars';
+import { useRef } from 'react';
+import { StyleSheet } from 'react-native';
+import { Agenda } from 'react-native-calendars';
 import Constants from 'expo-constants';
-import {GET_EVENTS} from 'data';
+import { GET_EVENTS } from 'data';
 
-import {useQuery} from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import NoEvents from '../../components/NoEvents';
-import {Badge, Card, Container, Text} from 'ScoutDesign/library';
+import { Badge, Card, Container, Text } from 'ScoutDesign/library';
 import moment from 'moment';
 import useCurrMonthEvents from './hooks/useCurrMonthEvents';
-import {convertEventIDToText} from 'data';
+import { convertEventIDToText } from 'data';
 
 const getColor = () => {
   const allColors = [
@@ -24,12 +24,12 @@ const getColor = () => {
   return allColors[Math.floor(Math.random() * allColors.length)];
 };
 
-const CalendarView = ({navigation}) => {
-  const {data, loading, error} = useQuery(GET_EVENTS, {
+const CalendarView = ({ navigation }) => {
+  const { data, loading, error } = useQuery(GET_EVENTS, {
     fetchPolicy: 'network-only',
   });
 
-  const {currMonthEvents, loadItemsForMonth} = useCurrMonthEvents();
+  const { currMonthEvents, loadItemsForMonth } = useCurrMonthEvents();
 
   const itemColor = useRef(getColor());
 
@@ -44,7 +44,7 @@ const CalendarView = ({navigation}) => {
   };
 
   const viewEvent = (item) => {
-    navigation.navigate('ViewEvent', {currItem: item.id});
+    navigation.navigate('ViewEvent', { currItem: item.id });
   };
 
   const renderItem = (item) => {

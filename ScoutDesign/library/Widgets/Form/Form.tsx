@@ -1,8 +1,8 @@
-import {Fragment} from 'react';
+import { Fragment } from 'react';
 import Button from '../../Atoms/UI/Buttons/Button';
 import TextInput from '../../Atoms/FormFields/TextInput/SimpleTextInput';
-import {useForm, Controller} from 'react-hook-form';
-import {Container, Box, StandardRadius, Color} from '../../Atoms/utility';
+import { useForm, Controller } from 'react-hook-form';
+import { Container, Box, StandardRadius, Color } from '../../Atoms/utility';
 
 type Props = {
   formFields: any[];
@@ -28,7 +28,7 @@ const Form = ({
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm({
     mode: 'onSubmit',
     defaultValues: formFields.reduce(
@@ -51,7 +51,8 @@ const Form = ({
         borderBottomWidth={0}
         backgroundColor={backgroundColor}
         topRightRadius={HeaderComponent ? undefined : radius}
-        topLeftRadius={HeaderComponent ? undefined : radius}>
+        topLeftRadius={HeaderComponent ? undefined : radius}
+      >
         {formFields.map((field, index) => {
           const firstItem = index === 0;
           return (
@@ -68,7 +69,7 @@ const Form = ({
               <Controller
                 control={control}
                 rules={field.rules}
-                render={({field: {onChange, onBlur, value}}) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
                     {...field.fieldAttributes}
                     noStyles

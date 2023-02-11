@@ -1,11 +1,11 @@
-import {TextInputProps as RNTextInputProps} from 'react-native';
+import { TextInputProps as RNTextInputProps } from 'react-native';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import TextInput, {
   TextInputUtilityProps,
 } from '../../utility/TextInput/TextInput';
-import {FormFieldProps} from '../formTypes';
-import {StackableProps} from '../../../Widgets/Stack/Stack';
+import { FormFieldProps } from '../formTypes';
+import { StackableProps } from '../../../Widgets/Stack/Stack';
 import theme from '../../../theme';
 
 export interface TextInputProps

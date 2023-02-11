@@ -1,6 +1,6 @@
 import Slider from '@react-native-community/slider';
-import {View, StyleSheet} from 'react-native';
-import {Text} from 'ScoutDesign/library';
+import { View, StyleSheet } from 'react-native';
+import { Text } from 'ScoutDesign/library';
 
 type Props = {
   distance: number;
@@ -9,7 +9,7 @@ type Props = {
   max: number;
 };
 
-const CustomSlider = ({distance, setDistance, min, max}: Props) => {
+const CustomSlider = ({ distance, setDistance, min, max }: Props) => {
   return (
     <View style={styles.sliderContainer}>
       <Text preset="h2">{distance}</Text>
@@ -18,7 +18,7 @@ const CustomSlider = ({distance, setDistance, min, max}: Props) => {
         <Slider
           minimumValue={min}
           maximumValue={max}
-          style={{flex: 1}}
+          style={{ flex: 1 }}
           step={1}
           value={distance}
           onValueChange={setDistance}

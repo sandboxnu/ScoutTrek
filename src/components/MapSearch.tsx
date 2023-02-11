@@ -1,8 +1,8 @@
-import {useState} from 'react';
-import {ScrollView, StyleSheet, TextInput, Dimensions} from 'react-native';
+import { useState } from 'react';
+import { ScrollView, StyleSheet, TextInput, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
-import {Container, Text, Icon, LineItem} from 'ScoutDesign/library';
-import {backArrow, searchThin} from 'ScoutDesign/icons';
+import { Container, Text, Icon, LineItem } from 'ScoutDesign/library';
+import { backArrow, searchThin } from 'ScoutDesign/icons';
 
 const MapSearch = ({
   locationToken,
@@ -40,7 +40,8 @@ const MapSearch = ({
       radius="m"
       backgroundColor="white"
       width="100%"
-      alignItems="center">
+      alignItems="center"
+    >
       <Container padding="none" flexDirection="row">
         <Icon
           icon={backArrow}
@@ -63,7 +64,8 @@ const MapSearch = ({
           flex: 1,
           width: '100%',
           maxHeight: Dimensions.get('window').width,
-        }}>
+        }}
+      >
         {suggestedPlaces &&
           suggestedPlaces.map((place) => {
             return (
@@ -75,12 +77,13 @@ const MapSearch = ({
                   setSearchText('');
                   setSuggestedPlaces(null);
                   _getPlaceDetails(
-                    suggestedPlaces.find(({id}) => id === place.id).place_id
+                    suggestedPlaces.find(({ id }) => id === place.id).place_id
                   );
                 }}
                 leftComponent={
                   <Icon icon={searchThin} size="s" color="morningGrey" />
-                }>
+                }
+              >
                 <Text color="darkGrey">{place.description}</Text>
               </LineItem>
             );

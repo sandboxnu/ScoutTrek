@@ -5,13 +5,13 @@ import {
   ImageSourcePropType,
   View,
 } from 'react-native';
-import {Theme} from '../../../theme';
+import { Theme } from '../../../theme';
 import Image from '../../UI/Assets/Image/Image';
 import Constants from 'expo-constants';
 import BackButton from '../../UI/Buttons/BackButton';
 import DismissButton from '../../UI/Buttons/DismissButton';
 import Container from './Container';
-import {Color, Spacing} from '../types';
+import { Color, Spacing } from '../types';
 
 import {
   SpacingProps,
@@ -59,17 +59,20 @@ const ScreenContainer = ({
       keyboardVerticalOffset={0}
       style={{
         flex: 1,
-      }}>
+      }}
+    >
       <Container
         flex={1}
         paddingVertical="none"
         paddingHorizontal={padding}
-        backgroundColor={background}>
+        backgroundColor={background}
+      >
         <ScrollView
-          contentContainerStyle={{flexGrow: 1}}
-          scrollIndicatorInsets={{right: 1}}
+          contentContainerStyle={{ flexGrow: 1 }}
+          scrollIndicatorInsets={{ right: 1 }}
           keyboardDismissMode="none"
-          keyboardShouldPersistTaps="always">
+          keyboardShouldPersistTaps="always"
+        >
           {headingImage ? (
             <Image
               accessibilityLabel="event-map-heading"
@@ -85,7 +88,8 @@ const ScreenContainer = ({
             style={{
               flex: 1,
               marginTop: Constants.statusBarHeight,
-            }}>
+            }}
+          >
             {icon === 'back' ? (
               <BackButton
                 corner="top-left"
@@ -105,7 +109,8 @@ const ScreenContainer = ({
               flex={1}
               marginTop={headingImage ? 'xxl' : 's'}
               paddingTop={headingImage ? 'xxl' : 's'}
-              {...rest}>
+              {...rest}
+            >
               {children}
             </Container>
           </View>

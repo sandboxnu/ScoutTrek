@@ -1,10 +1,10 @@
-import {useState, useContext} from 'react';
-import {ActivityIndicator} from 'react-native';
+import { useState, useContext } from 'react';
+import { ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {gql, useMutation, useQuery} from '@apollo/client';
-import {plusBold} from 'ScoutDesign/icons';
-import {_updateCurrentGroup} from '../profile/ProfileScreen';
-import {AuthContext} from '../auth/SignUp';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { plusBold } from 'ScoutDesign/icons';
+import { _updateCurrentGroup } from '../profile/ProfileScreen';
+import { AuthContext } from '../auth/SignUp';
 import {
   ScreenContainer,
   Container,
@@ -14,7 +14,7 @@ import {
   TextInputWithButton,
 } from 'ScoutDesign/library';
 
-import {useJoinGroupForm} from './JoinGroupForm/JoinGroupFormStore';
+import { useJoinGroupForm } from './JoinGroupForm/JoinGroupFormStore';
 
 const ADD_GROUP = gql`
   mutation AddGroup($membershipInfo: AddMembershipInput!) {
@@ -42,9 +42,9 @@ const ADD_PATROL = gql`
   }
 `;
 
-const JoinPatrol = ({navigation}) => {
+const JoinPatrol = ({ navigation }) => {
   const [joinGroupFormState] = useJoinGroupForm();
-  const {setNewUser} = useContext(AuthContext);
+  const { setNewUser } = useContext(AuthContext);
 
   const [addGroup] = useMutation(ADD_GROUP, {
     onCompleted: async (data) => {
@@ -58,7 +58,7 @@ const JoinPatrol = ({navigation}) => {
   const [patrolName, setPatrolName] = useState('');
   const [patrolIsValid, setPatrolIsValid] = useState(false);
 
-  const {data, error, loading} = useQuery(GET_PATROLS, {
+  const { data, error, loading } = useQuery(GET_PATROLS, {
     pollInterval: 500,
     variables: {
       troopId: joinGroupFormState.troopID,
@@ -93,7 +93,7 @@ const JoinPatrol = ({navigation}) => {
             fullWidth: true,
             paddingVertical: 'm',
           }}
-          RenderItem={({item, ...rest}) => {
+          RenderItem={({ item, ...rest }) => {
             return (
               <Button
                 accessibilityLabel={item.id}

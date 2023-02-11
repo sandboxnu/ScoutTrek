@@ -5,14 +5,14 @@ import {
   Dimensions,
   Modal as RNModal,
 } from 'react-native';
-import {useKeyboard} from '@react-native-community/hooks';
+import { useKeyboard } from '@react-native-community/hooks';
 import CircleButton from '../../Atoms/UI/Buttons/CircleButton';
 import DismissButton from '../../Atoms/UI/Buttons/DismissButton';
 import Text from '../../Atoms/UI/Text/Text';
 import LineItem from '../LineItem/LineItem';
-import {Box, Color, mapRadius} from '../../Atoms/utility';
-import {forwardArrow} from '../../../icons';
-import {SimpleFormStates} from '../../Atoms/FormFields/formTypes';
+import { Box, Color, mapRadius } from '../../Atoms/utility';
+import { forwardArrow } from '../../../icons';
+import { SimpleFormStates } from '../../Atoms/FormFields/formTypes';
 
 export interface ModalProps extends SimpleFormStates {
   escape: () => void;
@@ -37,7 +37,7 @@ const ModalBase = ({
   const keyboard = useKeyboard();
   return (
     <KeyboardAvoidingView
-      contentContainerStyle={{flexGrow: 1}}
+      contentContainerStyle={{ flexGrow: 1 }}
       style={{
         flex: 1,
         alignItems: 'center',
@@ -47,7 +47,8 @@ const ModalBase = ({
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={
         noStyles ? 0 : Dimensions.get('window').height * 0.1
-      }>
+      }
+    >
       {noStyles ? (
         <>
           {children}
@@ -69,7 +70,8 @@ const ModalBase = ({
             Dimensions.get('window').height * 0.87 - keyboard.keyboardHeight / 2
           }
           borderRadius={mapRadius('m')}
-          backgroundColor="white">
+          backgroundColor="white"
+        >
           <DismissButton
             onDismiss={escape}
             corner="top-right"
@@ -81,12 +83,14 @@ const ModalBase = ({
             backgroundColor={backgroundColor}
             type="simpleRow"
             topLeftRadius="m"
-            topRightRadius="m">
+            topRightRadius="m"
+          >
             <Text
               color="white"
               paddingHorizontal="s"
               paddingVertical="m"
-              preset="h1">
+              preset="h1"
+            >
               {title}
             </Text>
           </LineItem>
@@ -111,7 +115,7 @@ const ModalBase = ({
   );
 };
 
-const Modal = ({visible, escape, onNext, children, ...rest}: ModalProps) => {
+const Modal = ({ visible, escape, onNext, children, ...rest }: ModalProps) => {
   let next = onNext
     ? () => {
         escape();

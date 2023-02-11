@@ -1,5 +1,5 @@
-import {useReducer} from 'react';
-import {Dimensions, View} from 'react-native';
+import { useReducer } from 'react';
+import { Dimensions, View } from 'react-native';
 import {
   Button,
   Container,
@@ -7,8 +7,8 @@ import {
   Text,
   TextInput,
 } from 'ScoutDesign/library';
-import {Picker} from '@react-native-picker/picker';
-import {gql, useMutation} from '@apollo/client';
+import { Picker } from '@react-native-picker/picker';
+import { gql, useMutation } from '@apollo/client';
 import {
   useJoinGroupForm,
   chooseGroup,
@@ -96,7 +96,7 @@ export const formReducer = (state, action) => {
   }
 };
 
-const CreateTroop = ({navigation}) => {
+const CreateTroop = ({ navigation }) => {
   const [_, dispatch] = useJoinGroupForm();
   const [addTroop] = useMutation(ADD_TROOP, {
     onCompleted: (data) => {
@@ -150,7 +150,7 @@ const CreateTroop = ({navigation}) => {
         <Text weight="bold" paddingVertical="s">
           What state do you live in?
         </Text>
-        <View style={{alignItems: 'center'}}>
+        <View style={{ alignItems: 'center' }}>
           <Picker
             style={{
               width: (Dimensions.get('window').width * 4) / 5,
@@ -159,7 +159,8 @@ const CreateTroop = ({navigation}) => {
             onValueChange={(value) => handleInputChange('state', value)}
             onSelect={(value) => {
               handleInputChange('state', value);
-            }}>
+            }}
+          >
             {STATES.map((state) => (
               <Picker.Item key={state} label={state} value={state} />
             ))}

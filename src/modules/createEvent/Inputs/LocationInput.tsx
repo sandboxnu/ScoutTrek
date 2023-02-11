@@ -1,13 +1,13 @@
-import {useEffect, useState} from 'react';
-import {Dimensions, Keyboard, StyleSheet, View} from 'react-native';
-import {Text} from 'ScoutDesign/library';
+import { useEffect, useState } from 'react';
+import { Dimensions, Keyboard, StyleSheet, View } from 'react-native';
+import { Text } from 'ScoutDesign/library';
 import DefaultInputButton from './components/DefaultInputButton';
 import {
   useEventForm,
   addEventFieldOfType,
 } from 'CreateEvent/CreateEventFormStore';
 import * as Location from 'expo-location';
-import MapView, {Marker} from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import MapSearch from '../../../components/MapSearch';
 import Constants from 'expo-constants';
 
@@ -15,18 +15,18 @@ import uuidv4 from 'uuid/v1';
 
 const locationToken = uuidv4();
 
-const ChooseLocation = ({id, Modal, modalProps, questionText}) => {
-  const [{fields}, dispatch] = useEventForm();
+const ChooseLocation = ({ id, Modal, modalProps, questionText }) => {
+  const [{ fields }, dispatch] = useEventForm();
   const initialLocation = fields?.[id];
   const [location, setLocation] = useState(
     initialLocation
-      ? {latitude: initialLocation.lat, longitude: initialLocation.lng}
+      ? { latitude: initialLocation.lat, longitude: initialLocation.lng }
       : null
   );
   const [errorMsg, setErrorMsg] = useState('');
   const [locationCoords, setLocationCoords] = useState(
     initialLocation
-      ? {latitude: initialLocation.lat, longitude: initialLocation.lng}
+      ? { latitude: initialLocation.lat, longitude: initialLocation.lng }
       : null
   );
   const [locationString, setLocationString] = useState(
@@ -36,14 +36,16 @@ const ChooseLocation = ({id, Modal, modalProps, questionText}) => {
   const [searchText, setSearchText] = useState(initialLocation?.address || '');
 
   const _getLocationAsync = async () => {
-    let {status} = await Location.requestForegroundPermissionsAsync();
+    let { status } = await Location.requestForegroundPermissionsAsync();
 
     if (status !== 'granted') {
       setErrorMsg('Permission to access location was denied');
       return;
     }
 
-    const userLocation = await Location.getCurrentPositionAsync({accuracy: 7});
+    const userLocation = await Location.getCurrentPositionAsync({
+      accuracy: 7,
+    });
 
     setLocation({
       latitude: userLocation.coords.latitude,
@@ -92,7 +94,8 @@ const ChooseLocation = ({id, Modal, modalProps, questionText}) => {
       {...modalProps}
       noStyles
       title={questionText}
-      valid={location && !searchText}>
+      valid={location && !searchText}
+    >
       <MapView
         style={styles.mapStyle}
         initialRegion={{
@@ -108,7 +111,8 @@ const ChooseLocation = ({id, Modal, modalProps, questionText}) => {
             latitudeDelta: 0.0822,
             longitudeDelta: 0.04,
           }
-        }>
+        }
+      >
         {locationCoords && <Marker coordinate={locationCoords} />}
       </MapView>
       <View style={styles.searchContainer}>
@@ -147,14 +151,15 @@ const styles = StyleSheet.create({
 });
 
 // @todo - create more scalable type for data display completed components
-const LocationLineItem = ({data}: {data: any}) => {
+const LocationLineItem = ({ data }: { data: any }) => {
   return (
     <Text
       size="m"
       weight="bold"
       color="brandPrimaryDark"
       paddingHorizontal="m"
-      marginRight="s">
+      marginRight="s"
+    >
       {data.address}
     </Text>
   );

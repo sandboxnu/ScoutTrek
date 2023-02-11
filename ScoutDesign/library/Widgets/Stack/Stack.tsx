@@ -1,8 +1,8 @@
 import React from 'react';
-import {Container, Box, StandardRadius, Color} from '../../Atoms/utility';
-import {InputFieldStates} from '../../Atoms/FormFields/formTypes';
+import { Container, Box, StandardRadius, Color } from '../../Atoms/utility';
+import { InputFieldStates } from '../../Atoms/FormFields/formTypes';
 
-import {IconPayload} from '../../../icons';
+import { IconPayload } from '../../../icons';
 
 export interface StackableProps {
   key?: string;
@@ -52,7 +52,8 @@ const Stack = ({
         topLeftRadius={radius}
         topRightRadius={radius}
         bottomLeftRadius={radius}
-        bottomRightRadius={radius}>
+        bottomRightRadius={radius}
+      >
         {items.map((item: StackItemSchema, index: number) => {
           const firstItem = index === 0;
           const lastItem = index === items.length - 1;

@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
-import {SpacingProps} from '@shopify/restyle';
-import {Theme} from '../../../theme';
+import { StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { SpacingProps } from '@shopify/restyle';
+import { Theme } from '../../../theme';
 
-import {Color, Pressable, PressableProps} from '../../utility';
+import { Color, Pressable, PressableProps } from '../../utility';
 
-import {IconPayload} from '../../../../icons';
+import { IconPayload } from '../../../../icons';
 import Icon from '../Assets/Icon/Icon';
 import Text from '../Text/Text';
 
@@ -43,12 +43,13 @@ const Badge = ({
       backgroundColor={color !== 'gradient' ? color : undefined}
       paddingVertical="xs"
       paddingHorizontal="s"
-      {...props}>
+      {...props}
+    >
       {color === 'gradient' && (
         <LinearGradient
           colors={['rgba(23, 161, 101, 0.095)', 'rgba(104, 237, 180, 0.065)']}
-          start={{x: 0.5, y: 1}}
-          end={{x: 0.625, y: 0}}
+          start={{ x: 0.5, y: 1 }}
+          end={{ x: 0.625, y: 0 }}
           style={StyleSheet.absoluteFill}
         />
       )}
@@ -75,7 +76,8 @@ const Badge = ({
             : 'white'
         }
         preset="micro"
-        paddingLeft={icon ? 'xs' : undefined}>
+        paddingLeft={icon ? 'xs' : undefined}
+      >
         {text}
       </Text>
     </Pressable>

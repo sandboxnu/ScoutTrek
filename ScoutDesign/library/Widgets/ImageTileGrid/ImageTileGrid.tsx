@@ -1,8 +1,8 @@
-import { Dimensions } from "react-native";
-import Image, { ImageProps } from "../../Atoms/UI/Assets/Image/Image";
-import { Box, PressableProps, Spacing } from "../../Atoms/utility";
+import { Dimensions } from 'react-native';
+import Image, { ImageProps } from '../../Atoms/UI/Assets/Image/Image';
+import { Box, PressableProps, Spacing } from '../../Atoms/utility';
 
-export type TileProps = Omit<ImageProps, "size"> & {
+export type TileProps = Omit<ImageProps, 'size'> & {
   id: string;
 };
 
@@ -15,12 +15,12 @@ interface ImageTileGridProps {
 
 const mapToSmallerSpacing: { [key: string]: Spacing | undefined } = {
   micro: undefined,
-  xs: "micro",
-  s: "xs",
-  m: "s",
-  l: "m",
-  xl: "l",
-  xxl: "xl",
+  xs: 'micro',
+  s: 'xs',
+  m: 's',
+  l: 'm',
+  xl: 'l',
+  xxl: 'xl',
 };
 
 const ImageTileGrid = ({
@@ -31,32 +31,32 @@ const ImageTileGrid = ({
 }: ImageTileGridProps) => {
   const calculatePadding = (
     index: number,
-    side: "top" | "right" | "bottom" | "left"
+    side: 'top' | 'right' | 'bottom' | 'left'
   ): Spacing | undefined => {
     if (index >= rows) {
-      if (side === "top") {
+      if (side === 'top') {
         return mapToSmallerSpacing[padding];
       }
     }
     if (index <= tiles.length - rows + 1) {
-      if (side === "bottom") {
+      if (side === 'bottom') {
         return mapToSmallerSpacing[padding];
       }
     }
     if ((index + 1) % rows !== 0) {
-      if (side === "right") {
+      if (side === 'right') {
         return mapToSmallerSpacing[padding];
       }
     }
     if (index % rows !== 0) {
-      if (side === "left") {
+      if (side === 'left') {
         return mapToSmallerSpacing[padding];
       }
     }
     return undefined;
   };
 
-  const size = Dimensions.get("window").width / rows;
+  const size = Dimensions.get('window').width / rows;
 
   return (
     <Box flexDirection="row" flexWrap="wrap" alignItems="center">
@@ -67,10 +67,10 @@ const ImageTileGrid = ({
             width={size}
             height={size}
             padding={padding}
-            paddingLeft={calculatePadding(index, "left")}
-            paddingRight={calculatePadding(index, "right")}
-            paddingTop={calculatePadding(index, "top")}
-            paddingBottom={calculatePadding(index, "bottom")}
+            paddingLeft={calculatePadding(index, 'left')}
+            paddingRight={calculatePadding(index, 'right')}
+            paddingTop={calculatePadding(index, 'top')}
+            paddingBottom={calculatePadding(index, 'bottom')}
           >
             <Image {...everyItemProps} {...imageProps} size="fill" />
           </Box>

@@ -1,6 +1,6 @@
-import {createContext, useContext, useReducer, Dispatch} from 'react';
-import {EventFormState} from './createEventFormReducer';
-import {Event, EventType} from 'data/types';
+import { createContext, useContext, useReducer, Dispatch } from 'react';
+import { EventFormState } from './createEventFormReducer';
+import { Event, EventType } from 'data/types';
 
 // Action types
 export const INITIALIZE_FORM = 'INITIALIZE_FORM';

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import {
   useEventForm,
@@ -6,11 +6,16 @@ import {
 } from 'CreateEvent/CreateEventFormStore';
 import DefaultInputButton from './components/DefaultInputButton';
 import DateTimeLineItem from './components/DateTimeLineItem';
-import {CalendarList} from 'react-native-calendars';
-import {EventInputProps} from './InputTypes';
+import { CalendarList } from 'react-native-calendars';
+import { EventInputProps } from './InputTypes';
 
-const ChooseDate = ({id, Modal, modalProps, questionText}: EventInputProps) => {
-  const [{fields}, dispatch] = useEventForm();
+const ChooseDate = ({
+  id,
+  Modal,
+  modalProps,
+  questionText,
+}: EventInputProps) => {
+  const [{ fields }, dispatch] = useEventForm();
   const [date, setDate] = useState(
     moment(new Date(fields?.[id]), 'MM-DD-YYYY').isValid()
       ? moment(new Date(fields?.[id]))
@@ -26,10 +31,11 @@ const ChooseDate = ({id, Modal, modalProps, questionText}: EventInputProps) => {
       {...modalProps}
       title={questionText}
       onNext={nextForm}
-      valid={!!date}>
+      valid={!!date}
+    >
       <CalendarList
         current={date.format('YYYY-MM-DD')}
-        calendarStyle={{width: "100%"}}
+        calendarStyle={{ width: '100%' }}
         theme={{
           textDayFontFamily: 'metropolis-regular',
           textMonthFontFamily: 'metropolis-bold',

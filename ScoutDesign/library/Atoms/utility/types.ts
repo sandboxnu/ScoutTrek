@@ -1,15 +1,15 @@
-import theme from "../../theme";
+import theme from '../../theme';
 
-export type StandardRadius = "micro" | "xs" | "s" | "m" | "l" | "xl";
+export type StandardRadius = 'micro' | 'xs' | 's' | 'm' | 'l' | 'xl';
 
 export type ExtendedRadius =
-  | "default"
-  | "circle"
-  | "xs"
-  | "s"
-  | "m"
-  | "l"
-  | "xl";
+  | 'default'
+  | 'circle'
+  | 'xs'
+  | 's'
+  | 'm'
+  | 'l'
+  | 'xl';
 
 export type Radius = StandardRadius | ExtendedRadius;
 

@@ -1,8 +1,13 @@
-import {Animated, Easing, TouchableOpacity, View} from 'react-native';
+import { Animated, Easing, TouchableOpacity, View } from 'react-native';
 import theme from '../../../theme';
-import {IconPayload} from '../../../../icons';
+import { IconPayload } from '../../../../icons';
 import Icon from '../Assets/Icon/Icon';
-import {Floatable, PressableProps, FloatableProps, Color} from '../../utility';
+import {
+  Floatable,
+  PressableProps,
+  FloatableProps,
+  Color,
+} from '../../utility';
 
 interface CircleButtonProps extends PressableProps, FloatableProps {
   accessibilityLabel: string;
@@ -37,13 +42,14 @@ const CircleButton = ({
           position: 'relative',
           alignSelf: 'flex-start',
           marginVertical: theme.spacing.xs,
-        }}>
+        }}
+      >
         <AnimatedTouchable
           style={{
             height: 50,
             width: 50,
             borderRadius: 25,
-            transform: [{scale: cardScale}],
+            transform: [{ scale: cardScale }],
             backgroundColor: theme.colors[backgroundColor],
           }}
         />
@@ -74,7 +80,8 @@ const CircleButton = ({
               top: 0,
               right: 0,
             },
-          ]}>
+          ]}
+        >
           <Icon icon={icon} color="white" size="m" />
         </AnimatedTouchable>
       </View>

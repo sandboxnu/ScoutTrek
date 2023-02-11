@@ -1,4 +1,4 @@
-import TextInputBase, { TextInputProps } from "./TextInputBase";
+import TextInputBase, { TextInputProps } from './TextInputBase';
 
 type Props = TextInputProps;
 
@@ -9,7 +9,7 @@ const ColorfulTextInput = ({ disabled, error, ...props }: Props) => {
       borderWidth={0.5}
       borderBottomWidth={4}
       borderBottomColor={
-        disabled ? "mediumGrey" : error ? "danger" : "brandPrimary"
+        disabled ? 'mediumGrey' : error ? 'danger' : 'brandPrimary'
       }
       borderBottomLeftRadius={0}
       borderBottomRightRadius={0}

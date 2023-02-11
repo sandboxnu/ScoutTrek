@@ -1,4 +1,4 @@
-import {StyleSheet, View, ActivityIndicator} from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import {
   useEventForm,
   initializeEventForm,
@@ -6,11 +6,11 @@ import {
 
 import Constants from 'expo-constants';
 
-import {gql, useQuery} from '@apollo/client';
-import {backArrow} from 'ScoutDesign/icons';
-import {ImageTileGrid, LargeFloatingButton} from 'ScoutDesign/library';
+import { gql, useQuery } from '@apollo/client';
+import { backArrow } from 'ScoutDesign/icons';
+import { ImageTileGrid, LargeFloatingButton } from 'ScoutDesign/library';
 
-import {convertEventIDToText} from 'data/utils/convertIDsToStrings';
+import { convertEventIDToText } from 'data/utils/convertIDsToStrings';
 
 export const GET_EVENT_SCHEMAS = gql`
   query EventSchemas {
@@ -22,9 +22,9 @@ type Props = {
   navigation: any;
 };
 
-const ViewEventsList = ({navigation}: Props) => {
+const ViewEventsList = ({ navigation }: Props) => {
   const [_, dispatch] = useEventForm();
-  const {loading, data} = useQuery(GET_EVENT_SCHEMAS);
+  const { loading, data } = useQuery(GET_EVENT_SCHEMAS);
 
   if (loading) {
     return <ActivityIndicator />;

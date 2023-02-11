@@ -1,5 +1,5 @@
 import moment from 'moment';
-import {useState} from 'react';
+import { useState } from 'react';
 
 function daysInMonth(date) {
   return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -9,7 +9,7 @@ function getMonthObject(datestring: string) {
   const absDate = new Date(datestring);
   const offset = absDate.getTimezoneOffset() * 60 * 1000;
   const date = new Date(absDate.getTime() + offset);
-  let monthObject: {[key: string]: any} = {};
+  let monthObject: { [key: string]: any } = {};
   for (let i = 1; i <= daysInMonth(date); i++) {
     const dateKeyString: string = `${date.getFullYear()}-${(
       '0' +
@@ -34,13 +34,13 @@ const useCurrMonthEvents = () => {
   const loadItemsForMonth = (allEvents: any, calData: CalData) => {
     if (calData) {
       const eventsInCurrMonth = allEvents.filter(
-        ({date}) => new Date(date).getMonth() + 1 === calData.month
+        ({ date }) => new Date(date).getMonth() + 1 === calData.month
       );
       const items = getMonthObject(calData.dateString);
       if (!eventsInCurrMonth.length) {
-        setCurrMonthEvents((prevItems) => ({...prevItems, ...items}));
+        setCurrMonthEvents((prevItems) => ({ ...prevItems, ...items }));
       } else {
-        eventsInCurrMonth.forEach(({id, title, creator, date, type}) => {
+        eventsInCurrMonth.forEach(({ id, title, creator, date, type }) => {
           const name = creator.name.split(' ');
           if (type === 'TroopMeeting') {
             type = 'Meeting';
@@ -63,13 +63,13 @@ const useCurrMonthEvents = () => {
             ],
           });
 
-          setCurrMonthEvents((prevItems) => ({...prevItems, ...items}));
+          setCurrMonthEvents((prevItems) => ({ ...prevItems, ...items }));
         });
       }
     }
   };
 
-  return {currMonthEvents, loadItemsForMonth};
+  return { currMonthEvents, loadItemsForMonth };
 };
 
 export default useCurrMonthEvents;

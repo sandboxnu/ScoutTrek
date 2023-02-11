@@ -1,7 +1,7 @@
-import {useContext} from 'react';
-import {ActivityIndicator} from 'react-native';
+import { useContext } from 'react';
+import { ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {CommonActions} from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 import {
   Button,
   Text,
@@ -13,21 +13,21 @@ import {
   Avatar,
   ImagePickerConainer,
 } from 'ScoutDesign/library';
-import {ScoutTrekApolloClient, GET_CURR_USER} from 'data';
-import {convertRoleToText} from '../../data/utils/convertIDsToStrings';
+import { ScoutTrekApolloClient, GET_CURR_USER } from 'data';
+import { convertRoleToText } from '../../data/utils/convertIDsToStrings';
 import * as WebBrowser from 'expo-web-browser';
 
-import {AuthContext} from '../auth/SignUp';
+import { AuthContext } from '../auth/SignUp';
 
-import {gql, useApolloClient, useQuery, useMutation} from '@apollo/client';
-import {plusThin} from 'ScoutDesign/icons';
+import { gql, useApolloClient, useQuery, useMutation } from '@apollo/client';
+import { plusThin } from 'ScoutDesign/icons';
 
 export const _updateCurrentGroup = async (groupID, navigation) => {
   await AsyncStorage.setItem('currMembershipID', groupID);
   navigation.dispatch(
     CommonActions.reset({
       index: 1,
-      routes: [{name: 'Home'}],
+      routes: [{ name: 'Home' }],
     })
   );
   await ScoutTrekApolloClient.resetStore();
@@ -39,22 +39,22 @@ const UPLOAD_PROFILE_PHOTO = gql`
   }
 `;
 
-const ProfileScreen = ({navigation}) => {
-  const {data, error, loading} = useQuery(GET_CURR_USER);
+const ProfileScreen = ({ navigation }) => {
+  const { data, error, loading } = useQuery(GET_CURR_USER);
   const client = useApolloClient();
 
-  const {setToken} = useContext(AuthContext);
+  const { setToken } = useContext(AuthContext);
 
   const [
     uploadProfilePhoto,
-    {loading: imageUploadInProgress, error: uploadError},
+    { loading: imageUploadInProgress, error: uploadError },
   ] = useMutation(UPLOAD_PROFILE_PHOTO, {
-    update(cache, {data: {uploadImage}}) {
-      const {currUser} = cache.readQuery({query: GET_CURR_USER});
+    update(cache, { data: { uploadImage } }) {
+      const { currUser } = cache.readQuery({ query: GET_CURR_USER });
       cache.modify({
         fields: {
           currUser() {
-            return {...currUser, userPhoto: uploadImage};
+            return { ...currUser, userPhoto: uploadImage };
           },
         },
       });
@@ -81,11 +81,13 @@ const ProfileScreen = ({navigation}) => {
             alignItems="center"
             justifyContent="center"
             padding="none"
-            paddingBottom="m">
+            paddingBottom="m"
+          >
             <ImagePickerConainer
               loading={imageUploadInProgress}
               error={uploadError}
-              uploadImage={uploadProfilePhoto}>
+              uploadImage={uploadProfilePhoto}
+            >
               <Avatar
                 size="xl"
                 source={{
@@ -102,7 +104,8 @@ const ProfileScreen = ({navigation}) => {
             flexDirection="row"
             alignItems="center"
             paddingHorizontal="none"
-            paddingBottom="s">
+            paddingBottom="s"
+          >
             <Badge accessibilityLabel="role" color="interactive" text="Role" />
             <Text size="l" weight="bold" paddingLeft="m">
               {convertRoleToText(data.currUser.currRole)}
@@ -115,7 +118,8 @@ const ProfileScreen = ({navigation}) => {
               alignItems="center"
               paddingHorizontal="none"
               paddingTop="s"
-              paddingBottom="none">
+              paddingBottom="none"
+            >
               <Badge
                 accessibilityLabel="role"
                 color="information"
@@ -141,21 +145,23 @@ const ProfileScreen = ({navigation}) => {
             <Stack
               accessibilityLabel="other-groups"
               items={[...data.currUser.otherGroups]}
-              RenderItem={({item, ...rest}) => {
+              RenderItem={({ item, ...rest }) => {
                 return (
                   <LineItem
                     {...rest}
                     type="button"
                     backgroundColor="lightMintGrey"
                     onPress={() => _updateCurrentGroup(item.id, navigation)}
-                    accessibilityLabel={item.troopNumber}>
+                    accessibilityLabel={item.troopNumber}
+                  >
                     <Text size="s">Switch to Troop</Text>
                     <Text preset="h2">{item.troopNumber}</Text>
                   </LineItem>
                 );
               }}
             />
-          }>
+          }
+        >
           <Text size="l" weight="bold">
             {data.currUser.currTroop.council}
           </Text>

@@ -1,8 +1,8 @@
-import {gql, useMutation, useQuery} from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import EventInputTemplate from './Inputs/EventInputTemplate';
-import {GET_EVENTS, EVENT_FIELDS} from 'data';
-import {useEventForm, clearEventForm} from 'CreateEvent/CreateEventFormStore';
-import {ScreenContainer, Container, Button} from 'ScoutDesign/library';
+import { GET_EVENTS, EVENT_FIELDS } from 'data';
+import { useEventForm, clearEventForm } from 'CreateEvent/CreateEventFormStore';
+import { ScreenContainer, Container, Button } from 'ScoutDesign/library';
 
 const ADD_EVENT = gql`
   ${EVENT_FIELDS}
@@ -28,32 +28,32 @@ export const GET_EVENT_SCHEMAS = gql`
   }
 `;
 
-const CreateEvent = ({navigation, route}) => {
+const CreateEvent = ({ navigation, route }) => {
   const [addEvent] = useMutation(ADD_EVENT, {
-    update(cache, {data: {event}}) {
+    update(cache, { data: { event } }) {
       try {
-        const {events} = cache.readQuery({query: GET_EVENTS});
+        const { events } = cache.readQuery({ query: GET_EVENTS });
         cache.writeQuery({
           query: GET_EVENTS,
-          data: {events: events.concat([event])},
+          data: { events: events.concat([event]) },
         });
       } catch {
         cache.writeQuery({
           query: GET_EVENTS,
-          data: {events: [event]},
+          data: { events: [event] },
         });
       }
     },
   });
-  const {loading: schemaLoading, data} = useQuery(GET_EVENT_SCHEMAS);
+  const { loading: schemaLoading, data } = useQuery(GET_EVENT_SCHEMAS);
 
   const [state, dispatch] = useEventForm();
-  const {fields} = state;
+  const { fields } = state;
 
   const [updateEvent] = useMutation(UPDATE_EVENT, {
-    update(cache, {data: {updateEvent: event}}) {
+    update(cache, { data: { updateEvent: event } }) {
       try {
-        const {events} = cache.readQuery({query: GET_EVENTS});
+        const { events } = cache.readQuery({ query: GET_EVENTS });
         cache.writeQuery({
           query: GET_EVENTS,
           data: {
@@ -65,7 +65,7 @@ const CreateEvent = ({navigation, route}) => {
       } catch {
         cache.writeQuery({
           query: GET_EVENTS,
-          data: {events: [event]},
+          data: { events: [event] },
         });
       }
     },
@@ -76,7 +76,7 @@ const CreateEvent = ({navigation, route}) => {
   const schema = data['eventSchemas'][route.params.type.toLowerCase()];
 
   const createEvent = () => {
-    const eventDataCopy = {...fields};
+    const eventDataCopy = { ...fields };
     if (route.params.update) {
       const omitInvalidFields = (key, value) => {
         if (key === '__typename') {
@@ -92,7 +92,7 @@ const CreateEvent = ({navigation, route}) => {
         omitInvalidFields
       );
       updateEvent({
-        variables: {id: route.params.id, updates: cleanedEventData},
+        variables: { id: route.params.id, updates: cleanedEventData },
       })
         .then(() => {
           return new Promise((res, rej) => {
@@ -138,7 +138,8 @@ const CreateEvent = ({navigation, route}) => {
       back={() => {
         dispatch(clearEventForm());
         navigation.goBack();
-      }}>
+      }}
+    >
       {/* Schema representing all the types of events currently in the app. This
       comes from the server */}
       {schema.form.map(

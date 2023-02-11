@@ -1,7 +1,7 @@
-import {EventType} from 'data/types';
-import {EventSignature} from '../UpcomingEvents';
-import {Card, Badge, Image, Text, Container} from 'ScoutDesign/library';
-import {convertEventIDToText} from 'data/utils/convertIDsToStrings';
+import { EventType } from 'data/types';
+import { EventSignature } from '../UpcomingEvents';
+import { Card, Badge, Image, Text, Container } from 'ScoutDesign/library';
+import { convertEventIDToText } from 'data/utils/convertIDsToStrings';
 import {
   bike,
   boat,
@@ -11,7 +11,7 @@ import {
   people,
   tent,
 } from 'ScoutDesign/icons';
-import {ImageSourcePropType} from 'react-native';
+import { ImageSourcePropType } from 'react-native';
 
 function getIcon(eventType: EventType) {
   switch (eventType) {
@@ -105,7 +105,8 @@ const EventCard = ({
           <Text preset="h3">{localDate.getDate()}</Text>
         </Container>
       }
-      onPress={() => onSelect({id, type})}>
+      onPress={() => onSelect({ id, type })}
+    >
       <Image
         accessibilityLabel="card-picture"
         placement="foreground"

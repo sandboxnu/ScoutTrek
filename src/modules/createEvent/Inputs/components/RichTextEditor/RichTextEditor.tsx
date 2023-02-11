@@ -1,6 +1,10 @@
-import React, {useRef} from 'react';
-import {ScrollView, StyleSheet, Text} from 'react-native';
-import {actions, RichEditor, RichToolbar} from 'react-native-pell-rich-editor';
+import React, { useRef } from 'react';
+import { ScrollView, StyleSheet, Text } from 'react-native';
+import {
+  actions,
+  RichEditor,
+  RichToolbar,
+} from 'react-native-pell-rich-editor';
 
 type Props = {
   description: string;
@@ -47,11 +51,11 @@ export default function Example(props: Props) {
           actions.heading4,
         ]}
         iconMap={{
-          [actions.heading1]: ({tintColor}) => (
-            <Text style={[styles.tib, {color: tintColor}]}>H1</Text>
+          [actions.heading1]: ({ tintColor }) => (
+            <Text style={[styles.tib, { color: tintColor }]}>H1</Text>
           ),
-          [actions.heading4]: ({tintColor}) => (
-            <Text style={[styles.tib, {color: tintColor}]}>H4</Text>
+          [actions.heading4]: ({ tintColor }) => (
+            <Text style={[styles.tib, { color: tintColor }]}>H4</Text>
           ),
         }}
       />
@@ -60,7 +64,8 @@ export default function Example(props: Props) {
         keyboardDismissMode={'none'}
         ref={scrollRef}
         nestedScrollEnabled={true}
-        scrollEventThrottle={20}>
+        scrollEventThrottle={20}
+      >
         <RichEditor
           initialFocus
           editorStyle={contentStyle}

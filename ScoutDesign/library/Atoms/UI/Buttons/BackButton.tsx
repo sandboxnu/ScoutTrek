@@ -1,6 +1,6 @@
 import Icon from '../Assets/Icon/Icon';
-import {backChevron, IconPayload} from '../../../../icons';
-import {Floatable, FloatableProps} from '../../utility';
+import { backChevron, IconPayload } from '../../../../icons';
+import { Floatable, FloatableProps } from '../../utility';
 
 export interface DismissableProps {
   backComponent?: IconPayload;

@@ -1,12 +1,12 @@
 import Slider from '../../../components/formfields/Slider';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import {
   useEventForm,
   addEventFieldOfType,
 } from 'CreateEvent/CreateEventFormStore';
 import BasicLineItem from './components/BasicLineItem';
 import DefaultInputButton from './components/DefaultInputButton';
-import {EventInputProps} from './InputTypes';
+import { EventInputProps } from './InputTypes';
 
 const ChooseDistance = ({
   id,
@@ -14,7 +14,7 @@ const ChooseDistance = ({
   modalProps,
   questionText,
 }: EventInputProps) => {
-  const [{fields}, dispatch] = useEventForm();
+  const [{ fields }, dispatch] = useEventForm();
   const [distance, setDistance] = useState(fields?.[id] || 1);
   const [valid, setValid] = useState(!!fields?.[id] || false);
 

@@ -1,11 +1,11 @@
-import {ActivityIndicator} from 'react-native';
-import {ScreenContainer, Container, Card, Text} from 'ScoutDesign/library';
-import {useQuery, useMutation, gql} from '@apollo/client';
+import { ActivityIndicator } from 'react-native';
+import { ScreenContainer, Container, Card, Text } from 'ScoutDesign/library';
+import { useQuery, useMutation, gql } from '@apollo/client';
 
-import {checkmark} from 'ScoutDesign/icons';
+import { checkmark } from 'ScoutDesign/icons';
 import moment from 'moment';
 
-import {GET_CURR_USER} from 'data';
+import { GET_CURR_USER } from 'data';
 
 export const DISMISS_NOTIFICATION = gql`
   mutation DismissNotificaion($id: ID!) {
@@ -13,8 +13,8 @@ export const DISMISS_NOTIFICATION = gql`
   }
 `;
 
-const Notifications = ({navigation}) => {
-  const {data, error, loading} = useQuery(GET_CURR_USER);
+const Notifications = ({ navigation }) => {
+  const { data, error, loading } = useQuery(GET_CURR_USER);
   const [dismissNotification] = useMutation(DISMISS_NOTIFICATION, {
     refetchQueries: [GET_CURR_USER],
   });
@@ -34,7 +34,7 @@ const Notifications = ({navigation}) => {
               Notifications
             </Text>
             {data.currUser?.unreadNotifications.map(
-              ({id, title, createdAt, type, eventType, eventID}) => {
+              ({ id, title, createdAt, type, eventType, eventID }) => {
                 return (
                   <Card
                     key={id}
@@ -46,9 +46,9 @@ const Notifications = ({navigation}) => {
                         navigation.navigate('ViewEvent', {
                           currItem: eventID,
                         });
-                        dismissNotification({variables: {id}});
+                        dismissNotification({ variables: { id } });
                       } catch {
-                        dismissNotification({variables: {id}});
+                        dismissNotification({ variables: { id } });
                       }
                     }}
                     headerLeft={
@@ -58,9 +58,10 @@ const Notifications = ({navigation}) => {
                     }
                     dismissComponent={checkmark}
                     onDismiss={() => {
-                      dismissNotification({variables: {id}});
+                      dismissNotification({ variables: { id } });
                     }}
-                    borderBelowHeader>
+                    borderBelowHeader
+                  >
                     <Text preset="label-light" paddingVertical="s">
                       {title}
                     </Text>

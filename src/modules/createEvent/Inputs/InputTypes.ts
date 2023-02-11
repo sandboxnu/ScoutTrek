@@ -1,4 +1,4 @@
-import {ModalProps} from 'ScoutDesign/library/Widgets/Modal/Modal';
+import { ModalProps } from 'ScoutDesign/library/Widgets/Modal/Modal';
 
 export interface EventInputProps {
   id: string;

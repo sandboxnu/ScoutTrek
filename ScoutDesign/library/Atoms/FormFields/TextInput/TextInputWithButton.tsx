@@ -1,8 +1,8 @@
-import TextInputBase, {TextInputProps} from './TextInputBase';
+import TextInputBase, { TextInputProps } from './TextInputBase';
 import Button from '../../UI/Buttons/Button';
 import Container from '../../utility/Container/Container';
-import {Color, PressableProps} from '../../utility';
-import {IconPayload} from '../../../../icons';
+import { Color, PressableProps } from '../../utility';
+import { IconPayload } from '../../../../icons';
 import theme from 'ScoutDesign/library/theme';
 
 type Props = TextInputProps &
@@ -27,7 +27,8 @@ const TextInputWithButton = ({
       paddingHorizontal="none"
       flexDirection="row"
       justifyContent="flex-start"
-      alignItems="center">
+      alignItems="center"
+    >
       <TextInputBase
         borderWidth={0.5}
         borderColor={
@@ -36,7 +37,7 @@ const TextInputWithButton = ({
         radius={undefined}
         topLeftRadius="l"
         bottomLeftRadius="l"
-        style={{flex: 1, fontSize: 17}}
+        style={{ flex: 1, fontSize: 17 }}
         {...props}
       />
       <Button

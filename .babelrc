@@ -11,13 +11,16 @@
         "path": ".env"
       }
     ],
-    ["module-resolver", {
-      "root": ["."],
-      "alias": {
-        "ScoutDesign": "./ScoutDesign",
-        "CreateEvent": "./src/modules/createEvent/createEventForm",
-        "data": "./src/data"
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "alias": {
+          "ScoutDesign": "./ScoutDesign",
+          "CreateEvent": "./src/modules/createEvent/createEventForm",
+          "data": "./src/data"
+        }
       }
-    }]
+    ]
   ]
 }

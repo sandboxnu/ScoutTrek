@@ -6,10 +6,7 @@
     "name": "ScoutTrek",
     "slug": "scout-trek-native",
     "privacy": "unlisted",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "plugins": [
       [
         "expo-image-picker",
@@ -24,9 +21,7 @@
     "updates": {
       "enabled": true
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.scouttrek.kalebdavenport",

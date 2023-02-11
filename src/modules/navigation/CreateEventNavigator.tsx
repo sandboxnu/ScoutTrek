@@ -1,4 +1,4 @@
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import ViewEvents from '../createEvent/eventList/ViewEventsList';
 import CreateEvent from '../createEvent/CreateEvent';
@@ -10,7 +10,8 @@ const EventStackNavigator = () => {
     <EventStack.Navigator
       screenOptions={() => ({
         headerShown: false,
-      })}>
+      })}
+    >
       <EventStack.Screen name="ViewEventsList" component={ViewEvents} />
       <EventStack.Screen name="EventForm" component={CreateEvent} />
     </EventStack.Navigator>

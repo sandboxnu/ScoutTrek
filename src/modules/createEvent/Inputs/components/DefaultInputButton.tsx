@@ -1,12 +1,12 @@
-import {Button} from 'ScoutDesign/library';
-import {plusBold} from 'ScoutDesign/icons';
+import { Button } from 'ScoutDesign/library';
+import { plusBold } from 'ScoutDesign/icons';
 
 type Props = {
   fieldName: string;
   onPress: () => void;
 };
 
-const DefaultInputButton = ({fieldName, onPress}: Props) => {
+const DefaultInputButton = ({ fieldName, onPress }: Props) => {
   return (
     <Button
       accessibilityLabel="add-title"

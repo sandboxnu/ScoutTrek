@@ -2,21 +2,21 @@
 
 Plan Scouting events in 3 minutes.
 
-Girl Scouts             |  Boy Scouts
-:-------------------------:|:-------------------------:
-![Girl Scout Meeting](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_300/v1647448233/ScoutTrek/pauline-loroy-A9U0cMNsxwY-unsplash.jpg)  |  ![Slip and slide](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_450/v1599241295/ScoutTrek/luke-porter-mGFJIUD9yiM-unsplash.jpg)
+|                                                                        Girl Scouts                                                                        |                                                                     Boy Scouts                                                                      |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------: |
+| ![Girl Scout Meeting](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_300/v1647448233/ScoutTrek/pauline-loroy-A9U0cMNsxwY-unsplash.jpg) | ![Slip and slide](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_450/v1599241295/ScoutTrek/luke-porter-mGFJIUD9yiM-unsplash.jpg) |
 
 One central location for Patrol Leaders and Scoutmasters to plan events:
 
-Choose Event | Fill out Details | Notify the Troop
-:-------------------------:|:-------------------------:|:-------------------------:
-![Choose Event](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_325/v1647456135/ScoutTrek/Screen_Shot_2022-03-16_at_14.36.34.png)  |  ![Fill out Details](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_325/v1647456135/ScoutTrek/Screen_Shot_2022-03-16_at_14.37.04.png) | ![Notify the Troop](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_325/v1647456135/ScoutTrek/Screen_Shot_2022-03-16_at_14.40.58.png)
+|                                                                    Choose Event                                                                     |                                                                    Fill out Details                                                                     |                                                                    Notify the Troop                                                                     |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
+| ![Choose Event](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_325/v1647456135/ScoutTrek/Screen_Shot_2022-03-16_at_14.36.34.png) | ![Fill out Details](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_325/v1647456135/ScoutTrek/Screen_Shot_2022-03-16_at_14.37.04.png) | ![Notify the Troop](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_325/v1647456135/ScoutTrek/Screen_Shot_2022-03-16_at_14.40.58.png) |
 
 Replace confusing email chains with one simple event planner
 
-Calendar | Upcoming Events
-:-------------------------:|:-------------------------:
-![Calendar](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_325/v1647461045/ScoutTrek/Screen_Shot_2022-03-16_at_16.03.09.png) | ![Choose Event](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_325/v1647461045/ScoutTrek/Screen_Shot_2022-03-16_at_15.35.34.png)
+|                                                                    Calendar                                                                     |                                                                   Upcoming Events                                                                   |
+| :---------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------: |
+| ![Calendar](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_325/v1647461045/ScoutTrek/Screen_Shot_2022-03-16_at_16.03.09.png) | ![Choose Event](https://res.cloudinary.com/wow-your-client/image/upload/c_scale,w_325/v1647461045/ScoutTrek/Screen_Shot_2022-03-16_at_15.35.34.png) |
 
 ## Related
 
@@ -30,10 +30,10 @@ The Custom Figma Design System can be found at
 
 ## Tech stack
 
-* TypeScript
-* React Native + Expo
-* React Navigation
-* Apollo Client
+- TypeScript
+- React Native + Expo
+- React Navigation
+- Apollo Client
 
 ## Installation
 
@@ -45,7 +45,7 @@ To download this project
   git clone git@github.com:sandboxnu/ScoutTrek-Frontend.git
 ```
 
-then to run on an Expo simulator: 
+then to run on an Expo simulator:
 
 ```bash
   yarn install
@@ -61,7 +61,7 @@ Make a copy of the file `.env_ex` and name it as `.env`. Then, start the app usi
 
 Note that the `--clear` might not be necessary (especially if you've been developing on the same wifi network), but will help if you have some React Native caching issues.
 
-If you are on public wifi, you may need to run 
+If you are on public wifi, you may need to run
 
 ```bash
   yarn local --tunnel --clear
@@ -75,6 +75,7 @@ To run the app using the backend hosted on the GC App Engine, use one of the fol
   yarn start:prod --clear
   yarn start:dev --clear
 ```
+
 The `--clear` flag is necessary here when switching between `yarn start` and `yarn local`, as the environment variables can sometimes be cached.
 
 You may also need to run the following commands if you get errors related to them:

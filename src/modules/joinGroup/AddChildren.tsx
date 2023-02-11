@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import {
   ScreenContainer,
   Button,
@@ -6,13 +6,13 @@ import {
   Text,
   TextInputWithButton,
 } from 'ScoutDesign/library';
-import {plusBold} from 'ScoutDesign/icons';
+import { plusBold } from 'ScoutDesign/icons';
 import {
   addChildren,
   useJoinGroupForm,
 } from './JoinGroupForm/JoinGroupFormStore';
 
-const AddChildren = ({navigation}) => {
+const AddChildren = ({ navigation }) => {
   const [_, dispatch] = useJoinGroupForm();
   const [childName, setChildName] = useState('');
   const [children, setChildren] = useState([]);
@@ -62,7 +62,8 @@ const AddChildren = ({navigation}) => {
                 key={child}
                 size="l"
                 paddingVertical="xs"
-                paddingHorizontal="s">
+                paddingHorizontal="s"
+              >
                 {child}
               </Text>
             ))}
