@@ -59,7 +59,6 @@
       "iosDisplayInForeground": true
     },
     "extra": {
-      "GOOGLE_MAPS_API_KEY": "AIzaSyAm4mWIlZ42Y4Ww-nR7ehQt6Z2i-aSlyeU",
       "eas": {
         "projectId": "053431a1-924d-475e-baec-77fa89064c5a"
       }

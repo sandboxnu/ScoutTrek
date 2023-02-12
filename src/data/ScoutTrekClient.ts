@@ -83,7 +83,7 @@ const ScoutTrekApolloClient = new ApolloClient({
           mapImageSource(_, { readField }) {
             const location = readField<string>('location');
             const mapUrl = location
-              ? `https://maps.googleapis.com/maps/api/staticmap?center=${location.lat},${location.lng}&zoom=12&size=350x400&maptype=roadmap&markers=size:mid%7Ccolor:orange%7C${location.lat},${location.lng}&key=${Constants?.manifest?.extra?.GOOGLE_MAPS_API_KEY}`
+              ? `https://maps.googleapis.com/maps/api/staticmap?center=${location.lat},${location.lng}&zoom=12&size=350x400&maptype=roadmap&markers=size:mid%7Ccolor:orange%7C${location.lat},${location.lng}&key=${GOOGLE_MAPS_API_KEY}`
               : null;
             return mapUrl;
           },
