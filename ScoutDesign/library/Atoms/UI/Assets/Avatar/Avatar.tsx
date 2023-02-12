@@ -1,6 +1,6 @@
-import {ImageSourcePropType} from 'react-native';
+import { ImageSourcePropType } from 'react-native';
 import Image from '../Image/Image';
-import {SizePresets} from '../../../utility';
+import { SizePresets } from '../../../utility';
 
 interface AvatarProps {
   size: SizePresets;
@@ -8,7 +8,7 @@ interface AvatarProps {
   border?: boolean;
 }
 
-const Avatar = ({size, source, border}: AvatarProps) => {
+const Avatar = ({ size, source, border }: AvatarProps) => {
   return (
     <Image
       accessibilityLabel="avatar"

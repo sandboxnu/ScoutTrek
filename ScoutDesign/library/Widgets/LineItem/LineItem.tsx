@@ -1,15 +1,15 @@
 /** Design inspiration for this component comes from React Native Elements LineItem. */
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import theme from '../../theme';
-import {Box, Color, Spacing} from '../../Atoms/utility';
-import Text, {TextAlignmentWithinContainer} from '../../Atoms/UI/Text/Text';
+import { Box, Color, Spacing } from '../../Atoms/utility';
+import Text, { TextAlignmentWithinContainer } from '../../Atoms/UI/Text/Text';
 import Icon from '../../Atoms/UI/Assets/Icon/Icon';
-import {upCaret, downCaret} from '../../../icons';
-import {Pressable, PressableProps} from '../../Atoms/utility';
-import {StackableProps} from '../Stack/Stack';
+import { upCaret, downCaret } from '../../../icons';
+import { Pressable, PressableProps } from '../../Atoms/utility';
+import { StackableProps } from '../Stack/Stack';
 
-const LineItemToggleIcon = ({open}: {open: boolean}) => {
+const LineItemToggleIcon = ({ open }: { open: boolean }) => {
   if (open) {
     return <Icon icon={downCaret} color="darkGrey" size="s" />;
   }
@@ -80,7 +80,8 @@ const LineItem = ({
       sideEffect={
         accordion ? () => setAccordionIsOpen((prev) => !prev) : undefined
       }
-      {...rest}>
+      {...rest}
+    >
       {topBorder && (
         <Box height={0} borderTopColor="slateGrey" borderTopWidth={0.25} />
       )}
@@ -91,12 +92,14 @@ const LineItem = ({
         alignItems="center"
         justifyContent="space-between"
         flexDirection="row"
-        flexShrink={0}>
+        flexShrink={0}
+      >
         <Box
           paddingVertical={simpleRow ? undefined : topBorder ? 'micro' : 's'}
           alignItems="center"
           flexDirection="row"
-          flex={1}>
+          flex={1}
+        >
           {leftComponent}
           <Box
             paddingHorizontal="m"
@@ -104,7 +107,8 @@ const LineItem = ({
             flexDirection="column"
             justifyContent="center"
             alignItems={theme.alignments[childrenAlignment]}
-            marginVertical={topBorder ? 'xs' : undefined}>
+            marginVertical={topBorder ? 'xs' : undefined}
+          >
             {children}
           </Box>
         </Box>
@@ -146,7 +150,8 @@ LineItem.Subheading = ({
   return (
     <Text
       preset={weight === 'light' ? 'sublabel-light' : 'sublabel'}
-      color={color}>
+      color={color}
+    >
       {children}
     </Text>
   );

@@ -1,6 +1,6 @@
 import Icon from '../Assets/Icon/Icon';
-import {close, IconPayload} from '../../../../icons';
-import {Floatable, FloatableProps} from '../../utility';
+import { close, IconPayload } from '../../../../icons';
+import { Floatable, FloatableProps } from '../../utility';
 
 export interface DismissableProps {
   dismissComponent?: IconPayload;

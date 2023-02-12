@@ -1,17 +1,17 @@
-import {Text, Alert} from 'react-native';
+import { Text, Alert } from 'react-native';
 
-import {useEventForm, populateEvent} from 'CreateEvent/CreateEventFormStore';
+import { useEventForm, populateEvent } from 'CreateEvent/CreateEventFormStore';
 
-import {gql, useMutation, useQuery} from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import Location from './components/Location';
 import Time from './components/Time';
 import Date from './components/Date';
 import Description from './components/Description';
 
-import {GET_EVENTS, EVENT_FIELDS} from 'data';
+import { GET_EVENTS, EVENT_FIELDS } from 'data';
 
-import {Button, CircleButton, ScreenContainer} from 'ScoutDesign/library';
-import {pencil} from 'ScoutDesign/icons';
+import { Button, CircleButton, ScreenContainer } from 'ScoutDesign/library';
+import { pencil } from 'ScoutDesign/icons';
 import { StackScreenProps } from '@react-navigation/stack';
 import { MainStackParamList } from '../navigation/MainStackNavigator';
 
@@ -33,13 +33,13 @@ export const GET_EVENT = gql`
 `;
 
 export const deleteEventConfig = {
-  update(cache, {data: {deleteEvent}}) {
+  update(cache, { data: { deleteEvent } }) {
     try {
-      const {events} = cache.readQuery({query: GET_EVENTS});
+      const { events } = cache.readQuery({ query: GET_EVENTS });
       const updatedEvents = events.filter((t) => t.id !== deleteEvent.id);
       cache.writeQuery({
         query: GET_EVENTS,
-        data: {events: updatedEvents},
+        data: { events: updatedEvents },
       });
     } catch (err) {
       console.error(err);
@@ -47,11 +47,14 @@ export const deleteEventConfig = {
   },
 };
 
-const EventDetailsScreen = ({route, navigation}: StackScreenProps<MainStackParamList, 'ViewEvent'>) => {
+const EventDetailsScreen = ({
+  route,
+  navigation,
+}: StackScreenProps<MainStackParamList, 'ViewEvent'>) => {
   const [_, dispatch] = useEventForm() || [null, null];
-  const {currItem} = route.params;
-  const {loading, error, data} = useQuery(GET_EVENT, {
-    variables: {id: currItem},
+  const { currItem } = route.params;
+  const { loading, error, data } = useQuery(GET_EVENT, {
+    variables: { id: currItem },
   });
   const [deleteEvent] = useMutation(DELETE_EVENT, deleteEventConfig);
 
@@ -60,7 +63,7 @@ const EventDetailsScreen = ({route, navigation}: StackScreenProps<MainStackParam
       'Are you sure you want to cancel this event?',
       'This action cannot be undone.',
       [
-        {text: 'Cancel', style: 'cancel'},
+        { text: 'Cancel', style: 'cancel' },
         {
           text: 'Confirm',
           onPress: async () => {
@@ -73,13 +76,13 @@ const EventDetailsScreen = ({route, navigation}: StackScreenProps<MainStackParam
           },
         },
       ],
-      {cancelable: true}
+      { cancelable: true }
     );
   };
 
   if (loading) return null;
   if (error)
-    return <Text style={{paddingTop: 50}}>`Error! ${error.toString()}`</Text>;
+    return <Text style={{ paddingTop: 50 }}>`Error! ${error.toString()}`</Text>;
 
   return (
     <ScreenContainer
@@ -89,9 +92,10 @@ const EventDetailsScreen = ({route, navigation}: StackScreenProps<MainStackParam
       back={navigation.goBack}
       headingImage={
         data.event.mapImageSource
-          ? {source: {uri: data.event.mapImageSource}}
+          ? { source: { uri: data.event.mapImageSource } }
           : undefined
-      }>
+      }
+    >
       {data.event.meetLocation ? (
         <>
           <Location
@@ -128,7 +132,8 @@ const EventDetailsScreen = ({route, navigation}: StackScreenProps<MainStackParam
         accessibilityLabel="edit-event"
         icon={pencil}
         onPress={() => {
-          const {id, type, creator, mapImageSource, ...eventData} = data.event;
+          const { id, type, creator, mapImageSource, ...eventData } =
+            data.event;
           dispatch && dispatch(populateEvent(eventData, type));
           navigation.navigate('CreateEvent', {
             screen: 'EventForm',

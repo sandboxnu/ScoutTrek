@@ -1,15 +1,15 @@
-import {useRef} from 'react';
-import {StyleSheet} from 'react-native';
-import {Agenda} from 'react-native-calendars';
+import { useRef } from 'react';
+import { StyleSheet } from 'react-native';
+import { Agenda } from 'react-native-calendars';
 import Constants from 'expo-constants';
-import {GET_EVENTS} from 'data';
+import { GET_EVENTS } from 'data';
 
-import {useQuery} from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import NoEvents from '../../components/NoEvents';
-import {Badge, Card, Container, Text} from 'ScoutDesign/library';
+import { Badge, Card, Container, Text } from 'ScoutDesign/library';
 import moment from 'moment';
 import useCurrMonthEvents from './hooks/useCurrMonthEvents';
-import {convertEventIDToText} from 'data';
+import { convertEventIDToText } from 'data';
 import { MainBottomParamList } from '../navigation/MainTabNavigator';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
@@ -17,7 +17,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { MainStackParamList } from '../navigation/MainStackNavigator';
 import { Color } from 'ScoutDesign/library/Atoms/utility';
 
-const getColor = () : Color => {
+const getColor = (): Color => {
   const allColors: Color[] = [
     'interactive',
     'urgent',
@@ -35,12 +35,12 @@ type ProfileScreenProps = CompositeScreenProps<
   StackScreenProps<MainStackParamList> // param list of grandparent stack
 >;
 
-const CalendarView = ({navigation}: ProfileScreenProps) => {
-  const {data, loading, error} = useQuery(GET_EVENTS, {
+const CalendarView = ({ navigation }: ProfileScreenProps) => {
+  const { data, loading, error } = useQuery(GET_EVENTS, {
     fetchPolicy: 'network-only',
   });
 
-  const {currMonthEvents, loadItemsForMonth} = useCurrMonthEvents();
+  const { currMonthEvents, loadItemsForMonth } = useCurrMonthEvents();
 
   const itemColor = useRef(getColor());
 
@@ -55,7 +55,7 @@ const CalendarView = ({navigation}: ProfileScreenProps) => {
   };
 
   const viewEvent = (item: any) => {
-    navigation.navigate('ViewEvent', {currItem: item.id});
+    navigation.navigate('ViewEvent', { currItem: item.id });
   };
 
   const renderItem = (item: any) => {
@@ -102,7 +102,12 @@ const CalendarView = ({navigation}: ProfileScreenProps) => {
     );
   };
 
-  if (error) return <Text><>Error: {error}</></Text>;
+  if (error)
+    return (
+      <Text>
+        <>Error: {error}</>
+      </Text>
+    );
   if (loading) return <Text>Loading...</Text>;
   if (!data.events.length) {
     return <NoEvents navigation={navigation} />;

@@ -1,34 +1,33 @@
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
-import {useState} from 'react';
+import { useState } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {ThemeProvider} from '@shopify/restyle';
+import { ThemeProvider } from '@shopify/restyle';
 import theme from './ScoutDesign/library/theme';
-import {useFonts} from 'expo-font';
+import { useFonts } from 'expo-font';
 
-import {ActivityIndicator, View} from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import {AuthContext} from './src/modules/auth/SignUp';
+import { AuthContext } from './src/modules/auth/SignUp';
 
-import {ApolloProvider, useQuery} from '@apollo/client';
+import { ApolloProvider, useQuery } from '@apollo/client';
 
-import {ScoutTrekApolloClient, GET_INITIAL_USER_FIELDS} from 'data';
+import { ScoutTrekApolloClient, GET_INITIAL_USER_FIELDS } from 'data';
 
 import AuthNavigator from './src/modules/navigation/AuthNavigator';
 import MainStackNavigator from './src/modules/navigation/MainStackNavigator';
 
 export type AppStackParamList = {
-  AuthNav: undefined,
-  Home: {newUser: boolean},
-}
+  AuthNav: undefined;
+  Home: { newUser: boolean };
+};
 
 const Stack = createStackNavigator<AppStackParamList>();
-
 
 const AppLoadingContainer = () => {
   const [token, setToken] = useState<string>('');
@@ -53,12 +52,12 @@ const AppLoadingContainer = () => {
     },
     onError: ({ graphQLErrors }) => {
       graphQLErrors.forEach((err) => {
-        if (err.extensions.code === "UNAUTHORIZED") {
+        if (err.extensions.code === 'UNAUTHORIZED') {
           setNewUser(true);
           setAppLoading(false);
         }
-      })
-    }
+      });
+    },
   });
   const [appLoading, setAppLoading] = useState<boolean>(true);
 
@@ -76,18 +75,19 @@ const AppLoadingContainer = () => {
 
   if (!fontsLoaded || appLoading)
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator />
       </View>
     );
 
   return (
-    <AuthContext.Provider value={{token, setToken, newUser, setNewUser}}>
+    <AuthContext.Provider value={{ token, setToken, newUser, setNewUser }}>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={() => ({
             headerShown: false,
-          })}>
+          })}
+        >
           {!token ? (
             <Stack.Screen
               name="AuthNav"
@@ -110,7 +110,6 @@ const AppLoadingContainer = () => {
     </AuthContext.Provider>
   );
 };
-
 
 export default function App() {
   return (

@@ -1,5 +1,5 @@
-import {FlexAlignType} from 'react-native';
-import {createTheme} from '@shopify/restyle';
+import { FlexAlignType } from 'react-native';
+import { createTheme } from '@shopify/restyle';
 
 const palette = {
   saffronYellow: '#F4C006',
@@ -54,14 +54,14 @@ type Borders = {
     borderColor: String;
     borderWidth: String;
   };
-}
+};
 
 const borders: Borders = {
   simple: {
     borderColor: 'black',
     borderWidth: '2',
-  }
-}
+  },
+};
 
 const theme = createTheme({
   colors: {

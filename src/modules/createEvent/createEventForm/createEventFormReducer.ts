@@ -9,7 +9,7 @@ import {
 
 export type EventFormState = {
   currEventType: string | null;
-  fields: {[key: string]: any};
+  fields: { [key: string]: any };
   formIsValid: boolean;
 };
 

@@ -1,7 +1,7 @@
-import React, {forwardRef} from 'react';
-import {TextInput as RNTextInput} from 'react-native';
-import {mapRadius} from '../Asset/Asset';
-import {RadiusProps} from '../types';
+import React, { forwardRef } from 'react';
+import { TextInput as RNTextInput } from 'react-native';
+import { mapRadius } from '../Asset/Asset';
+import { RadiusProps } from '../types';
 import {
   ColorProps,
   useRestyle,
@@ -11,10 +11,10 @@ import {
   BorderProps,
   BackgroundColorProps,
   SpacingProps,
-  composeRestyleFunctions
+  composeRestyleFunctions,
 } from '@shopify/restyle';
 
-import {Theme} from '../../../theme';
+import { Theme } from '../../../theme';
 
 export type TextInputUtilityProps = RadiusProps &
   React.ComponentPropsWithRef<typeof RNTextInput> &
@@ -23,10 +23,14 @@ export type TextInputUtilityProps = RadiusProps &
   BackgroundColorProps<Theme> &
   ColorProps<Theme>;
 
-const restyleFunctions = composeRestyleFunctions([spacing, border, backgroundColor]);
+const restyleFunctions = composeRestyleFunctions([
+  spacing,
+  border,
+  backgroundColor,
+]);
 
 const TextInputUtility = forwardRef<RNTextInput, TextInputUtilityProps>(
-  ({...rest}, ref) => {
+  ({ ...rest }, ref) => {
     const props = useRestyle(restyleFunctions as any, rest);
     return <RNTextInput ref={ref} {...props} />;
   }
@@ -40,7 +44,8 @@ const TextInput = (props: TextInputUtilityProps) => {
       borderBottomLeftRadius={mapRadius(props?.bottomLeftRadius)}
       borderBottomRightRadius={mapRadius(props?.bottomRightRadius)}
       borderRadius={mapRadius(props?.radius)}
-      {...props}>
+      {...props}
+    >
       {props.children}
     </TextInputUtility>
   );

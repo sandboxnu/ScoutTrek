@@ -1,15 +1,20 @@
 import moment from 'moment';
-import {Text, Icon, LineItem} from 'ScoutDesign/library';
-import {calendar} from 'ScoutDesign/icons';
+import { Text, Icon, LineItem } from 'ScoutDesign/library';
+import { calendar } from 'ScoutDesign/icons';
 
-const Date = ({date, heading}: {date: moment.MomentInput, heading: string}) => {
+const Date = ({
+  date,
+  heading,
+}: {
+  date: moment.MomentInput;
+  heading: string;
+}) => {
   return (
     <LineItem
       accessibilityLabel="event-time"
       type="static"
-      leftComponent={
-        <Icon icon={calendar} size="m" color="brandPrimaryDark" />
-      }>
+      leftComponent={<Icon icon={calendar} size="m" color="brandPrimaryDark" />}
+    >
       <Text color="darkGrey" weight="bold" size="l" paddingBottom="micro">
         {moment(date).format('dddd, MMMM Do')}
       </Text>

@@ -1,12 +1,14 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import {
   useEventForm,
   addEventFieldOfType,
 } from 'CreateEvent/CreateEventFormStore';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DefaultInputButton from './components/DefaultInputButton';
-import DateTimeLineItem, { DateTimeLineItemProps } from './components/DateTimeLineItem';
-import {View, Platform, Modal} from 'react-native';
+import DateTimeLineItem, {
+  DateTimeLineItemProps,
+} from './components/DateTimeLineItem';
+import { View, Platform, Modal } from 'react-native';
 
 const ChooseTime = ({
   id,
@@ -16,7 +18,7 @@ const ChooseTime = ({
   showAndroidClock,
   setShowAndroidClock,
 }) => {
-  const [{fields}, dispatch] = useEventForm() || [{fields: null}, null];
+  const [{ fields }, dispatch] = useEventForm() || [{ fields: null }, null];
   const [time, setTime] = useState(new Date(fields?.[id] || Date.now()));
 
   const next = (androidTime) => {
@@ -31,7 +33,8 @@ const ChooseTime = ({
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-          }}>
+          }}
+        >
           <View
             style={{
               width: 218,
@@ -51,7 +54,8 @@ const ChooseTime = ({
               shadowRadius: 3.5,
 
               elevation: 2,
-            }}>
+            }}
+          >
             <DateTimePicker
               value={time}
               minuteInterval={5}
@@ -94,5 +98,7 @@ const ChooseTime = ({
 export default {
   InitialButton: DefaultInputButton,
   EditingComponent: ChooseTime,
-  CompletedComponent: (props: DateTimeLineItemProps) => <DateTimeLineItem {...props} format="time" />,
+  CompletedComponent: (props: DateTimeLineItemProps) => (
+    <DateTimeLineItem {...props} format="time" />
+  ),
 };

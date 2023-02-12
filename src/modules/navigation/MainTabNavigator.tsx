@@ -1,28 +1,33 @@
-import {ActivityIndicator, Image} from 'react-native';
+import { ActivityIndicator, Image } from 'react-native';
 
-import {BottomTabScreenProps, createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  BottomTabScreenProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import ProfileScreen from '../profile/ProfileScreen';
 import CalendarScreen from '../calendar/CalendarView';
 
-import {Icon, Text, Avatar, Container} from 'ScoutDesign/library';
-import {home, calendar, notifications} from 'ScoutDesign/icons';
+import { Icon, Text, Avatar, Container } from 'ScoutDesign/library';
+import { home, calendar, notifications } from 'ScoutDesign/icons';
 
 import UpcomingEvents from '../home/UpcomingEvents';
-import {GET_CURR_USER} from 'data';
-import {useQuery} from '@apollo/client';
+import { GET_CURR_USER } from 'data';
+import { useQuery } from '@apollo/client';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { MainStackParamList } from './MainStackNavigator';
 
 export type HomeStackParamList = {
-  Home: undefined,
-}
+  Home: undefined;
+};
 
 const HomeStack = createStackNavigator<HomeStackParamList>();
 
-const HomeNav = ({navigation}: BottomTabScreenProps<MainBottomParamList, 'UpcomingEvents'>) => {
-  const {data, error, loading} = useQuery(GET_CURR_USER);
+const HomeNav = ({
+  navigation,
+}: BottomTabScreenProps<MainBottomParamList, 'UpcomingEvents'>) => {
+  const { data, error, loading } = useQuery(GET_CURR_USER);
 
   if (error) {
     console.error(error);
@@ -31,7 +36,7 @@ const HomeNav = ({navigation}: BottomTabScreenProps<MainBottomParamList, 'Upcomi
   if (loading) return <ActivityIndicator />;
   return (
     <HomeStack.Navigator
-      screenOptions={({navigation}) => ({
+      screenOptions={({ navigation }) => ({
         headerTitle: () => (
           <Container paddingVertical="none">
             <Text weight="bold">ScoutTrek</Text>
@@ -49,17 +54,18 @@ const HomeNav = ({navigation}: BottomTabScreenProps<MainBottomParamList, 'Upcomi
             />
           </Container>
         ),
-      })}>
+      })}
+    >
       <HomeStack.Screen name="Home" component={UpcomingEvents} />
     </HomeStack.Navigator>
   );
 };
 
 export type MainBottomParamList = {
-  UpcomingEvents: undefined,
-  Calendar: NavigatorScreenParams<MainStackParamList>,
-  Profile: undefined,
-}
+  UpcomingEvents: undefined;
+  Calendar: NavigatorScreenParams<MainStackParamList>;
+  Profile: undefined;
+};
 
 // Global Styles
 const MainBottomTab = createBottomTabNavigator<MainBottomParamList>();
@@ -69,7 +75,7 @@ const homeDark = require('../../../assets/images/tabbar/homeDark.png');
 const calendarDark = require('../../../assets/images/tabbar/calendarDark.png');
 
 const MainBottomTabNavigator = () => {
-  const {data, error, loading} = useQuery(GET_CURR_USER);
+  const { data, error, loading } = useQuery(GET_CURR_USER);
   if (error) {
     console.error(error);
     return null;
@@ -77,15 +83,18 @@ const MainBottomTabNavigator = () => {
   if (loading) return <ActivityIndicator />;
   return (
     <MainBottomTab.Navigator
-      screenOptions={({route}) => ({
+      screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarIcon: ({focused}: {focused: boolean}) => {
+        tabBarIcon: ({ focused }: { focused: boolean }) => {
           const size = 23;
           switch (route.name) {
             case 'UpcomingEvents':
               return focused ? (
-                <Image source={homeDark} style={{width: size, height: size}} />
+                <Image
+                  source={homeDark}
+                  style={{ width: size, height: size }}
+                />
               ) : (
                 <Icon icon={home} color="brandPrimary" size="m" />
               );
@@ -93,7 +102,7 @@ const MainBottomTabNavigator = () => {
               return focused ? (
                 <Image
                   source={calendarDark}
-                  style={{width: size, height: size}}
+                  style={{ width: size, height: size }}
                 />
               ) : (
                 <Icon icon={calendar} color="interactiveDark" size="m" />
@@ -112,9 +121,10 @@ const MainBottomTabNavigator = () => {
               return null;
           }
         },
-      })}>
+      })}
+    >
       <MainBottomTab.Screen
-        options={{tabBarLabel: 'Home'}}
+        options={{ tabBarLabel: 'Home' }}
         name="UpcomingEvents"
         component={HomeNav}
       />

@@ -19,11 +19,12 @@ const ForgotPasswordFormFields = [
   },
 ];
 
-const ForgotPassword = ({navigation}: StackScreenProps<AuthStackParamList, 'ForgotPassword'>) => {
-
+const ForgotPassword = ({
+  navigation,
+}: StackScreenProps<AuthStackParamList, 'ForgotPassword'>) => {
   const onSubmitEmail = (
     setSuccess: (success: boolean) => void,
-    data: {email: String}
+    data: { email: String }
   ) => {
     // TODO: send request to email user
     console.log('submitted email', data.email);

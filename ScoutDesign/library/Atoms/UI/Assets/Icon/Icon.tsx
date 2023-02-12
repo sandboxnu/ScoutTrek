@@ -1,14 +1,14 @@
-import theme, {Theme} from '../../../../theme';
+import theme, { Theme } from '../../../../theme';
 import {
   Pressable,
   IconSizePresets,
   PressableProps,
   Color,
 } from '../../../utility';
-import {Box} from '../../../utility';
-import {SpacingProps} from '@shopify/restyle';
+import { Box } from '../../../utility';
+import { SpacingProps } from '@shopify/restyle';
 
-import {IconPayload} from '../../../../../icons';
+import { IconPayload } from '../../../../../icons';
 
 interface IconProps extends PressableProps {
   icon: IconPayload;
@@ -43,7 +43,8 @@ const Icon = ({
         padding={backgroundColor ? 'icon' : undefined}
         justifyContent="center"
         alignItems="center"
-        {...rest}>
+        {...rest}
+      >
         <icon.component
           name={icon.name}
           size={
@@ -60,7 +61,7 @@ const Icon = ({
             position="absolute"
             top={0}
             right={0}
-            style={{width: 13, height: 13}}
+            style={{ width: 13, height: 13 }}
           />
         ) : undefined}
       </Pressable>

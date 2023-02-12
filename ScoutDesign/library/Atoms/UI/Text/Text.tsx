@@ -1,6 +1,6 @@
 import React from 'react';
-import {createText, TextProps} from '@shopify/restyle';
-import {Theme} from '../../../theme';
+import { createText, TextProps } from '@shopify/restyle';
+import { Theme } from '../../../theme';
 
 const TextUtility = createText<Theme>();
 
@@ -39,7 +39,8 @@ const Text = ({
     <TextUtility
       variant={preset ? preset : `${size}-${weight}`}
       nativeID={accessibilityLabel}
-      {...rest}>
+      {...rest}
+    >
       {children}
     </TextUtility>
   );

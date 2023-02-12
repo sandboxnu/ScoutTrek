@@ -1,19 +1,20 @@
 import { StackNavigationProp } from '@react-navigation/stack';
-import {useState} from 'react';
-import {KeyboardAvoidingView, Platform, ScrollView} from 'react-native';
-import {Text, Form, Container, ScreenContainer} from 'ScoutDesign/library';
+import { useState } from 'react';
+import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { Text, Form, Container, ScreenContainer } from 'ScoutDesign/library';
 import { AuthStackParamList } from 'src/modules/navigation/AuthNavigator';
 
 type ForgotPasswordProps = {
-  formTitle: string,
-  formDescription: string,
-  formFields: any[],
-  handleSubmit: (setSuccess: (s: boolean) => void, data: any) => void,
-  successTitle: string,
-  successDescription: string,
-  navigation: StackNavigationProp<AuthStackParamList, "ForgotPassword"> | StackNavigationProp<AuthStackParamList, "ResetPassword"> 
-}
-
+  formTitle: string;
+  formDescription: string;
+  formFields: any[];
+  handleSubmit: (setSuccess: (s: boolean) => void, data: any) => void;
+  successTitle: string;
+  successDescription: string;
+  navigation:
+    | StackNavigationProp<AuthStackParamList, 'ForgotPassword'>
+    | StackNavigationProp<AuthStackParamList, 'ResetPassword'>;
+};
 
 const ForgotPassword = ({
   navigation,
@@ -24,7 +25,6 @@ const ForgotPassword = ({
   successTitle,
   successDescription,
 }: ForgotPasswordProps) => {
-
   const [success, setSuccess] = useState(false);
 
   return (
@@ -35,7 +35,8 @@ const ForgotPassword = ({
           backgroundColor: '#fff',
           justifyContent: 'center',
         }}
-        keyboardShouldPersistTaps="handled">
+        keyboardShouldPersistTaps="handled"
+      >
         {success ? (
           <>
             <Container flexGrow={4} justifyContent="center">
@@ -46,7 +47,8 @@ const ForgotPassword = ({
                 color="darkGrey"
                 size="s"
                 textAlign="center"
-                style={{marginBottom: 60, fontSize: 16}}>
+                style={{ marginBottom: 60, fontSize: 16 }}
+              >
                 {successDescription}
               </Text>
             </Container>
@@ -54,8 +56,9 @@ const ForgotPassword = ({
               color="brandPrimary"
               weight="bold"
               textAlign="center"
-              style={{flexGrow: 1}}
-              onPress={() => navigation.goBack()}>
+              style={{ flexGrow: 1 }}
+              onPress={() => navigation.goBack()}
+            >
               Back to Log In
             </Text>
           </>
@@ -66,7 +69,8 @@ const ForgotPassword = ({
               justifyContent: 'center',
               paddingHorizontal: 20,
             }}
-            behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
+            behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+          >
             <Text marginBottom="m" textAlign="center" preset="h2">
               {formTitle}
             </Text>
@@ -74,7 +78,8 @@ const ForgotPassword = ({
               color="darkGrey"
               size="s"
               textAlign="center"
-              style={{marginBottom: 60, fontSize: 16}}>
+              style={{ marginBottom: 60, fontSize: 16 }}
+            >
               {formDescription}
             </Text>
             <Form

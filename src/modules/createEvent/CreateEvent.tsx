@@ -1,8 +1,8 @@
-import {gql, useMutation, useQuery} from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import EventInputTemplate from './Inputs/EventInputTemplate';
-import {GET_EVENTS, EVENT_FIELDS} from 'data';
-import {useEventForm, clearEventForm} from 'CreateEvent/CreateEventFormStore';
-import {ScreenContainer, Container, Button} from 'ScoutDesign/library';
+import { GET_EVENTS, EVENT_FIELDS } from 'data';
+import { useEventForm, clearEventForm } from 'CreateEvent/CreateEventFormStore';
+import { ScreenContainer, Container, Button } from 'ScoutDesign/library';
 import { StackScreenProps } from '@react-navigation/stack';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { EventStackParamList } from '../navigation/CreateEventNavigator';
@@ -34,36 +34,36 @@ export const GET_EVENT_SCHEMAS = gql`
 `;
 
 type CreateEventProps = CompositeScreenProps<
-  StackScreenProps<EventStackParamList, "EventForm">,
+  StackScreenProps<EventStackParamList, 'EventForm'>,
   BottomTabScreenProps<MainBottomParamList>
->
+>;
 
-const CreateEvent = ({navigation, route}: CreateEventProps) => {
+const CreateEvent = ({ navigation, route }: CreateEventProps) => {
   const [addEvent] = useMutation(ADD_EVENT, {
-    update(cache, {data: {event}}) {
+    update(cache, { data: { event } }) {
       try {
-        const {events} = cache.readQuery({query: GET_EVENTS});
+        const { events } = cache.readQuery({ query: GET_EVENTS });
         cache.writeQuery({
           query: GET_EVENTS,
-          data: {events: events.concat([event])},
+          data: { events: events.concat([event]) },
         });
       } catch {
         cache.writeQuery({
           query: GET_EVENTS,
-          data: {events: [event]},
+          data: { events: [event] },
         });
       }
     },
   });
-  const {loading: schemaLoading, data} = useQuery(GET_EVENT_SCHEMAS);
+  const { loading: schemaLoading, data } = useQuery(GET_EVENT_SCHEMAS);
 
   const [state, dispatch] = useEventForm() || [null, null];
-  const {fields} = state || {fields: null};
+  const { fields } = state || { fields: null };
 
   const [updateEvent] = useMutation(UPDATE_EVENT, {
-    update(cache, {data: {updateEvent: event}}) {
+    update(cache, { data: { updateEvent: event } }) {
       try {
-        const {events} = cache.readQuery({query: GET_EVENTS});
+        const { events } = cache.readQuery({ query: GET_EVENTS });
         cache.writeQuery({
           query: GET_EVENTS,
           data: {
@@ -75,7 +75,7 @@ const CreateEvent = ({navigation, route}: CreateEventProps) => {
       } catch {
         cache.writeQuery({
           query: GET_EVENTS,
-          data: {events: [event]},
+          data: { events: [event] },
         });
       }
     },
@@ -86,7 +86,7 @@ const CreateEvent = ({navigation, route}: CreateEventProps) => {
   const schema = data['eventSchemas'][route.params.type.toLowerCase()];
 
   const createEvent = () => {
-    const eventDataCopy = {...fields};
+    const eventDataCopy = { ...fields };
     if (route.params.update) {
       const omitInvalidFields = (key, value) => {
         if (key === '__typename') {
@@ -102,7 +102,7 @@ const CreateEvent = ({navigation, route}: CreateEventProps) => {
         omitInvalidFields
       );
       updateEvent({
-        variables: {id: route.params.id, updates: cleanedEventData},
+        variables: { id: route.params.id, updates: cleanedEventData },
       })
         .then(() => {
           return new Promise<void>((res, rej) => {
@@ -148,7 +148,8 @@ const CreateEvent = ({navigation, route}: CreateEventProps) => {
       back={() => {
         dispatch && dispatch(clearEventForm());
         navigation.goBack();
-      }}>
+      }}
+    >
       {/* Schema representing all the types of events currently in the app. This
       comes from the server 
       TODO: gql form schema rewrite: update with the new form types */}

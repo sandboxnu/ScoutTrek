@@ -1,5 +1,5 @@
-import {createContext, useContext, useReducer, Dispatch} from 'react';
-import {JoinGroupFormState} from './joinGroupFormReducer';
+import { createContext, useContext, useReducer, Dispatch } from 'react';
+import { JoinGroupFormState } from './joinGroupFormReducer';
 
 // Action types
 export const CHOOSE_GROUP = 'CHOOSE_GROUP';

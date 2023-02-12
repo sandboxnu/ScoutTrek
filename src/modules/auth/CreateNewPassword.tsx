@@ -1,5 +1,5 @@
 import { StackScreenProps } from '@react-navigation/stack';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 import { AuthStackParamList } from '../navigation/AuthNavigator';
 import PasswordConfig from './components/PasswordConfig';
 
@@ -38,17 +38,22 @@ const CreateNewPasswordFormFields = [
   },
 ];
 
-const CreateNewPassword = ({navigation}: StackScreenProps<AuthStackParamList, 'ResetPassword'>) => {
-
+const CreateNewPassword = ({
+  navigation,
+}: StackScreenProps<AuthStackParamList, 'ResetPassword'>) => {
   const onChangePassword = (
     setSuccess: (success: boolean) => void,
-    data: {password: string; passwordConfirm: string}
+    data: { password: string; passwordConfirm: string }
   ) => {
     if (data.password !== data.passwordConfirm) {
       Alert.alert(
         'Whoops, the passwords you entered do not match. Please re-enter passwords to confirm they match.'
       );
-    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(data.password)) {
+    } else if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+        data.password
+      )
+    ) {
       // regex pattern from https://stackoverflow.com/a/21456918
       Alert.alert(
         'Your password must contain at least one uppercase letter, one lowercase letter, one number and one special character.'

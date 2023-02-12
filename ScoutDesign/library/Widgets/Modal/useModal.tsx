@@ -1,7 +1,7 @@
-import {useState, useCallback} from 'react';
-import Modal, {ModalProps} from './Modal';
+import { useState, useCallback } from 'react';
+import Modal, { ModalProps } from './Modal';
 
-export const MyModal = ({children, ...rest}: ModalProps) => {
+export const MyModal = ({ children, ...rest }: ModalProps) => {
   return <Modal {...rest}>{children}</Modal>;
 };
 

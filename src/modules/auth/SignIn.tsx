@@ -1,16 +1,16 @@
-import {useContext} from 'react';
+import { useContext } from 'react';
 import {
   KeyboardAvoidingView,
   Dimensions,
   Platform,
   ScrollView,
 } from 'react-native';
-import {Text, Form, Image} from 'ScoutDesign/library';
+import { Text, Form, Image } from 'ScoutDesign/library';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {gql, useMutation} from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import Footer from './components/Footer';
-import {AuthContext} from '../auth/SignUp';
+import { AuthContext } from '../auth/SignUp';
 import { StackScreenProps } from '@react-navigation/stack';
 import { AuthStackParamList } from '../navigation/AuthNavigator';
 
@@ -56,8 +56,10 @@ const SignInFormFields = [
   },
 ];
 
-const SignIn = ({navigation}: StackScreenProps<AuthStackParamList, "SignIn">) => {
-  const {setToken} = useContext(AuthContext);
+const SignIn = ({
+  navigation,
+}: StackScreenProps<AuthStackParamList, 'SignIn'>) => {
+  const { setToken } = useContext(AuthContext);
 
   const [logIn] = useMutation(LOG_IN, {
     onCompleted: async (data) => {
@@ -93,7 +95,8 @@ const SignIn = ({navigation}: StackScreenProps<AuthStackParamList, "SignIn">) =>
         backgroundColor: '#fff',
         justifyContent: 'flex-end',
       }}
-      keyboardShouldPersistTaps="handled">
+      keyboardShouldPersistTaps="handled"
+    >
       <Image
         accessibilityLabel="sign-up-background"
         placement="background"
@@ -112,7 +115,8 @@ const SignIn = ({navigation}: StackScreenProps<AuthStackParamList, "SignIn">) =>
           paddingHorizontal: 12,
           marginBottom: 12,
         }}
-        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
+        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      >
         <Text marginBottom="m" textAlign="center" preset="h2">
           Welcome back!
         </Text>
@@ -125,10 +129,15 @@ const SignIn = ({navigation}: StackScreenProps<AuthStackParamList, "SignIn">) =>
           onSubmit={handleSignIn}
           submitBtnText="Sign In"
         />
-        <Text 
-          color="darkGrey" 
-          size="s" 
-          style={{width: "100%", paddingHorizontal: 12, paddingTop: 6, textAlign: "right"}}
+        <Text
+          color="darkGrey"
+          size="s"
+          style={{
+            width: '100%',
+            paddingHorizontal: 12,
+            paddingTop: 6,
+            textAlign: 'right',
+          }}
           onPress={() => navigation.navigate('ForgotPassword')}
         >
           Forgot Password?

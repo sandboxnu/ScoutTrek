@@ -1,10 +1,10 @@
-import {useState, useContext} from 'react';
-import {ActivityIndicator} from 'react-native';
+import { useState, useContext } from 'react';
+import { ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {gql, useMutation, useQuery} from '@apollo/client';
-import {plusBold} from 'ScoutDesign/icons';
-import {_updateCurrentGroup} from '../profile/ProfileScreen';
-import {AuthContext} from '../auth/SignUp';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { plusBold } from 'ScoutDesign/icons';
+import { _updateCurrentGroup } from '../profile/ProfileScreen';
+import { AuthContext } from '../auth/SignUp';
 import {
   ScreenContainer,
   Container,
@@ -14,7 +14,7 @@ import {
   TextInputWithButton,
 } from 'ScoutDesign/library';
 
-import {useJoinGroupForm} from './JoinGroupForm/JoinGroupFormStore';
+import { useJoinGroupForm } from './JoinGroupForm/JoinGroupFormStore';
 import { StackScreenProps } from '@react-navigation/stack';
 import { JoinGroupStackParamList } from '../navigation/JoinGroupNavigator';
 
@@ -44,9 +44,11 @@ const ADD_PATROL = gql`
   }
 `;
 
-const JoinPatrol = ({navigation}: StackScreenProps<JoinGroupStackParamList>) => {
+const JoinPatrol = ({
+  navigation,
+}: StackScreenProps<JoinGroupStackParamList>) => {
   const [joinGroupFormState] = useJoinGroupForm() || [null];
-  const {setNewUser} = useContext(AuthContext);
+  const { setNewUser } = useContext(AuthContext);
 
   const [addGroup] = useMutation(ADD_GROUP, {
     onCompleted: async (data) => {
@@ -60,7 +62,7 @@ const JoinPatrol = ({navigation}: StackScreenProps<JoinGroupStackParamList>) => 
   const [patrolName, setPatrolName] = useState('');
   const [patrolIsValid, setPatrolIsValid] = useState(false);
 
-  const {data, error, loading} = useQuery(GET_PATROLS, {
+  const { data, error, loading } = useQuery(GET_PATROLS, {
     pollInterval: 500,
     variables: {
       troopId: joinGroupFormState?.troopID,
@@ -79,7 +81,12 @@ const JoinPatrol = ({navigation}: StackScreenProps<JoinGroupStackParamList>) => 
   };
 
   if (loading) return <ActivityIndicator />;
-  if (error) return <Text><>`Error! ${error}`</></Text>;
+  if (error)
+    return (
+      <Text>
+        <>`Error! ${error}`</>
+      </Text>
+    );
 
   return (
     <ScreenContainer>
@@ -95,7 +102,7 @@ const JoinPatrol = ({navigation}: StackScreenProps<JoinGroupStackParamList>) => 
             fullWidth: true,
             paddingVertical: 'm',
           }}
-          RenderItem={({item, ...rest}) => {
+          RenderItem={({ item, ...rest }) => {
             return (
               <Button
                 accessibilityLabel={item.id}

@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {useEventForm} from 'CreateEvent/CreateEventFormStore';
-import {useModal} from 'ScoutDesign/library';
+import React, { useState } from 'react';
+import { useEventForm } from 'CreateEvent/CreateEventFormStore';
+import { useModal } from 'ScoutDesign/library';
 import Row from './Row';
 import TapToEditContainer from './components/TapToEditContainer';
 
@@ -25,25 +25,31 @@ const eventComponents = {
 };
 
 type EventInputTemplateProps = {
-  fieldType: keyof typeof eventComponents,
-  id: string,
-  fieldName: string,
-  questionText: string,
-  payload: any 
+  fieldType: keyof typeof eventComponents;
+  id: string;
+  fieldName: string;
+  questionText: string;
+  payload: any;
   // TODO: gql form schema rewrite: payload is json object describing the form field. Need to update its type
   // using the updated gql forms schema. Also probably fix the compile errs below; should have some way
   // for TS to know that the fieldType changes the expected props for EditingComponent/InitialButton etc.
-}
+};
 
-export default ({fieldType, id, fieldName, questionText, payload}: EventInputTemplateProps) => {
-  const {InitialButton, EditingComponent, CompletedComponent} =
+export default ({
+  fieldType,
+  id,
+  fieldName,
+  questionText,
+  payload,
+}: EventInputTemplateProps) => {
+  const { InitialButton, EditingComponent, CompletedComponent } =
     eventComponents[fieldType];
 
-  const [{fields}] = useEventForm() || [{fields: null}];
+  const [{ fields }] = useEventForm() || [{ fields: null }];
 
   const [showAndroidClock, setShowAndroidClock] = useState(false);
 
-  const {modalProps, openModal, Modal} = useModal();
+  const { modalProps, openModal, Modal } = useModal();
 
   switch (fieldType) {
     case 'setting':
@@ -91,7 +97,8 @@ export default ({fieldType, id, fieldName, questionText, payload}: EventInputTem
                   Platform.OS === 'ios'
                     ? openModal()
                     : setShowAndroidClock(true)
-                }>
+                }
+              >
                 <CompletedComponent data={fields?.[id]} />
               </TapToEditContainer>
             )}

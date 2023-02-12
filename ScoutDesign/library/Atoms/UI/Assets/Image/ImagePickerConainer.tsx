@@ -1,7 +1,7 @@
-import {manipulateAsync, SaveFormat} from 'expo-image-manipulator';
+import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 import Text from '../../Text/Text';
-import {Container, Pressable, Floatable} from '../../../utility';
+import { Container, Pressable, Floatable } from '../../../utility';
 
 import uuidv4 from 'uuid/v1';
 
@@ -18,7 +18,7 @@ export async function uploadAssetAsync(uri: string) {
   // });
 }
 
-import {pencil} from 'ScoutDesign/icons';
+import { pencil } from 'ScoutDesign/icons';
 import Badge from '../../Badge/Badge';
 
 type Props = {
@@ -46,11 +46,11 @@ const ImagePickerContainer = ({
     if (!result.cancelled) {
       const resizedPhoto = await manipulateAsync(
         result.uri,
-        [{resize: {width: 300}}],
-        {compress: 0.7, format: SaveFormat.PNG}
+        [{ resize: { width: 300 } }],
+        { compress: 0.7, format: SaveFormat.PNG }
       );
       const file = await uploadAssetAsync(resizedPhoto.uri);
-      await uploadImage({variables: {file}});
+      await uploadImage({ variables: { file } });
       return;
     }
   };
@@ -67,7 +67,8 @@ const ImagePickerContainer = ({
         radius="circle"
         justifyContent="center"
         alignItems="center"
-        backgroundColor="brandSecondaryLight">
+        backgroundColor="brandSecondaryLight"
+      >
         <Text weight="light" color="darkGrey">
           Loading...
         </Text>
@@ -80,7 +81,8 @@ const ImagePickerContainer = ({
       accessibilityLabel="image-picker"
       justifyContent="center"
       alignItems="center"
-      onPress={pickImage}>
+      onPress={pickImage}
+    >
       {children}
       <Floatable corner="bottom-right" distanceFromCorner="edge">
         <Badge

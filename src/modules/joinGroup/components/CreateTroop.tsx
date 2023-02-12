@@ -1,5 +1,5 @@
-import {useReducer} from 'react';
-import {Dimensions, View} from 'react-native';
+import { useReducer } from 'react';
+import { Dimensions, View } from 'react-native';
 import {
   Button,
   Container,
@@ -7,8 +7,8 @@ import {
   Text,
   TextInput,
 } from 'ScoutDesign/library';
-import {Picker} from '@react-native-picker/picker';
-import {gql, useMutation} from '@apollo/client';
+import { Picker } from '@react-native-picker/picker';
+import { gql, useMutation } from '@apollo/client';
 import {
   useJoinGroupForm,
   chooseGroup,
@@ -86,19 +86,27 @@ const ADD_TROOP = gql`
   }
 `;
 
-type InputValue = {council: string, state: string, city: string, unitNumber: string}
+type InputValue = {
+  council: string;
+  state: string;
+  city: string;
+  unitNumber: string;
+};
 
 type FormState = {
-  inputValues: InputValue
-}
+  inputValues: InputValue;
+};
 
 type FormAction = {
-  type: "UPDATE_INPUT_FIELD",
-  value: string,
-  input: keyof InputValue
-}
+  type: 'UPDATE_INPUT_FIELD';
+  value: string;
+  input: keyof InputValue;
+};
 
-export const formReducer: (state: FormState, action: FormAction) => FormState = (state, action) => {
+export const formReducer: (
+  state: FormState,
+  action: FormAction
+) => FormState = (state, action) => {
   if (action.type === 'UPDATE_INPUT_FIELD') {
     const updatedValues = {
       ...state.inputValues,
@@ -111,11 +119,14 @@ export const formReducer: (state: FormState, action: FormAction) => FormState = 
   return state;
 };
 
-const CreateTroop = ({navigation}: StackScreenProps<JoinGroupStackParamList>) => {
+const CreateTroop = ({
+  navigation,
+}: StackScreenProps<JoinGroupStackParamList>) => {
   const [_, dispatch] = useJoinGroupForm() || [null, null];
   const [addTroop] = useMutation(ADD_TROOP, {
     onCompleted: (data) => {
-      dispatch && dispatch(chooseGroup(data.addTroop.id, data.addTroop.unitNumber));
+      dispatch &&
+        dispatch(chooseGroup(data.addTroop.id, data.addTroop.unitNumber));
       navigation.navigate('ChooseRole');
     },
   });
@@ -165,7 +176,7 @@ const CreateTroop = ({navigation}: StackScreenProps<JoinGroupStackParamList>) =>
         <Text weight="bold" paddingVertical="s">
           What state do you live in?
         </Text>
-        <View style={{alignItems: 'center'}}>
+        <View style={{ alignItems: 'center' }}>
           <Picker
             style={{
               width: (Dimensions.get('window').width * 4) / 5,
@@ -174,7 +185,8 @@ const CreateTroop = ({navigation}: StackScreenProps<JoinGroupStackParamList>) =>
             onValueChange={(value) => handleInputChange('state', value)}
             onSelect={(value: string) => {
               handleInputChange('state', value);
-            }}>
+            }}
+          >
             {STATES.map((state) => (
               <Picker.Item key={state} label={state} value={state} />
             ))}

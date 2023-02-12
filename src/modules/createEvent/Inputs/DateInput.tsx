@@ -1,15 +1,22 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import {
   useEventForm,
   addEventFieldOfType,
 } from 'CreateEvent/CreateEventFormStore';
 import DefaultInputButton from './components/DefaultInputButton';
-import DateTimeLineItem, { DateTimeLineItemProps } from './components/DateTimeLineItem';
-import {CalendarList} from 'react-native-calendars';
-import {EventInputProps} from './InputTypes';
+import DateTimeLineItem, {
+  DateTimeLineItemProps,
+} from './components/DateTimeLineItem';
+import { CalendarList } from 'react-native-calendars';
+import { EventInputProps } from './InputTypes';
 
-const ChooseDate = ({id, Modal, modalProps, questionText}: EventInputProps) => {
+const ChooseDate = ({
+  id,
+  Modal,
+  modalProps,
+  questionText,
+}: EventInputProps) => {
   const eventForm = useEventForm();
   const fields = eventForm && eventForm[0].fields;
   const dispatch = eventForm && eventForm[1];
@@ -28,10 +35,11 @@ const ChooseDate = ({id, Modal, modalProps, questionText}: EventInputProps) => {
       {...modalProps}
       title={questionText}
       onNext={nextForm}
-      valid={!!date}>
+      valid={!!date}
+    >
       <CalendarList
         current={date.format('YYYY-MM-DD')}
-        calendarStyle={{width: "100%"}}
+        calendarStyle={{ width: '100%' }}
         theme={{
           textDayFontFamily: 'metropolis-regular',
           textMonthFontFamily: 'metropolis-bold',
@@ -65,5 +73,7 @@ const ChooseDate = ({id, Modal, modalProps, questionText}: EventInputProps) => {
 export default {
   InitialButton: DefaultInputButton,
   EditingComponent: ChooseDate,
-  CompletedComponent: (props: DateTimeLineItemProps) => <DateTimeLineItem {...props} format="date" />,
+  CompletedComponent: (props: DateTimeLineItemProps) => (
+    <DateTimeLineItem {...props} format="date" />
+  ),
 };

@@ -1,12 +1,12 @@
-import {Box} from '../../utility';
+import { Box } from '../../utility';
 import Text from '../../UI/Text/Text';
-import {upArrow} from 'ScoutDesign/icons';
+import { upArrow } from 'ScoutDesign/icons';
 import Icon from '../../UI/Assets/Icon/Icon';
-import TextInputBase, {TextInputProps} from './TextInputBase';
+import TextInputBase, { TextInputProps } from './TextInputBase';
 
 type Props = TextInputProps;
 
-const SimpleTextInput = ({disabled, error, noStyles, ...props}: Props) => {
+const SimpleTextInput = ({ disabled, error, noStyles, ...props }: Props) => {
   return (
     <>
       <TextInputBase
@@ -23,7 +23,8 @@ const SimpleTextInput = ({disabled, error, noStyles, ...props}: Props) => {
           paddingHorizontal="s"
           paddingVertical="xs"
           flexDirection="row"
-          alignItems="center">
+          alignItems="center"
+        >
           <Icon color="black" icon={upArrow} size="xs" />
           <Text preset="micro" paddingLeft="s">
             {error?.message}

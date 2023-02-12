@@ -1,6 +1,6 @@
-import {Card, Text, Button, Container} from 'ScoutDesign/library';
+import { Card, Text, Button, Container } from 'ScoutDesign/library';
 
-const NoEvents = ({navigation}: {navigation: any}) => {
+const NoEvents = ({ navigation }: { navigation: any }) => {
   return (
     <Container marginTop="l">
       <Card
@@ -9,7 +9,8 @@ const NoEvents = ({navigation}: {navigation: any}) => {
           <Text size="l" weight="bold" paddingTop="s" padding="m">
             You have no upcoming events
           </Text>
-        }>
+        }
+      >
         <Button
           accessibilityLabel="create-event-button"
           text="Create one"

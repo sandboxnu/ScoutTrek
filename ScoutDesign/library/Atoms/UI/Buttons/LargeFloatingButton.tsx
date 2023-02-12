@@ -1,7 +1,7 @@
-import ButtonBase, {ButtonProps} from './ButtonBase';
+import ButtonBase, { ButtonProps } from './ButtonBase';
 
 import Text from '../Text/Text';
-import {Floatable, FloatableProps} from '../../utility';
+import { Floatable, FloatableProps } from '../../utility';
 
 type Props = ButtonProps & FloatableProps;
 
@@ -20,14 +20,16 @@ const LargeFloatingButton = ({
         radius="xl"
         iconPadding="s"
         iconSize="m"
-        {...rest}>
+        {...rest}
+      >
         <Text
           accessibilityLabel="button-text"
           color={textColor}
           size="l"
           weight="bold"
           padding="xs"
-          paddingLeft={rest.icon ? 's' : undefined}>
+          paddingLeft={rest.icon ? 's' : undefined}
+        >
           {text}
         </Text>
       </ButtonBase>

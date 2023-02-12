@@ -1,7 +1,7 @@
-import theme, {Theme} from '../../../theme';
+import theme, { Theme } from '../../../theme';
 import Box from '../Box/Box';
-import {RadiusProps} from '../types';
-import {mapRadius, SizeProps} from '../Asset/Asset';
+import { RadiusProps } from '../types';
+import { mapRadius, SizeProps } from '../Asset/Asset';
 import {
   SpacingProps,
   LayoutProps,
@@ -10,7 +10,7 @@ import {
   BackgroundColorProps,
   ShadowProps,
 } from '@shopify/restyle';
-import {StackableProps} from '../../../Widgets/Stack/Stack';
+import { StackableProps } from '../../../Widgets/Stack/Stack';
 
 interface ContainerProps extends StackableProps, SizeProps, RadiusProps {
   accessibilityLabel?: string;
@@ -79,7 +79,8 @@ const Container = ({
         isStackBottom ? mapRadius(stackRadius) : mapRadius(bottomRightRadius)
       }
       testID={accessibilityLabel}
-      nativeID={accessibilityLabel}>
+      nativeID={accessibilityLabel}
+    >
       {children}
     </Box>
   );

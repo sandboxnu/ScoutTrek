@@ -1,9 +1,13 @@
 import React from 'react';
-import {Image as RNImage, ImageSourcePropType, StyleSheet} from 'react-native';
+import {
+  Image as RNImage,
+  ImageSourcePropType,
+  StyleSheet,
+} from 'react-native';
 
-import {LinearGradient} from 'expo-linear-gradient';
-import {SpacingProps} from '@shopify/restyle';
-import theme, {Theme} from '../../../../theme';
+import { LinearGradient } from 'expo-linear-gradient';
+import { SpacingProps } from '@shopify/restyle';
+import theme, { Theme } from '../../../../theme';
 import Text from '../../Text/Text';
 
 import {
@@ -55,7 +59,8 @@ const Image = ({
       borderRadius={mapRadius(radius, size)}
       borderWidth={border ? 3 : undefined}
       borderColor={border ? 'mintGrey' : undefined}
-      {...rest}>
+      {...rest}
+    >
       <Box
         width={
           size === 'fill'
@@ -72,7 +77,8 @@ const Image = ({
             : size?.height
         }
         borderRadius={mapRadius(radius, size)}
-        overflow="hidden">
+        overflow="hidden"
+      >
         <RNImage style={StyleSheet.absoluteFillObject} source={source} />
 
         {title || overlay ? (
@@ -85,14 +91,16 @@ const Image = ({
                 justifyContent: 'flex-end',
               },
               StyleSheet.absoluteFillObject,
-            ]}>
+            ]}
+          >
             {title && (
               <Text
                 numberOfLines={1}
                 adjustsFontSizeToFit
                 accessibilityLabel={title}
                 color="white"
-                preset="h2">
+                preset="h2"
+              >
                 {title}
               </Text>
             )}

@@ -1,23 +1,23 @@
-import {GOOGLE_MAPS_API_KEY} from '@env';
-import {useState} from 'react';
-import {ScrollView, StyleSheet, TextInput, Dimensions} from 'react-native';
-import {Container, Text, Icon, LineItem} from 'ScoutDesign/library';
-import {backArrow, searchThin} from 'ScoutDesign/icons';
+import { GOOGLE_MAPS_API_KEY } from '@env';
+import { useState } from 'react';
+import { ScrollView, StyleSheet, TextInput, Dimensions } from 'react-native';
+import { Container, Text, Icon, LineItem } from 'ScoutDesign/library';
+import { backArrow, searchThin } from 'ScoutDesign/icons';
 
 type MapSearchProps = {
-  locationToken: string,
-  searchText: string,
-  setSearchText: (text: string) => any,
-  back: () => any,
-  placeholder?: string | undefined,
-  _getPlaceDetails: (id: string) => any
-}
+  locationToken: string;
+  searchText: string;
+  setSearchText: (text: string) => any;
+  back: () => any;
+  placeholder?: string | undefined;
+  _getPlaceDetails: (id: string) => any;
+};
 
 type Place = {
-  id: number,
-  description: string,
-  place_id: string,
-}
+  id: number;
+  description: string;
+  place_id: string;
+};
 
 const MapSearch = ({
   locationToken,
@@ -31,9 +31,10 @@ const MapSearch = ({
 
   const getSuggestedPlaces = async () => {
     const places = await fetch(
-      `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${
-        searchText.replace(/ /g, '+')
-      }&key=${GOOGLE_MAPS_API_KEY}&sessiontoken=${locationToken}`
+      `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${searchText.replace(
+        / /g,
+        '+'
+      )}&key=${GOOGLE_MAPS_API_KEY}&sessiontoken=${locationToken}`
     ).catch((err) => console.error(err));
     const placesData = await places?.json();
     setSuggestedPlaces(placesData?.predictions);
@@ -52,7 +53,8 @@ const MapSearch = ({
       radius="m"
       backgroundColor="white"
       width="100%"
-      alignItems="center">
+      alignItems="center"
+    >
       <Container padding="none" flexDirection="row">
         <Icon
           icon={backArrow}
@@ -75,7 +77,8 @@ const MapSearch = ({
           flex: 1,
           width: '100%',
           maxHeight: Dimensions.get('window').width,
-        }}>
+        }}
+      >
         {suggestedPlaces &&
           suggestedPlaces.map((place) => {
             return (
@@ -87,12 +90,13 @@ const MapSearch = ({
                   setSearchText('');
                   setSuggestedPlaces(null);
                   _getPlaceDetails(
-                    suggestedPlaces.find(({id}) => id === place.id)!.place_id
+                    suggestedPlaces.find(({ id }) => id === place.id)!.place_id
                   );
                 }}
                 leftComponent={
                   <Icon icon={searchThin} size="s" color="morningGrey" />
-                }>
+                }
+              >
                 <Text color="darkGrey">{place.description}</Text>
               </LineItem>
             );

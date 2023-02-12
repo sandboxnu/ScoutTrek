@@ -6,9 +6,12 @@ import {
   Container,
   ScreenContainer,
 } from 'ScoutDesign/library';
-import {convertRoleToText} from '../../data/utils/convertIDsToStrings';
+import { convertRoleToText } from '../../data/utils/convertIDsToStrings';
 import { JoinGroupStackParamList } from '../navigation/JoinGroupNavigator';
-import {chooseRole, useJoinGroupForm} from './JoinGroupForm/JoinGroupFormStore';
+import {
+  chooseRole,
+  useJoinGroupForm,
+} from './JoinGroupForm/JoinGroupFormStore';
 
 const ROLES = [
   'SCOUTMASTER',
@@ -20,7 +23,9 @@ const ROLES = [
   'ADULT_VOLUNTEER',
 ];
 
-const ChooseRole = ({navigation}: StackScreenProps<JoinGroupStackParamList>) => {
+const ChooseRole = ({
+  navigation,
+}: StackScreenProps<JoinGroupStackParamList>) => {
   const [_, dispatch] = useJoinGroupForm() || [null, null];
   const nextForm = (role: string) => {
     dispatch && dispatch(chooseRole(role));
@@ -48,7 +53,7 @@ const ChooseRole = ({navigation}: StackScreenProps<JoinGroupStackParamList>) => 
             fullWidth: true,
             paddingVertical: 'm',
           }}
-          RenderItem={({item, ...rest}) => {
+          RenderItem={({ item, ...rest }) => {
             return (
               <Button
                 accessibilityLabel={item.id}

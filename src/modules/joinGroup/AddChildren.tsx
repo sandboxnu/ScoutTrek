@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import {
   ScreenContainer,
   Button,
@@ -6,7 +6,7 @@ import {
   Text,
   TextInputWithButton,
 } from 'ScoutDesign/library';
-import {plusBold} from 'ScoutDesign/icons';
+import { plusBold } from 'ScoutDesign/icons';
 import {
   addChildren,
   useJoinGroupForm,
@@ -14,7 +14,9 @@ import {
 import { StackScreenProps } from '@react-navigation/stack';
 import { JoinGroupStackParamList } from '../navigation/JoinGroupNavigator';
 
-const AddChildren = ({navigation}: StackScreenProps<JoinGroupStackParamList>) => {
+const AddChildren = ({
+  navigation,
+}: StackScreenProps<JoinGroupStackParamList>) => {
   const [_, dispatch] = useJoinGroupForm() || [null, null];
   const [childName, setChildName] = useState('');
   const [children, setChildren] = useState<string[]>([]);
@@ -64,7 +66,8 @@ const AddChildren = ({navigation}: StackScreenProps<JoinGroupStackParamList>) =>
                 key={child}
                 size="l"
                 paddingVertical="xs"
-                paddingHorizontal="s">
+                paddingHorizontal="s"
+              >
                 {child}
               </Text>
             ))}

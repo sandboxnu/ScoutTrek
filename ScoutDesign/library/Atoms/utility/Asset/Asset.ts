@@ -1,5 +1,5 @@
 import theme from '../../../theme';
-import {Radius} from '../types';
+import { Radius } from '../types';
 
 export type Dimensions = {
   width?: number;

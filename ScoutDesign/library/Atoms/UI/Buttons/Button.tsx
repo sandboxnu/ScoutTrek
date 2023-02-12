@@ -1,6 +1,6 @@
-import ButtonBase, {ButtonProps} from './ButtonBase';
+import ButtonBase, { ButtonProps } from './ButtonBase';
 
-import {StackableProps} from '../../../Widgets/Stack/Stack';
+import { StackableProps } from '../../../Widgets/Stack/Stack';
 
 type Props = ButtonProps &
   StackableProps & {

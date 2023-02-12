@@ -1,15 +1,20 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import {
   useEventForm,
   addEventFieldOfType,
 } from 'CreateEvent/CreateEventFormStore';
 import BasicLineItem from './components/BasicLineItem';
-import {ColorfulTextInput} from 'ScoutDesign/library';
-import {EventInputProps} from './InputTypes';
+import { ColorfulTextInput } from 'ScoutDesign/library';
+import { EventInputProps } from './InputTypes';
 import DefaultInputButton from './components/DefaultInputButton';
 
-const ChooseName = ({id, Modal, modalProps, questionText}: EventInputProps) => {
-  const [{fields}, dispatch] = useEventForm() || [{fields: null}, null];
+const ChooseName = ({
+  id,
+  Modal,
+  modalProps,
+  questionText,
+}: EventInputProps) => {
+  const [{ fields }, dispatch] = useEventForm() || [{ fields: null }, null];
   const [title, setTitle] = useState(fields?.[id] || '');
   const [nameIsValid, setNameIsValid] = useState(!!fields?.[id] || false);
 
@@ -24,7 +29,8 @@ const ChooseName = ({id, Modal, modalProps, questionText}: EventInputProps) => {
       {...modalProps}
       onNext={next}
       title={questionText}
-      valid={nameIsValid}>
+      valid={nameIsValid}
+    >
       <ColorfulTextInput
         value={title}
         autoCompleteType="off"

@@ -1,17 +1,17 @@
-import React, {Children} from 'react';
-import {Swipeable} from 'react-native-gesture-handler';
+import React, { Children } from 'react';
+import { Swipeable } from 'react-native-gesture-handler';
 
 import DismissButton, {
   DismissableProps,
 } from '../../Atoms/UI/Buttons/DismissButton';
 
-import Text, {TextAlignmentWithinContainer} from '../../Atoms/UI/Text/Text';
+import Text, { TextAlignmentWithinContainer } from '../../Atoms/UI/Text/Text';
 import LineItem from '../LineItem/LineItem';
 
-import {Box, Pressable, PressableProps} from '../../Atoms/utility';
+import { Box, Pressable, PressableProps } from '../../Atoms/utility';
 
-import {Theme} from '../../theme';
-import {BackgroundColorProps} from '@shopify/restyle';
+import { Theme } from '../../theme';
+import { BackgroundColorProps } from '@shopify/restyle';
 
 interface CardProps extends PressableProps, DismissableProps {
   accessibilityLabel: string;
@@ -43,7 +43,8 @@ function Card({
     <Swipeable
       renderRightActions={onDismiss ? () => <Box flex={1} /> : undefined}
       onSwipeableRightOpen={onDismiss}
-      onSwipeableLeftOpen={onDismiss}>
+      onSwipeableLeftOpen={onDismiss}
+    >
       <Pressable
         marginVertical="s"
         paddingHorizontal="m"
@@ -54,7 +55,8 @@ function Card({
         borderColor="mediumGrey"
         borderWidth={0.5}
         backgroundColor="white"
-        {...rest}>
+        {...rest}
+      >
         {(title || headerLeft) && (
           <LineItem
             type="simpleRow"
@@ -72,7 +74,8 @@ function Card({
             leftComponent={headerLeft}
             childrenAlignment={titleAlignment}
             bottomBorder={borderBelowHeader}
-            bottomPadding={borderBelowHeader ? 's' : undefined}>
+            bottomPadding={borderBelowHeader ? 's' : undefined}
+          >
             {typeof title === 'string' ? (
               <LineItem.Subheading>{title}</LineItem.Subheading>
             ) : (
@@ -119,7 +122,8 @@ const Description = ({
       <Text
         weight="light"
         accessibilityLabel="card-description"
-        paddingTop="micro">
+        paddingTop="micro"
+      >
         {bodyText}
       </Text>
     </>

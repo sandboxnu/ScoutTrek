@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import {
   KeyboardAvoidingView,
   Dimensions,
@@ -9,11 +9,11 @@ import {
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {Text, Form, Image} from 'ScoutDesign/library';
-import {Ionicons} from '@expo/vector-icons';
+import { Text, Form, Image } from 'ScoutDesign/library';
+import { Ionicons } from '@expo/vector-icons';
 import Footer from './components/Footer';
 
-import {gql, useMutation} from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { StackScreenProps } from '@react-navigation/stack';
 import { AuthStackParamList } from '../navigation/AuthNavigator';
 
@@ -99,11 +99,13 @@ const SignUpFormFields = [
   },
 ];
 
-const SignUp = ({navigation}: StackScreenProps<AuthStackParamList, "SignUp">) => {
-  const {setToken, setNewUser} = useContext(AuthContext);
+const SignUp = ({
+  navigation,
+}: StackScreenProps<AuthStackParamList, 'SignUp'>) => {
+  const { setToken, setNewUser } = useContext(AuthContext);
 
   const [signUp] = useMutation(SIGN_UP, {
-    onCompleted: async ({signup}) => {
+    onCompleted: async ({ signup }) => {
       try {
         const token = await AsyncStorage.setItem('userToken', signup.token);
         setNewUser(true);
@@ -138,7 +140,8 @@ const SignUp = ({navigation}: StackScreenProps<AuthStackParamList, "SignUp">) =>
         backgroundColor: '#fff',
         justifyContent: 'flex-end',
       }}
-      keyboardShouldPersistTaps="handled">
+      keyboardShouldPersistTaps="handled"
+    >
       <Image
         accessibilityLabel="sign-up-background"
         placement="background"
@@ -158,11 +161,12 @@ const SignUp = ({navigation}: StackScreenProps<AuthStackParamList, "SignUp">) =>
           paddingHorizontal: 12,
           marginBottom: 12,
         }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
         <Ionicons
           name="ios-compass"
           size={45}
-          style={{color: '#382B14', marginBottom: 12, textAlign: 'center'}}
+          style={{ color: '#382B14', marginBottom: 12, textAlign: 'center' }}
         />
         <Text textAlign="center" preset="h2">
           Welcome to ScoutTrek!
@@ -171,7 +175,8 @@ const SignUp = ({navigation}: StackScreenProps<AuthStackParamList, "SignUp">) =>
           textAlign="center"
           marginHorizontal="m"
           marginTop="xs"
-          marginBottom="m">
+          marginBottom="m"
+        >
           Spend less time planning and more time exploring.
         </Text>
 

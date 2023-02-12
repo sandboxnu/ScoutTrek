@@ -1,13 +1,20 @@
 import moment from 'moment';
-import {Text, Icon, LineItem} from 'ScoutDesign/library';
-import {clock} from 'ScoutDesign/icons';
+import { Text, Icon, LineItem } from 'ScoutDesign/library';
+import { clock } from 'ScoutDesign/icons';
 
-const Time = ({time, heading}: {time: moment.MomentInput, heading: string}) => {
+const Time = ({
+  time,
+  heading,
+}: {
+  time: moment.MomentInput;
+  heading: string;
+}) => {
   return (
     <LineItem
       accessibilityLabel="event-time"
       type="static"
-      leftComponent={<Icon icon={clock} size="m" color="brandSecondaryDark" />}>
+      leftComponent={<Icon icon={clock} size="m" color="brandSecondaryDark" />}
+    >
       <Text color="darkGrey" weight="bold" size="l" paddingBottom="micro">
         {moment(time).format('hh:mm A')}
       </Text>

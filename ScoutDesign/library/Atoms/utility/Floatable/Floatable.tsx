@@ -87,16 +87,17 @@ const positions: PositionObj = {
   },
 };
 
-type Props = FloatableProps & {children?: any};
+type Props = FloatableProps & { children?: any };
 
-const Float = ({corner, distanceFromCorner, children, ...rest}: Props) => {
+const Float = ({ corner, distanceFromCorner, children, ...rest }: Props) => {
   if (corner && distanceFromCorner) {
     return (
       <Box
         position="absolute"
         zIndex={1000}
         {...positions[corner][distanceFromCorner]}
-        {...rest}>
+        {...rest}
+      >
         {children}
       </Box>
     );
