@@ -43,8 +43,16 @@ const JoinTroop = ({
   if (error) return <Text>`Error! ${error.message}`</Text>;
 
   return (
-    <ScreenContainer>
+    <ScreenContainer
+    icon="back"
+      padding="none"
+      paddingTop="xl"
+      back={() => {
+        dispatch;
+        navigation.goBack();
+      }}>
       <Container>
+
         <Text preset="h2" textAlign="center" padding="m">
           What Troop are you in?
         </Text>
