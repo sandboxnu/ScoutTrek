@@ -8,7 +8,7 @@ import Time from './components/Time';
 import Date from './components/Date';
 import Description from './components/Description';
 
-import { GET_EVENTS, EVENT_FIELDS } from 'data';
+import { GET_EVENTS, EVENT_FIELDS, GET_CURR_USER } from 'data';
 
 import { Button, CircleButton, ScreenContainer } from 'ScoutDesign/library';
 import { pencil } from 'ScoutDesign/icons';
@@ -57,6 +57,8 @@ const EventDetailsScreen = ({
     variables: { id: currItem },
   });
   const [deleteEvent] = useMutation(DELETE_EVENT, deleteEventConfig);
+  const leadershipRoles = ["SCOUTMASTER", "ASST_SCOUTMASTER", "SENIOR_PATROL_LEADER", "PATROL_LEADER"];
+  const {data: userData, error: userError, loading: userLoading} = useQuery(GET_CURR_USER);
 
   const handleDeleteEvent = () => {
     Alert.alert(
@@ -147,13 +149,15 @@ const EventDetailsScreen = ({
         corner="bottom-right"
         distanceFromCorner="l"
       />
-      <Button
-        accessibilityLabel="cancel-event"
-        text="Cancel event"
-        backgroundColor="white"
-        textColor="dangerDark"
-        onPress={handleDeleteEvent}
-      />
+      {(leadershipRoles.indexOf(userData.currUser.currRole) > -1) &&
+        <Button
+          accessibilityLabel="cancel-event"
+          text="Cancel event"
+          backgroundColor="white"
+          textColor="dangerDark"
+          onPress={handleDeleteEvent}
+        />
+      }
     </ScreenContainer>
   );
 };
