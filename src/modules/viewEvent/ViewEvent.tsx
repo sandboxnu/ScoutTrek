@@ -112,8 +112,25 @@ const EventDetailsScreen = ({
     variables: { id: currItem },
   });
   const [deleteEvent] = useMutation(DELETE_EVENT, deleteEventConfig);
-  const leadershipRoles = ["SCOUTMASTER", "ASST_SCOUTMASTER", "SENIOR_PATROL_LEADER", "PATROL_LEADER"];
-  const {data: userData, error: userError, loading: userLoading} = useQuery(GET_CURR_USER);
+  const leadershipRoles = [
+    'SCOUTMASTER',
+    'ASST_SCOUTMASTER',
+    'SENIOR_PATROL_LEADER',
+    'PATROL_LEADER',
+  ];
+  // TODO: create GET_USER_NAME
+  const {
+    data: creatorName,
+    error: creatorNameError,
+    loading: creatorNameLoading,
+  } = useQuery(GET_USER_NAME, {
+    variables: { id: data.event.creator },
+  });
+  const {
+    data: userData,
+    error: userError,
+    loading: userLoading,
+  } = useQuery(GET_CURR_USER);
 
   const layout = useWindowDimensions();
 
@@ -237,6 +254,7 @@ const EventDetailsScreen = ({
       {data.event.endTime ? (
         <Time time={data.event.endTime} heading="Estimated return" />
       ) : null}
+      {creatorName ? <Text>{creatorName}</Text> : null}
       {data.event.endDate ? (
         <Date date={data.event.endDate} heading="Event ends" />
       ) : null}
@@ -288,7 +306,7 @@ const EventDetailsScreen = ({
         corner="bottom-right"
         distanceFromCorner="l"
       />
-      {(leadershipRoles.indexOf(userData.currUser.currRole) > -1) &&
+      {leadershipRoles.indexOf(userData.currUser.currRole) > -1 && (
         <Button
           accessibilityLabel="cancel-event"
           text="Cancel event"
@@ -296,7 +314,7 @@ const EventDetailsScreen = ({
           textColor="dangerDark"
           onPress={handleDeleteEvent}
         />
-      }
+      )}
     </ScreenContainer>
   );
 };
