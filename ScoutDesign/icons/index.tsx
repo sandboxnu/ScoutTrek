@@ -134,6 +134,11 @@ export const people = new IconPayload({
   library: Ionicons,
 });
 
+export const contact = new IconPayload({
+  name: 'md-contact',
+  library: Ionicons,
+});
+
 export const plusBold = new IconPayload({
   name: 'plus',
   library: Foundation,

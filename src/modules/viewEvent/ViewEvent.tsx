@@ -23,6 +23,8 @@ import { useState } from 'react';
 import { FlatList } from 'react-native';
 
 import { StyleSheet } from 'react-native';
+import EventOwner from './components/EventOwner';
+import ChangeEventOwnerDrawer from './components/ChangeEventOwnerDrawer';
 
 const AllAttendeesList = () => (
   <View style={{ flex: 1, backgroundColor: '#ff4081' }} />
@@ -87,6 +89,14 @@ export const GET_EVENT = gql`
   ${EVENT_FIELDS}
 `;
 
+export const GET_USER_NAME = gql`
+  query GetUserName($id: ID!) {
+    user(id: $id) {
+      name
+    }
+  }
+`;
+
 export const deleteEventConfig = {
   update(cache, { data: { deleteEvent } }) {
     try {
@@ -106,6 +116,7 @@ const EventDetailsScreen = ({
   route,
   navigation,
 }: StackScreenProps<MainStackParamList, 'ViewEvent'>) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [_, dispatch] = useEventForm() || [null, null];
   const { currItem } = route.params;
   const { loading, error, data } = useQuery(GET_EVENT, {
@@ -118,11 +129,10 @@ const EventDetailsScreen = ({
     'SENIOR_PATROL_LEADER',
     'PATROL_LEADER',
   ];
-  // TODO: create GET_USER_NAME
   const {
-    data: creatorName,
-    error: creatorNameError,
-    loading: creatorNameLoading,
+    data: usernameData,
+    error: usernameError,
+    loading: usernameLoading,
   } = useQuery(GET_USER_NAME, {
     variables: { id: data.event.creator },
   });
@@ -218,6 +228,15 @@ const EventDetailsScreen = ({
     );
   };
 
+  const onChangeOwner = () => {
+    console.log('Changing owner');
+    setIsDrawerOpen(true);
+  };
+
+  const onDrawerClose = () => {
+    setIsDrawerOpen(false);
+  };
+
   if (loading) return null;
   if (error)
     return <Text style={{ paddingTop: 50 }}>`Error! ${error.toString()}`</Text>;
@@ -254,7 +273,11 @@ const EventDetailsScreen = ({
       {data.event.endTime ? (
         <Time time={data.event.endTime} heading="Estimated return" />
       ) : null}
-      {creatorName ? <Text>{creatorName}</Text> : null}
+      <EventOwner
+        isOwner={userData.id === data.event.creator}
+        owner={usernameData.name}
+        onChangeOwner={onChangeOwner}
+      />
       {data.event.endDate ? (
         <Date date={data.event.endDate} heading="Event ends" />
       ) : null}
@@ -315,6 +338,12 @@ const EventDetailsScreen = ({
           onPress={handleDeleteEvent}
         />
       )}
+
+      <ChangeEventOwnerDrawer
+        eventOwnerName={usernameData.name}
+        visible={isDrawerOpen}
+        onClose={onDrawerClose}
+      />
     </ScreenContainer>
   );
 };
