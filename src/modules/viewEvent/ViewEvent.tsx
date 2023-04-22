@@ -135,13 +135,6 @@ const EventDetailsScreen = ({
     'PATROL_LEADER',
   ];
   const {
-    data: usernameData,
-    error: usernameError,
-    loading: usernameLoading,
-  } = useQuery(GET_USER_NAME, {
-    variables: { id: eventData.event.creator },
-  });
-  const {
     data: userData,
     error: userError,
     loading: userLoading,
@@ -157,7 +150,7 @@ const EventDetailsScreen = ({
     { key: 'noResponse', title: 'N/A' },
   ]);
 
-  if (eventLoading || usernameLoading || userLoading) {
+  if (eventLoading || userLoading) {
     return <Text>Loading...</Text>;
   }
 
@@ -288,8 +281,8 @@ const EventDetailsScreen = ({
         <Time time={eventData.event.endTime} heading="Estimated return" />
       ) : null}
       <EventOwner
-        isOwner={userData.id === eventData.event.creator}
-        owner={usernameData.name}
+        isOwner={userData.currUser.id === eventData.event.creator.id}
+        owner={eventData.event.creator.name}
         onChangeOwner={onChangeOwner}
       />
       {eventData.event.endDate ? (
@@ -354,7 +347,7 @@ const EventDetailsScreen = ({
       )}
 
       <ChangeEventOwnerDrawer
-        eventOwnerName={usernameData.name}
+        eventOwnerName={eventData.event.creator.name}
         visible={isDrawerOpen}
         onClose={onDrawerClose}
         onRefetch={eventRefetch}

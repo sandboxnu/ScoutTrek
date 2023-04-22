@@ -94,7 +94,7 @@ const ChangeEventOwnerDrawer: React.FC<Props> = ({
 
   const searchResults: Array<{ id: string; name: string }> = useMemo(
     () =>
-      searchData.filter(
+      searchLoading ? [] : searchData.users.filter(
         ({ name }: { name: string }) => name.indexOf(text) > -1
       ),
     [searchData, text]
