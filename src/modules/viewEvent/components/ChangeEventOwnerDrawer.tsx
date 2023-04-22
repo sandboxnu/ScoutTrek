@@ -1,20 +1,22 @@
-import { gql, useQuery } from '@apollo/client';
-import { Button } from 'ScoutDesign/library';
-import React, { useMemo, useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  Modal,
-  ViewBase,
-} from 'react-native';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { searchThin } from 'ScoutDesign/icons';
+import { Button, Icon } from 'ScoutDesign/library';
+import React, { useCallback, useMemo, useState } from 'react';
+import { StyleSheet, View, Text, TextInput, Modal } from 'react-native';
 
 const GET_USERS = gql`
   query GetUsers {
     users {
       id
       name
+    }
+  }
+`;
+
+const UPDATE_EVENT_CREATOR = gql`
+  mutation UpdateEvent($input: UpdateEventInput!) {
+    updateEvent(input: $input) {
+      creator
     }
   }
 `;
@@ -28,6 +30,7 @@ const styles = StyleSheet.create({
   },
   title: {},
   eventOwnerName: {},
+  searchbarContainer: {},
   searchbar: {},
   userTile: {},
   selected: {},
@@ -39,26 +42,23 @@ interface Props {
   eventOwnerName: string;
 
   onClose: () => void;
+  onRefetch: () => Promise<void>;
 }
 
 const ChangeEventOwnerDrawer: React.FC<Props> = ({
   visible,
   eventOwnerName,
   onClose,
+  onRefetch,
 }) => {
   const [text, setText] = useState<string>('');
-  const [selectedNewOwnerId, setSelectedNewOwnerId] = useState<string>('');
+  const [selectedNewOwnerId, setSelectedNewOwnerId] = useState<string | null>(
+    null
+  );
 
-  const {
-    data: searchData,
-    loading: searchLoading,
-    error: searchError,
-  } = useQuery(GET_USERS);
+  const { data: searchData, loading: searchLoading } = useQuery(GET_USERS);
 
-  const onChangeText = (text: string) => {
-    setText(text);
-    // TODO: search for all users matching search string (refetch)
-  };
+  const [updateEvent] = useMutation(UPDATE_EVENT_CREATOR);
 
   const searchResults: Array<{ id: string; name: string }> = useMemo(
     () =>
@@ -68,24 +68,51 @@ const ChangeEventOwnerDrawer: React.FC<Props> = ({
     [searchData, text]
   );
 
-  const onNewOwnerSelect = (id: string) => {
+  const onChangeText = useCallback((text: string) => {
+    setText(text);
+  }, []);
+
+  const onNewOwnerSelect = useCallback((id: string) => {
     setSelectedNewOwnerId(id);
-  };
+  }, []);
 
-  const onCancel = () => {};
+  const onCancel = useCallback(() => {
+    setText('');
+    setSelectedNewOwnerId(null);
+    onClose();
+  }, []);
 
-  const onConfirm = () => {};
+  const onConfirm = useCallback(async () => {
+    await updateEvent({
+      variables: {
+        input: {
+          creator: selectedNewOwnerId,
+        },
+      },
+    });
+
+    await onRefetch();
+
+    onCancel();
+  }, []);
+
+  if (searchLoading) {
+    return <Text>Loading...</Text>;
+  }
 
   return (
     <Modal visible={visible} onRequestClose={onClose}>
       <View style={styles.container}>
         <Text style={styles.title}>Event Owner</Text>
         <Text style={styles.eventOwnerName}>{eventOwnerName}</Text>
-        <TextInput
-          style={styles.searchbar}
-          onChangeText={onChangeText}
-          value={text}
-        />
+        <View style={styles.searchbarContainer}>
+          <Icon icon={searchThin} size="s" color="brandPrimary" />
+          <TextInput
+            style={styles.searchbar}
+            onChangeText={onChangeText}
+            value={text}
+          />
+        </View>
         {searchResults.map(({ id, name }) => (
           <Text
             key={id}
@@ -99,18 +126,20 @@ const ChangeEventOwnerDrawer: React.FC<Props> = ({
           </Text>
         ))}
 
-        <View style={styles.actionContainer}>
-          <Button
-            text="Cancel"
-            onPress={onCancel}
-            accessibilityLabel="Cancel"
-          />
-          <Button
-            text="Confirm"
-            onPress={onConfirm}
-            accessibilityLabel="Confirm"
-          />
-        </View>
+        {selectedNewOwnerId && (
+          <View style={styles.actionContainer}>
+            <Button
+              text="Cancel"
+              onPress={onCancel}
+              accessibilityLabel="Cancel"
+            />
+            <Button
+              text="Confirm"
+              onPress={onConfirm}
+              accessibilityLabel="Confirm"
+            />
+          </View>
+        )}
       </View>
     </Modal>
   );

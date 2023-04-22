@@ -119,7 +119,12 @@ const EventDetailsScreen = ({
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [_, dispatch] = useEventForm() || [null, null];
   const { currItem } = route.params;
-  const { loading, error, data } = useQuery(GET_EVENT, {
+  const {
+    loading: eventLoading,
+    error: eventError,
+    data: eventData,
+    refetch: eventRefetch,
+  } = useQuery(GET_EVENT, {
     variables: { id: currItem },
   });
   const [deleteEvent] = useMutation(DELETE_EVENT, deleteEventConfig);
@@ -134,7 +139,7 @@ const EventDetailsScreen = ({
     error: usernameError,
     loading: usernameLoading,
   } = useQuery(GET_USER_NAME, {
-    variables: { id: data.event.creator },
+    variables: { id: eventData.event.creator },
   });
   const {
     data: userData,
@@ -151,6 +156,10 @@ const EventDetailsScreen = ({
     { key: 'maybe', title: 'Maybe' },
     { key: 'noResponse', title: 'N/A' },
   ]);
+
+  if (eventLoading || usernameLoading || userLoading) {
+    return <Text>Loading...</Text>;
+  }
 
   function renderAttendees(attendees: any) {
     return (
@@ -183,13 +192,13 @@ const EventDetailsScreen = ({
   const renderAttendeesList = () => {
     switch (index) {
       case 0:
-        return renderAttendees(data.event.roster.yes);
+        return renderAttendees(eventData.event.roster.yes);
       case 1:
-        return renderAttendees(data.event.roster.no);
+        return renderAttendees(eventData.event.roster.no);
       case 2:
-        return renderAttendees(data.event.roster.maybe);
+        return renderAttendees(eventData.event.roster.maybe);
       case 3:
-        return renderAttendees(data.event.roster.noResponse);
+        return renderAttendees(eventData.event.roster.noResponse);
     }
   };
 
@@ -217,7 +226,7 @@ const EventDetailsScreen = ({
           onPress: async () => {
             await deleteEvent({
               variables: {
-                id: data.event.id,
+                id: eventData.event.id,
               },
             });
             navigation.goBack();
@@ -237,9 +246,11 @@ const EventDetailsScreen = ({
     setIsDrawerOpen(false);
   };
 
-  if (loading) return null;
-  if (error)
-    return <Text style={{ paddingTop: 50 }}>`Error! ${error.toString()}`</Text>;
+  if (eventLoading) return null;
+  if (eventError)
+    return (
+      <Text style={{ paddingTop: 50 }}>`Error! ${eventError.toString()}`</Text>
+    );
 
   return (
     <ScreenContainer
@@ -248,44 +259,47 @@ const EventDetailsScreen = ({
       icon="back"
       back={navigation.goBack}
       headingImage={
-        data.event.mapImageSource
-          ? { source: { uri: data.event.mapImageSource } }
+        eventData.event.mapImageSource
+          ? { source: { uri: eventData.event.mapImageSource } }
           : undefined
       }
     >
-      {data.event.meetLocation ? (
+      {eventData.event.meetLocation ? (
         <>
           <Location
             heading="Meet Place"
-            address={data.event.meetLocation.address}
+            address={eventData.event.meetLocation.address}
           />
-          <Time time={data.event.meetTime} heading="Arrive at meet place" />
-          <Time time={data.event.leaveTime} heading="Leave meet place" />
+          <Time
+            time={eventData.event.meetTime}
+            heading="Arrive at meet place"
+          />
+          <Time time={eventData.event.leaveTime} heading="Leave meet place" />
         </>
       ) : null}
 
       <Location
         heading="Event location"
-        address={data.event.location.address}
+        address={eventData.event.location.address}
       />
-      <Date date={data.event.date} heading="Event date" />
-      <Time time={data.event.startTime} heading="Start time" />
-      {data.event.endTime ? (
-        <Time time={data.event.endTime} heading="Estimated return" />
+      <Date date={eventData.event.date} heading="Event date" />
+      <Time time={eventData.event.startTime} heading="Start time" />
+      {eventData.event.endTime ? (
+        <Time time={eventData.event.endTime} heading="Estimated return" />
       ) : null}
       <EventOwner
-        isOwner={userData.id === data.event.creator}
+        isOwner={userData.id === eventData.event.creator}
         owner={usernameData.name}
         onChangeOwner={onChangeOwner}
       />
-      {data.event.endDate ? (
-        <Date date={data.event.endDate} heading="Event ends" />
+      {eventData.event.endDate ? (
+        <Date date={eventData.event.endDate} heading="Event ends" />
       ) : null}
-      {data.event.pickupTime ? (
-        <Time time={data.event.pickupTime} heading="Pick up Scouts" />
+      {eventData.event.pickupTime ? (
+        <Time time={eventData.event.pickupTime} heading="Pick up Scouts" />
       ) : null}
-      {data.event.checkoutTime ? (
-        <Time time={data.event.checkoutTime} heading="Check out" />
+      {eventData.event.checkoutTime ? (
+        <Time time={eventData.event.checkoutTime} heading="Check out" />
       ) : null}
 
       <Text preset="h2" paddingHorizontal="m" paddingTop="s">
@@ -308,14 +322,14 @@ const EventDetailsScreen = ({
 
       {renderAttendeesList()}
 
-      <Description description={data.event.description} />
+      <Description description={eventData.event.description} />
 
       <CircleButton
         accessibilityLabel="edit-event"
         icon={pencil}
         onPress={() => {
           const { id, type, creator, mapImageSource, ...eventData } =
-            data.event;
+            eventData.event;
           dispatch && dispatch(populateEvent(eventData, type));
           navigation.navigate('CreateEvent', {
             screen: 'EventForm',
@@ -343,6 +357,7 @@ const EventDetailsScreen = ({
         eventOwnerName={usernameData.name}
         visible={isDrawerOpen}
         onClose={onDrawerClose}
+        onRefetch={eventRefetch}
       />
     </ScreenContainer>
   );
