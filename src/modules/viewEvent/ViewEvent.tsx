@@ -231,7 +231,6 @@ const EventDetailsScreen = ({
   };
 
   const onChangeOwner = () => {
-    console.log('Changing owner');
     setIsDrawerOpen(true);
   };
 

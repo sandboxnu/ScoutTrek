@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { ApolloQueryResult, gql, useMutation, useQuery } from '@apollo/client';
 import { searchThin } from 'ScoutDesign/icons';
 import { Button, Icon } from 'ScoutDesign/library';
 import React, { useCallback, useMemo, useState } from 'react';
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    textAlign: 'center',
   },
   name: {
     fontSize: 20,
@@ -74,7 +75,13 @@ interface Props {
   eventOwnerName: string;
 
   onClose: () => void;
-  onRefetch: () => Promise<void>;
+  onRefetch: (
+    variables?:
+      | Partial<{
+          id: any;
+        }>
+      | undefined
+  ) => Promise<ApolloQueryResult<any>>;
 }
 
 const ChangeEventOwnerDrawer: React.FC<Props> = ({
@@ -94,16 +101,20 @@ const ChangeEventOwnerDrawer: React.FC<Props> = ({
 
   const searchResults: Array<{ id: string; name: string }> = useMemo(
     () =>
-      searchLoading ? [] : searchData.users.filter(
-        ({ name }: { name: string }) => name.indexOf(text) > -1
-      ),
+      searchLoading
+        ? []
+        : searchData.users.filter(
+            ({ name }: { name: string }) => name.indexOf(text) > -1
+          ),
     [searchData, text]
   );
 
-  const eventOwnerInitials = useMemo(() => {
-    const names = eventOwnerName.split(' ');
-    return names.map((name) => name.charAt(0).toUpperCase()).join('');
-  }, [eventOwnerName]);
+  const getInitials = useCallback((name: string) => {
+    return name
+      .split(' ')
+      .map((word) => word[0])
+      .join('');
+  }, []);
 
   const onChangeText = useCallback((text: string) => {
     setText(text);
@@ -141,7 +152,7 @@ const ChangeEventOwnerDrawer: React.FC<Props> = ({
     <Modal visible={visible} onRequestClose={onClose}>
       <View style={styles.container}>
         <Text style={styles.title}>Event Owner</Text>
-        <Text style={styles.avatar}>{eventOwnerInitials}</Text>
+        <Text style={styles.avatar}>{getInitials(eventOwnerName)}</Text>
         <Text style={styles.name}>{eventOwnerName}</Text>
         <View style={styles.searchbarContainer}>
           <Icon icon={searchThin} size="s" color="brandPrimary" />
@@ -158,7 +169,7 @@ const ChangeEventOwnerDrawer: React.FC<Props> = ({
               ...(selectedNewOwnerId === id && styles.selected),
             }}
           >
-            <Text style={styles.avatar}>{eventOwnerInitials}</Text>
+            <Text style={styles.avatar}>{getInitials(name)}</Text>
             <Text
               key={id}
               onPress={() => onNewOwnerSelect(id)}
