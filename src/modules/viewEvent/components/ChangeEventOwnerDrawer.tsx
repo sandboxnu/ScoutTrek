@@ -28,13 +28,45 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     display: 'flex',
   },
-  title: {},
-  eventOwnerName: {},
-  searchbarContainer: {},
+  title: {
+    color: '#232323',
+  },
+  avatar: {
+    backgroundColor: 'lightgreen',
+    color: 'white',
+    height: 25,
+    width: 25,
+    borderRadius: 25,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  searchbarContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
   searchbar: {},
-  userTile: {},
+  userTile: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
   selected: {},
-  actionContainer: {},
+  actionContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
 });
 
 interface Props {
@@ -67,6 +99,11 @@ const ChangeEventOwnerDrawer: React.FC<Props> = ({
       ),
     [searchData, text]
   );
+
+  const eventOwnerInitials = useMemo(() => {
+    const names = eventOwnerName.split(' ');
+    return names.map((name) => name.charAt(0).toUpperCase()).join('');
+  }, [eventOwnerName]);
 
   const onChangeText = useCallback((text: string) => {
     setText(text);
@@ -104,7 +141,8 @@ const ChangeEventOwnerDrawer: React.FC<Props> = ({
     <Modal visible={visible} onRequestClose={onClose}>
       <View style={styles.container}>
         <Text style={styles.title}>Event Owner</Text>
-        <Text style={styles.eventOwnerName}>{eventOwnerName}</Text>
+        <Text style={styles.avatar}>{eventOwnerInitials}</Text>
+        <Text style={styles.name}>{eventOwnerName}</Text>
         <View style={styles.searchbarContainer}>
           <Icon icon={searchThin} size="s" color="brandPrimary" />
           <TextInput
@@ -114,16 +152,21 @@ const ChangeEventOwnerDrawer: React.FC<Props> = ({
           />
         </View>
         {searchResults.map(({ id, name }) => (
-          <Text
-            key={id}
-            onPress={() => onNewOwnerSelect(id)}
+          <View
             style={{
               ...styles.userTile,
               ...(selectedNewOwnerId === id && styles.selected),
             }}
           >
-            {name}
-          </Text>
+            <Text style={styles.avatar}>{eventOwnerInitials}</Text>
+            <Text
+              key={id}
+              onPress={() => onNewOwnerSelect(id)}
+              style={styles.name}
+            >
+              {name}
+            </Text>
+          </View>
         ))}
 
         {selectedNewOwnerId && (
