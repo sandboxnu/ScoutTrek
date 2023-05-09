@@ -86,8 +86,27 @@ const CreateEvent = ({ navigation, route }: CreateEventProps) => {
 
   const schema = data['eventSchemas'][route.params.type.toLowerCase()];
 
+  function hasAllEventDetails(eventData: any) {
+    return (
+      eventData.date &&
+      eventData.description &&
+      eventData.distance &&
+      eventData.endTime &&
+      eventData.location &&
+      eventData.startTime &&
+      eventData.title &&
+      eventData.uniqueMeetLocation
+    );
+  }
+
   const createEvent = () => {
     const eventDataCopy = { ...fields };
+
+    if (!hasAllEventDetails(eventDataCopy)) {
+      alert('missing required event details');
+      return;
+    }
+
     if (route.params.update) {
       const omitInvalidFields = (key, value) => {
         if (key === '__typename') {
@@ -155,7 +174,8 @@ const CreateEvent = ({ navigation, route }: CreateEventProps) => {
       back={() => {
         dispatch && dispatch(clearEventForm());
         navigation.goBack();
-      }}>
+      }}
+    >
       {/* Schema representing all the types of events currently in the app. This
       comes from the server 
       TODO: gql form schema rewrite: update with the new form types */}
